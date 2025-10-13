@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 615,
+      "width": 579,
       "height": 50
     },
     {
@@ -28,44 +28,51 @@
     },
     {
       "type": "floating",
-      "x": 339,
-      "y": 423,
-      "width": 120,
+      "x": 316,
+      "y": 366,
+      "width": 138,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 589,
-      "y": 427,
-      "width": 149,
+      "x": 577,
+      "y": 421,
+      "width": 135,
       "height": 20
     },
     {
       "type": "solid",
-      "x": 719,
+      "x": 659,
       "y": 550,
-      "width": 1281,
+      "width": 442,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 905,
-      "y": 430,
-      "width": 126,
+      "x": 911,
+      "y": 399,
+      "width": 129,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1095,
-      "y": 358,
+      "x": 1087,
+      "y": 376,
+      "width": 123,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1194,
+      "y": 550,
+      "width": 806,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1362,
+      "y": 366,
       "width": 122,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1405,
-      "y": 385,
-      "width": 138,
       "height": 20
     },
     {
@@ -76,12 +83,31 @@
       "height": 20
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "polocho",
+      "x": 974,
+      "y": 359,
+      "patrol_left": 922,
+      "patrol_right": 1027
+    },
+    {
+      "type": "polocho",
+      "x": 1148,
+      "y": 336,
+      "patrol_left": 1097,
+      "patrol_right": 1200
+    }
+  ],
   "powerups": [],
   "pits": [
     {
-      "x": 615,
-      "width": 104
+      "x": 579,
+      "width": 80
+    },
+    {
+      "x": 1101,
+      "width": 93
     }
   ],
   "goal": {

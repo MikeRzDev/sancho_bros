@@ -202,8 +202,95 @@ class LevelGenerator:
             level_data: Level data dictionary to modify
             difficulty: Difficulty configuration for this level
         """
-        # TODO: Implement enemy placement logic in US007
-        pass
+        enemies = []
+        level_num = level_data['level_number']
+        level_width = level_data['width']
+
+        # Determine enemy count based on difficulty configuration
+        config = self.level_configs[level_num]
+        enemy_count = random.randint(*config['enemies'])
+
+        # Get all platforms suitable for enemy patrols
+        # Requirements:
+        # - Platform must be wide enough (>= 100px for patrol)
+        # - Platform must be outside spawn area (x > 200)
+        valid_platforms = [
+            p for p in level_data['platforms']
+            if p['width'] >= 100 and p['x'] > 200
+        ]
+
+        if not valid_platforms:
+            # No valid platforms for enemies
+            level_data['enemies'] = enemies
+            return
+
+        # Group platforms by distance from goal for strategic placement
+        # Platforms closer to goal will have higher density
+        goal_x = level_data['goal']['x']
+        platforms_with_priority = []
+
+        for platform in valid_platforms:
+            distance_to_goal = abs(platform['x'] - goal_x)
+            # Lower distance = higher priority (more likely to spawn enemy)
+            priority = 1.0 if distance_to_goal > level_width * 0.5 else 2.0
+            platforms_with_priority.append((platform, priority))
+
+        # Place enemies across selected platforms
+        placed_platforms = []  # Track which platforms already have enemies
+
+        for i in range(enemy_count):
+            # Create weighted platform selection (favor platforms near goal)
+            available_platforms = [
+                (p, w) for p, w in platforms_with_priority
+                if p not in placed_platforms or len(placed_platforms) >= len(valid_platforms) * 0.7
+            ]
+
+            if not available_platforms:
+                available_platforms = platforms_with_priority
+
+            # Weight selection toward end of level
+            weights = [priority for _, priority in available_platforms]
+            platform = random.choices(
+                [p for p, _ in available_platforms],
+                weights=weights,
+                k=1
+            )[0]
+
+            placed_platforms.append(platform)
+
+            # Calculate patrol range (100-300 pixels wide, within platform boundaries)
+            max_patrol_width = min(300, platform['width'] - 20)  # 10px buffer on each side
+            min_patrol_width = min(100, max_patrol_width)
+            patrol_width = random.randint(min_patrol_width, max_patrol_width)
+
+            # Position patrol range within platform
+            max_start_offset = platform['width'] - patrol_width - 10
+            start_offset = random.randint(10, max(10, max_start_offset))
+
+            patrol_left = platform['x'] + start_offset
+            patrol_right = patrol_left + patrol_width
+
+            # Position enemy at center of patrol range
+            enemy_x = patrol_left + (patrol_width // 2)
+
+            # Position enemy on top of platform (platform.y - 40, assuming enemy height ~40px)
+            enemy_y = platform['y'] - 40
+
+            # Create enemy data structure
+            enemy = {
+                'type': 'polocho',
+                'x': enemy_x,
+                'y': enemy_y,
+                'patrol_left': patrol_left,
+                'patrol_right': patrol_right
+            }
+
+            enemies.append(enemy)
+
+        # Sort enemies by x position for easier debugging
+        enemies.sort(key=lambda e: e['x'])
+
+        level_data['enemies'] = enemies
 
     def place_powerups(self, level_data, difficulty):
         """

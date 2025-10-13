@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 797,
+      "width": 778,
       "height": 50
     },
     {
@@ -28,170 +28,163 @@
     },
     {
       "type": "floating",
-      "x": 333,
-      "y": 222,
-      "width": 87,
+      "x": 321,
+      "y": 345,
+      "width": 75,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 534,
-      "y": 446,
-      "width": 64,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 702,
-      "y": 380,
-      "width": 85,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 883,
-      "y": 238,
-      "width": 85,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 937,
-      "y": 550,
-      "width": 296,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 1040,
-      "y": 219,
-      "width": 97,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1273,
-      "y": 201,
+      "x": 508,
+      "y": 412,
       "width": 102,
       "height": 20
     },
     {
-      "type": "solid",
-      "x": 1332,
-      "y": 550,
-      "width": 242,
-      "height": 50
-    },
-    {
       "type": "floating",
-      "x": 1428,
-      "y": 451,
-      "width": 108,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1643,
-      "y": 226,
-      "width": 100,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 1702,
-      "y": 550,
-      "width": 614,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 1773,
-      "y": 438,
+      "x": 689,
+      "y": 412,
       "width": 107,
       "height": 20
     },
     {
+      "type": "solid",
+      "x": 924,
+      "y": 550,
+      "width": 491,
+      "height": 50
+    },
+    {
       "type": "floating",
-      "x": 1995,
-      "y": 344,
+      "x": 937,
+      "y": 390,
       "width": 65,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 2132,
-      "y": 207,
-      "width": 77,
+      "x": 1128,
+      "y": 270,
+      "width": 63,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 2334,
-      "y": 490,
-      "width": 109,
+      "x": 1261,
+      "y": 492,
+      "width": 98,
       "height": 20
     },
     {
-      "type": "solid",
-      "x": 2450,
-      "y": 550,
-      "width": 136,
-      "height": 50
-    },
-    {
       "type": "floating",
-      "x": 2503,
-      "y": 491,
+      "x": 1439,
+      "y": 419,
       "width": 78,
       "height": 20
     },
     {
-      "type": "floating",
-      "x": 2700,
-      "y": 383,
-      "width": 108,
-      "height": 20
-    },
-    {
       "type": "solid",
-      "x": 2713,
+      "x": 1554,
       "y": 550,
-      "width": 357,
+      "width": 301,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 2879,
-      "y": 345,
+      "x": 1642,
+      "y": 289,
+      "width": 88,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1798,
+      "y": 388,
+      "width": 70,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1966,
+      "y": 337,
+      "width": 74,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1967,
+      "y": 550,
+      "width": 469,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 2166,
+      "y": 483,
       "width": 100,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 3065,
-      "y": 211,
-      "width": 83,
+      "x": 2324,
+      "y": 499,
+      "width": 76,
       "height": 20
     },
     {
       "type": "solid",
-      "x": 3166,
+      "x": 2534,
       "y": 550,
-      "width": 834,
+      "width": 678,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 3295,
-      "y": 366,
-      "width": 81,
+      "x": 2548,
+      "y": 415,
+      "width": 96,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 3477,
-      "y": 352,
-      "width": 76,
+      "x": 2687,
+      "y": 375,
+      "width": 70,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2889,
+      "y": 280,
+      "width": 97,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 3087,
+      "y": 286,
+      "width": 78,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 3260,
+      "y": 348,
+      "width": 96,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 3344,
+      "y": 550,
+      "width": 656,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 3428,
+      "y": 312,
+      "width": 65,
       "height": 20
     },
     {
@@ -202,32 +195,106 @@
       "height": 20
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "polocho",
+      "x": 559,
+      "y": 372,
+      "patrol_left": 518,
+      "patrol_right": 600
+    },
+    {
+      "type": "polocho",
+      "x": 742,
+      "y": 372,
+      "patrol_left": 699,
+      "patrol_right": 786
+    },
+    {
+      "type": "polocho",
+      "x": 742,
+      "y": 372,
+      "patrol_left": 699,
+      "patrol_right": 786
+    },
+    {
+      "type": "polocho",
+      "x": 1090,
+      "y": 510,
+      "patrol_left": 977,
+      "patrol_right": 1203
+    },
+    {
+      "type": "polocho",
+      "x": 1621,
+      "y": 510,
+      "patrol_left": 1571,
+      "patrol_right": 1671
+    },
+    {
+      "type": "polocho",
+      "x": 1696,
+      "y": 510,
+      "patrol_left": 1571,
+      "patrol_right": 1821
+    },
+    {
+      "type": "polocho",
+      "x": 2216,
+      "y": 443,
+      "patrol_left": 2176,
+      "patrol_right": 2256
+    },
+    {
+      "type": "polocho",
+      "x": 2216,
+      "y": 443,
+      "patrol_left": 2176,
+      "patrol_right": 2256
+    },
+    {
+      "type": "polocho",
+      "x": 2264,
+      "y": 510,
+      "patrol_left": 2167,
+      "patrol_right": 2362
+    },
+    {
+      "type": "polocho",
+      "x": 3536,
+      "y": 510,
+      "patrol_left": 3473,
+      "patrol_right": 3599
+    },
+    {
+      "type": "polocho",
+      "x": 3660,
+      "y": 410,
+      "patrol_left": 3610,
+      "patrol_right": 3710
+    }
+  ],
   "powerups": [],
   "pits": [
     {
-      "x": 797,
-      "width": 140
+      "x": 778,
+      "width": 146
     },
     {
-      "x": 1233,
-      "width": 99
+      "x": 1415,
+      "width": 139
     },
     {
-      "x": 1574,
-      "width": 128
+      "x": 1855,
+      "width": 112
     },
     {
-      "x": 2316,
-      "width": 134
+      "x": 2436,
+      "width": 98
     },
     {
-      "x": 2586,
-      "width": 127
-    },
-    {
-      "x": 3070,
-      "width": 96
+      "x": 3212,
+      "width": 132
     }
   ],
   "goal": {

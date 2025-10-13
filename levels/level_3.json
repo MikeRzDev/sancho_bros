@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 579,
+      "width": 624,
       "height": 50
     },
     {
@@ -28,115 +28,108 @@
     },
     {
       "type": "floating",
-      "x": 320,
-      "y": 304,
-      "width": 129,
+      "x": 335,
+      "y": 327,
+      "width": 85,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 547,
-      "y": 414,
-      "width": 88,
+      "x": 524,
+      "y": 464,
+      "width": 123,
       "height": 20
     },
     {
-      "type": "solid",
-      "x": 659,
-      "y": 550,
-      "width": 634,
-      "height": 50
-    },
-    {
       "type": "floating",
-      "x": 698,
-      "y": 354,
+      "x": 699,
+      "y": 472,
       "width": 126,
       "height": 20
     },
     {
+      "type": "solid",
+      "x": 718,
+      "y": 550,
+      "width": 713,
+      "height": 50
+    },
+    {
       "type": "floating",
       "x": 933,
-      "y": 321,
-      "width": 80,
+      "y": 468,
+      "width": 90,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1093,
-      "y": 304,
-      "width": 113,
+      "x": 1127,
+      "y": 475,
+      "width": 107,
       "height": 20
     },
     {
       "type": "floating",
       "x": 1270,
-      "y": 368,
-      "width": 111,
+      "y": 300,
+      "width": 114,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1466,
+      "y": 321,
+      "width": 113,
       "height": 20
     },
     {
       "type": "solid",
-      "x": 1419,
+      "x": 1529,
       "y": 550,
-      "width": 469,
+      "width": 604,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 1478,
-      "y": 359,
-      "width": 87,
+      "x": 1662,
+      "y": 428,
+      "width": 84,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1669,
-      "y": 461,
-      "width": 104,
+      "x": 1844,
+      "y": 438,
+      "width": 125,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1858,
-      "y": 410,
+      "x": 2044,
+      "y": 419,
+      "width": 130,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2212,
+      "y": 407,
+      "width": 80,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 2252,
+      "y": 550,
+      "width": 748,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 2446,
+      "y": 471,
       "width": 126,
       "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 1968,
-      "y": 550,
-      "width": 376,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 2025,
-      "y": 309,
-      "width": 121,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 2282,
-      "y": 428,
-      "width": 81,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 2410,
-      "y": 377,
-      "width": 128,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 2445,
-      "y": 550,
-      "width": 555,
-      "height": 50
     },
     {
       "type": "floating",
@@ -146,24 +139,70 @@
       "height": 20
     }
   ],
-  "enemies": [],
+  "enemies": [
+    {
+      "type": "polocho",
+      "x": 762,
+      "y": 432,
+      "patrol_left": 709,
+      "patrol_right": 815
+    },
+    {
+      "type": "polocho",
+      "x": 933,
+      "y": 510,
+      "patrol_left": 800,
+      "patrol_right": 1066
+    },
+    {
+      "type": "polocho",
+      "x": 1180,
+      "y": 435,
+      "patrol_left": 1137,
+      "patrol_right": 1224
+    },
+    {
+      "type": "polocho",
+      "x": 1327,
+      "y": 260,
+      "patrol_left": 1280,
+      "patrol_right": 1374
+    },
+    {
+      "type": "polocho",
+      "x": 1900,
+      "y": 510,
+      "patrol_left": 1812,
+      "patrol_right": 1988
+    },
+    {
+      "type": "polocho",
+      "x": 1906,
+      "y": 398,
+      "patrol_left": 1854,
+      "patrol_right": 1959
+    },
+    {
+      "type": "polocho",
+      "x": 2111,
+      "y": 379,
+      "patrol_left": 2060,
+      "patrol_right": 2162
+    }
+  ],
   "powerups": [],
   "pits": [
     {
-      "x": 579,
-      "width": 80
+      "x": 624,
+      "width": 94
     },
     {
-      "x": 1293,
-      "width": 126
+      "x": 1431,
+      "width": 98
     },
     {
-      "x": 1888,
-      "width": 80
-    },
-    {
-      "x": 2344,
-      "width": 101
+      "x": 2133,
+      "width": 119
     }
   ],
   "goal": {

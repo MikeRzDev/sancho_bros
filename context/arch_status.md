@@ -148,9 +148,9 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ 5 JSON level files with progressive difficulty (Phase 2 - US005)
 - ✓ Platform generation logic with ground and floating platforms (Phase 2 - US006)
 - ✓ Basic pit placement logic (Phase 2 - US006)
+- ✓ Enemy placement logic with patrol routes (Phase 2 - US007)
 
 ### What's Pending
-- Enemy placement logic (Phase 2 - US007)
 - Power-up placement enhancement (Phase 2 - US008)
 - Level generation completion (Phase 2 - US009)
 - Game entities (Player, Enemy, PowerUp, Projectile)
@@ -193,14 +193,14 @@ The core game loop is implemented in `src/game.py` with the following structure:
 - Boolean `self.running` flag controls game loop execution
 - Clean shutdown with `pygame.quit()` when loop exits
 
-### Level Generator Tool (US005, US006)
+### Level Generator Tool (US005, US006, US007)
 The level generator tool creates all 5 JSON level files with progressive difficulty. Located at `tools/level_generator.py`.
 
 **LevelGenerator Class:**
 - `__init__()`: Initializes difficulty configurations for all 5 levels
 - `generate_level(level_num)`: Creates complete level data structure with all required fields
 - `place_platforms(level_data, difficulty)`: Platform generation with ground and floating platforms (US006 ✓)
-- `place_enemies(level_data, difficulty)`: Enemy placement (to be implemented in US007)
+- `place_enemies(level_data, difficulty)`: Enemy placement with patrol routes (US007 ✓)
 - `place_powerups(level_data, difficulty)`: Power-up placement (to be implemented in US008)
 - `create_pits(level_data, difficulty)`: Pit hazard generation (basic implementation in US006 ✓)
 - `save_to_file(level_data, filename)`: Writes JSON with proper formatting
@@ -233,6 +233,19 @@ The `create_pits()` method generates pit hazards:
 - Pit widths scale with difficulty: 80-150px (larger for higher levels)
 - Ground platforms automatically split at pit locations
 
+**Enemy Placement (US007):**
+The `place_enemies()` method positions Polocho enemies with patrol routes:
+- **Enemy Count**: Random count within difficulty range (Level 1: 2-3, Level 5: 10-12)
+- **Platform Selection**: Enemies spawn only on platforms >= 100px wide and x > 200 (avoiding spawn area)
+- **Strategic Placement**: Weighted selection favors platforms near level goal (2.0x priority vs 1.0x)
+- **Positioning**: Enemies placed at `platform.y - 40` (standing on platform surface)
+- **Patrol Routes**: Each enemy has `patrol_left` and `patrol_right` boundaries
+  - Patrol width: 100-300px (within platform boundaries)
+  - 10px buffer from platform edges to prevent falling
+  - Enemy spawns at center of patrol range
+- **Spread**: Enemies distributed across multiple platforms (tracks placed platforms)
+- **Output**: Sorted by x position for debugging, includes type, x, y, patrol_left, patrol_right
+
 **JSON Output Structure:**
 Each level file contains:
 - `level_number`: Level identifier (1-5)
@@ -240,7 +253,7 @@ Each level file contains:
 - `background_color`: RGB array [135, 206, 235] (sky blue)
 - `player_spawn`: Starting position {x: 100, y: 400}
 - `platforms`: Array of platform objects with type, x, y, width, height (US006 ✓)
-- `enemies`: Array of enemy spawn points (empty until US007)
+- `enemies`: Array of enemy spawn points with type, x, y, patrol_left, patrol_right (US007 ✓)
 - `powerups`: Array of power-up locations (empty until US008)
 - `pits`: Array of pit hazards with x, width (US006 ✓)
 - `goal`: Level exit position (level_width - 200, 500)

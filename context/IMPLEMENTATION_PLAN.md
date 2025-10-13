@@ -23,7 +23,7 @@
   `context/user_stories/phase_2_level_generator/US005_level_generator_structure.md`
 - [x] **US006:** Implement Platform Generation Logic
   `context/user_stories/phase_2_level_generator/US006_platform_generation.md`
-- [ ] **US007:** Implement Enemy Placement Logic
+- [x] **US007:** Implement Enemy Placement Logic
   `context/user_stories/phase_2_level_generator/US007_enemy_placement.md`
 - [ ] **US008:** Implement Power-Up and Pit Placement
   `context/user_stories/phase_2_level_generator/US008_powerup_and_pit_placement.md`

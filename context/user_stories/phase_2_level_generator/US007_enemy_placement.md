@@ -13,40 +13,40 @@ High
 ## Acceptance Criteria
 
 1. **Enemy Count Per Level**
-   - [ ] Level 1: 2-3 Polochos
-   - [ ] Level 2: 4-5 Polochos
-   - [ ] Level 3: 6-7 Polochos
-   - [ ] Level 4: 8-9 Polochos
-   - [ ] Level 5: 10-12 Polochos
-   - [ ] Count matches game_implementation.md Section 6.2
+   - [x] Level 1: 2-3 Polochos
+   - [x] Level 2: 4-5 Polochos
+   - [x] Level 3: 6-7 Polochos
+   - [x] Level 4: 8-9 Polochos
+   - [x] Level 5: 10-12 Polochos
+   - [x] Count matches game_implementation.md Section 6.2
 
 2. **Enemy Positioning**
-   - [ ] Enemies spawn on platforms (not in air or pits)
-   - [ ] Enemy y-position is platform.y - 40 (standing on platform)
-   - [ ] Enemies are spread throughout the level
-   - [ ] Not all enemies are on the ground floor
+   - [x] Enemies spawn on platforms (not in air or pits)
+   - [x] Enemy y-position is platform.y - 40 (standing on platform)
+   - [x] Enemies are spread throughout the level
+   - [x] Not all enemies are on the ground floor
 
 3. **Patrol Range Definition**
-   - [ ] Each enemy has `patrol_left` and `patrol_right` boundaries
-   - [ ] Patrol ranges are 100-300 pixels wide
-   - [ ] Patrol boundaries stay within platform boundaries
-   - [ ] Patrol ranges don't cross pit boundaries
+   - [x] Each enemy has `patrol_left` and `patrol_right` boundaries
+   - [x] Patrol ranges are 100-300 pixels wide
+   - [x] Patrol boundaries stay within platform boundaries
+   - [x] Patrol ranges don't cross pit boundaries
 
 4. **Strategic Placement**
-   - [ ] Some enemies guard power-ups
-   - [ ] Some enemies patrol narrow platforms
-   - [ ] Density increases near level goal
-   - [ ] First 200 pixels (spawn area) have no enemies
+   - [x] Some enemies guard power-ups
+   - [x] Some enemies patrol narrow platforms
+   - [x] Density increases near level goal
+   - [x] First 200 pixels (spawn area) have no enemies
 
 5. **JSON Output Format**
-   - [ ] Each enemy has: `type`, `x`, `y`, `patrol_left`, `patrol_right`
-   - [ ] Type is always "polocho"
-   - [ ] Enemies array is properly formatted
+   - [x] Each enemy has: `type`, `x`, `y`, `patrol_left`, `patrol_right`
+   - [x] Type is always "polocho"
+   - [x] Enemies array is properly formatted
 
 6. **Validation**
-   - [ ] All enemies spawn on valid platforms
-   - [ ] Patrol ranges don't cause enemies to fall off
-   - [ ] Enemy placement is deterministic (same seed = same placement)
+   - [x] All enemies spawn on valid platforms
+   - [x] Patrol ranges don't cause enemies to fall off
+   - [x] Enemy placement is deterministic (same seed = same placement)
 
 ## Technical Notes
 
