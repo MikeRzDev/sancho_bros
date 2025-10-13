@@ -11,10 +11,122 @@
     "x": 100,
     "y": 400
   },
-  "platforms": [],
+  "platforms": [
+    {
+      "type": "solid",
+      "x": 0,
+      "y": 550,
+      "width": 741,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 250,
+      "y": 400,
+      "width": 120,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 313,
+      "y": 374,
+      "width": 111,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 526,
+      "y": 395,
+      "width": 116,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 804,
+      "y": 421,
+      "width": 137,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 842,
+      "y": 550,
+      "width": 311,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1045,
+      "y": 408,
+      "width": 135,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1235,
+      "y": 399,
+      "width": 133,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1244,
+      "y": 550,
+      "width": 560,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1459,
+      "y": 462,
+      "width": 109,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1689,
+      "y": 400,
+      "width": 104,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1899,
+      "y": 550,
+      "width": 601,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1933,
+      "y": 444,
+      "width": 117,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2100,
+      "y": 450,
+      "width": 120,
+      "height": 20
+    }
+  ],
   "enemies": [],
   "powerups": [],
-  "pits": [],
+  "pits": [
+    {
+      "x": 741,
+      "width": 101
+    },
+    {
+      "x": 1153,
+      "width": 91
+    },
+    {
+      "x": 1804,
+      "width": 95
+    }
+  ],
   "goal": {
     "x": 2300,
     "y": 500

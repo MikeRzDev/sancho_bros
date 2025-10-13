@@ -11,10 +11,79 @@
     "x": 100,
     "y": 400
   },
-  "platforms": [],
+  "platforms": [
+    {
+      "type": "solid",
+      "x": 0,
+      "y": 550,
+      "width": 615,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 250,
+      "y": 400,
+      "width": 120,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 339,
+      "y": 423,
+      "width": 120,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 589,
+      "y": 427,
+      "width": 149,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 719,
+      "y": 550,
+      "width": 1281,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 905,
+      "y": 430,
+      "width": 126,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1095,
+      "y": 358,
+      "width": 122,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1405,
+      "y": 385,
+      "width": 138,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1600,
+      "y": 450,
+      "width": 120,
+      "height": 20
+    }
+  ],
   "enemies": [],
   "powerups": [],
-  "pits": [],
+  "pits": [
+    {
+      "x": 615,
+      "width": 104
+    }
+  ],
   "goal": {
     "x": 1800,
     "y": 500

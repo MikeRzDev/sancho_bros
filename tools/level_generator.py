@@ -59,10 +59,11 @@ class LevelGenerator:
         }
 
         # Generate level elements based on difficulty
+        # Note: Pits must be created first, as platforms need pit locations
+        self.create_pits(level_data, config)
         self.place_platforms(level_data, config)
         self.place_enemies(level_data, config)
         self.place_powerups(level_data, config)
-        self.create_pits(level_data, config)
 
         return level_data
 
@@ -74,8 +75,124 @@ class LevelGenerator:
             level_data: Level data dictionary to modify
             difficulty: Difficulty configuration for this level
         """
-        # TODO: Implement platform generation logic in US006
-        pass
+        platforms = []
+        level_width = level_data['width']
+        level_num = level_data['level_number']
+
+        # ===== GROUND PLATFORM GENERATION =====
+        # Create ground segments with pit gaps
+        current_x = 0
+        pits = sorted(level_data['pits'], key=lambda p: p['x'])  # Sort pits by x position
+
+        for pit in pits:
+            # Create ground segment before this pit
+            ground_width = pit['x'] - current_x
+            if ground_width > 0:
+                platforms.append({
+                    'type': 'solid',
+                    'x': current_x,
+                    'y': 550,
+                    'width': ground_width,
+                    'height': 50
+                })
+            current_x = pit['x'] + pit['width']
+
+        # Final ground segment to end of level
+        final_width = level_width - current_x
+        if final_width > 0:
+            platforms.append({
+                'type': 'solid',
+                'x': current_x,
+                'y': 550,
+                'width': final_width,
+                'height': 50
+            })
+
+        # ===== FLOATING PLATFORM GENERATION =====
+        # Difficulty-based platform density
+        # Level 1: Few platforms, wide and easy
+        # Level 5: Many platforms, challenging layout
+        platform_configs = {
+            1: {'count': 5, 'min_width': 120, 'max_width': 150},   # Easy: wide platforms
+            2: {'count': 8, 'min_width': 100, 'max_width': 140},
+            3: {'count': 12, 'min_width': 80, 'max_width': 130},
+            4: {'count': 15, 'min_width': 70, 'max_width': 120},
+            5: {'count': 18, 'min_width': 60, 'max_width': 110}    # Hard: narrow platforms
+        }
+
+        config = platform_configs[level_num]
+
+        # Generate floating platforms across the level
+        # Ensure platforms are placed to allow progression
+        safe_start = 300  # After spawn area
+        safe_end = level_width - 400  # Before goal area
+        placeable_width = safe_end - safe_start
+
+        # Divide into segments to ensure even distribution
+        segment_count = config['count']
+        segment_width = placeable_width // segment_count if segment_count > 0 else placeable_width
+
+        for i in range(config['count']):
+            segment_start = safe_start + (i * segment_width)
+            segment_end = segment_start + segment_width
+
+            # Random platform width
+            plat_width = random.randint(config['min_width'], config['max_width'])
+
+            # Random x position within segment (with smaller buffer to fit more platforms)
+            max_x = segment_end - plat_width - 20  # Small spacing buffer
+            if max_x >= segment_start:
+                plat_x = random.randint(segment_start, max(segment_start, max_x))
+
+                # Random height: higher platforms for harder levels
+                # Level 1: 350-450 (easier to reach)
+                # Level 5: 200-500 (full range)
+                if level_num == 1:
+                    min_height = 350
+                    max_height = 450
+                elif level_num <= 3:
+                    min_height = 300
+                    max_height = 480
+                else:
+                    min_height = 200
+                    max_height = 500
+
+                plat_y = random.randint(min_height, max_height)
+
+                # Check if this platform overlaps with any pit
+                # If so, it might be crossing a pit gap - that's okay for floating platforms
+                platforms.append({
+                    'type': 'floating',
+                    'x': plat_x,
+                    'y': plat_y,
+                    'width': plat_width,
+                    'height': 20
+                })
+
+        # ===== ENSURE PROGRESSION PATH =====
+        # Add platforms near spawn and goal to ensure they're reachable
+        # Platform near spawn
+        platforms.append({
+            'type': 'floating',
+            'x': 250,
+            'y': 400,
+            'width': 120,
+            'height': 20
+        })
+
+        # Platform near goal
+        platforms.append({
+            'type': 'floating',
+            'x': level_width - 400,
+            'y': 450,
+            'width': 120,
+            'height': 20
+        })
+
+        # Sort platforms by x position for easier debugging
+        platforms.sort(key=lambda p: p['x'])
+
+        level_data['platforms'] = platforms
 
     def place_enemies(self, level_data, difficulty):
         """
@@ -107,8 +224,46 @@ class LevelGenerator:
             level_data: Level data dictionary to modify
             difficulty: Difficulty configuration for this level
         """
-        # TODO: Implement pit placement logic in US008
-        pass
+        pits = []
+        level_width = level_data['width']
+        pit_config = difficulty['pits']
+
+        # Determine number of pits
+        if isinstance(pit_config, tuple):
+            num_pits = random.randint(pit_config[0], pit_config[1])
+        else:
+            num_pits = pit_config
+
+        # Safe zones: Don't place pits near spawn (first 500px) or goal (last 500px)
+        safe_start = 500
+        safe_end = level_width - 500
+        placeable_width = safe_end - safe_start
+
+        if placeable_width > 0 and num_pits > 0:
+            # Divide level into segments for pit placement
+            segment_width = placeable_width // num_pits
+
+            for i in range(num_pits):
+                # Random position within this segment
+                segment_start = safe_start + (i * segment_width)
+                segment_end = segment_start + segment_width
+
+                # Pit width varies: 80-150 pixels (smaller for level 1, larger for later levels)
+                min_width = 80
+                max_width = 100 + (level_data['level_number'] * 10)  # Scales with difficulty
+                pit_width = random.randint(min_width, min(max_width, 150))
+
+                # Random x position within segment, ensuring pit fits
+                max_x = segment_end - pit_width
+                if max_x > segment_start:
+                    pit_x = random.randint(segment_start, max_x)
+
+                    pits.append({
+                        'x': pit_x,
+                        'width': pit_width
+                    })
+
+        level_data['pits'] = pits
 
     def save_to_file(self, level_data, filename):
         """

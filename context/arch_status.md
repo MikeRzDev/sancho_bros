@@ -146,11 +146,13 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Event handling system (ESC key, window close)
 - ✓ Level generator tool (`tools/level_generator.py`)
 - ✓ 5 JSON level files with progressive difficulty (Phase 2 - US005)
+- ✓ Platform generation logic with ground and floating platforms (Phase 2 - US006)
+- ✓ Basic pit placement logic (Phase 2 - US006)
 
 ### What's Pending
-- Platform generation logic (Phase 2 - US006)
 - Enemy placement logic (Phase 2 - US007)
-- Power-up and pit placement logic (Phase 2 - US008)
+- Power-up placement enhancement (Phase 2 - US008)
+- Level generation completion (Phase 2 - US009)
 - Game entities (Player, Enemy, PowerUp, Projectile)
 - Physics system (collision detection, gravity)
 - Level loading system
@@ -191,16 +193,16 @@ The core game loop is implemented in `src/game.py` with the following structure:
 - Boolean `self.running` flag controls game loop execution
 - Clean shutdown with `pygame.quit()` when loop exits
 
-### Level Generator Tool (US005)
+### Level Generator Tool (US005, US006)
 The level generator tool creates all 5 JSON level files with progressive difficulty. Located at `tools/level_generator.py`.
 
 **LevelGenerator Class:**
 - `__init__()`: Initializes difficulty configurations for all 5 levels
 - `generate_level(level_num)`: Creates complete level data structure with all required fields
-- `place_platforms(level_data, difficulty)`: Platform generation (to be implemented in US006)
+- `place_platforms(level_data, difficulty)`: Platform generation with ground and floating platforms (US006 ✓)
 - `place_enemies(level_data, difficulty)`: Enemy placement (to be implemented in US007)
 - `place_powerups(level_data, difficulty)`: Power-up placement (to be implemented in US008)
-- `create_pits(level_data, difficulty)`: Pit hazard generation (to be implemented in US008)
+- `create_pits(level_data, difficulty)`: Pit hazard generation (basic implementation in US006 ✓)
 - `save_to_file(level_data, filename)`: Writes JSON with proper formatting
 - `generate_all_levels()`: Generates all 5 levels at once
 
@@ -211,21 +213,41 @@ The level generator tool creates all 5 JSON level files with progressive difficu
 - Level 4: 3500px wide, 8-9 enemies, 2 power-ups, 4-5 pits
 - Level 5: 4000px wide, 10-12 enemies, 2-3 power-ups, 5-6 pits (maximum challenge)
 
+**Platform Generation (US006):**
+The `place_platforms()` method creates:
+- **Ground platforms**: Solid platforms at y=550 with 50px height, split by pit gaps
+- **Floating platforms**: Platforms at varying heights (200-500) with 20px height
+  - Level 1: 5 floating platforms (120-150px wide) at heights 350-450
+  - Level 2: 8 floating platforms (100-140px wide) at heights 300-480
+  - Level 3: 12 floating platforms (80-130px wide) at heights 300-480
+  - Level 4: 15 floating platforms (70-120px wide) at heights 200-500
+  - Level 5: 18 floating platforms (60-110px wide) at heights 200-500
+- **Progression platforms**: Special platforms near spawn (x=250) and goal to ensure completability
+- **Distribution**: Platforms evenly distributed across level using segmentation
+- **Validation**: No overlaps, reasonable spacing, completable paths
+
+**Pit Generation (US006):**
+The `create_pits()` method generates pit hazards:
+- Pits placed in safe zones (500px from spawn, 500px from goal)
+- Evenly distributed across level using segmentation
+- Pit widths scale with difficulty: 80-150px (larger for higher levels)
+- Ground platforms automatically split at pit locations
+
 **JSON Output Structure:**
 Each level file contains:
 - `level_number`: Level identifier (1-5)
 - `width`, `height`: Level dimensions (variable width, 600px height)
 - `background_color`: RGB array [135, 206, 235] (sky blue)
 - `player_spawn`: Starting position {x: 100, y: 400}
-- `platforms`: Array of platform objects (empty until US006)
+- `platforms`: Array of platform objects with type, x, y, width, height (US006 ✓)
 - `enemies`: Array of enemy spawn points (empty until US007)
 - `powerups`: Array of power-up locations (empty until US008)
-- `pits`: Array of pit hazards (empty until US008)
+- `pits`: Array of pit hazards with x, width (US006 ✓)
 - `goal`: Level exit position (level_width - 200, 500)
 
 **Usage:**
 ```bash
-python tools/level_generator.py
+python3 tools/level_generator.py
 ```
 
 ---

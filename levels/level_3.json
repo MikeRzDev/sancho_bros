@@ -11,10 +11,161 @@
     "x": 100,
     "y": 400
   },
-  "platforms": [],
+  "platforms": [
+    {
+      "type": "solid",
+      "x": 0,
+      "y": 550,
+      "width": 579,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 250,
+      "y": 400,
+      "width": 120,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 320,
+      "y": 304,
+      "width": 129,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 547,
+      "y": 414,
+      "width": 88,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 659,
+      "y": 550,
+      "width": 634,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 698,
+      "y": 354,
+      "width": 126,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 933,
+      "y": 321,
+      "width": 80,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1093,
+      "y": 304,
+      "width": 113,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1270,
+      "y": 368,
+      "width": 111,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1419,
+      "y": 550,
+      "width": 469,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1478,
+      "y": 359,
+      "width": 87,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1669,
+      "y": 461,
+      "width": 104,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1858,
+      "y": 410,
+      "width": 126,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 1968,
+      "y": 550,
+      "width": 376,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 2025,
+      "y": 309,
+      "width": 121,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2282,
+      "y": 428,
+      "width": 81,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2410,
+      "y": 377,
+      "width": 128,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 2445,
+      "y": 550,
+      "width": 555,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 2600,
+      "y": 450,
+      "width": 120,
+      "height": 20
+    }
+  ],
   "enemies": [],
   "powerups": [],
-  "pits": [],
+  "pits": [
+    {
+      "x": 579,
+      "width": 80
+    },
+    {
+      "x": 1293,
+      "width": 126
+    },
+    {
+      "x": 1888,
+      "width": 80
+    },
+    {
+      "x": 2344,
+      "width": 101
+    }
+  ],
   "goal": {
     "x": 2800,
     "y": 500

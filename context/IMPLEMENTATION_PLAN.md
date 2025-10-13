@@ -21,7 +21,7 @@
 
 - [x] **US005:** Create Level Generator Tool Structure
   `context/user_stories/phase_2_level_generator/US005_level_generator_structure.md`
-- [ ] **US006:** Implement Platform Generation Logic
+- [x] **US006:** Implement Platform Generation Logic
   `context/user_stories/phase_2_level_generator/US006_platform_generation.md`
 - [ ] **US007:** Implement Enemy Placement Logic
   `context/user_stories/phase_2_level_generator/US007_enemy_placement.md`
