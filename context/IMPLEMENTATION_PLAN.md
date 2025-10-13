@@ -10,7 +10,7 @@
   `context/user_stories/phase_1_setup/US001_project_structure.md`
 - [x] **US002:** Install Pygame and Dependencies
   `context/user_stories/phase_1_setup/US002_install_pygame.md`
-- [ ] **US003:** Create Game Constants Configuration
+- [x] **US003:** Create Game Constants Configuration
   `context/user_stories/phase_1_setup/US003_constants_file.md`
 - [ ] **US004:** Create Basic Game Window and Main Loop
   `context/user_stories/phase_1_setup/US004_basic_game_window.md`

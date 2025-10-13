@@ -16,6 +16,7 @@ sancho_bros/
    venv/                          # Python virtual environment (excluded from git)
    src/                           # Source code directory
       __init__.py
+      constants.py               # Game configuration constants
       entities/                  # Player, enemies, power-ups, projectiles
          __init__.py
       level/                     # Level loading and management
@@ -98,6 +99,17 @@ Assets are organized by type for easy management:
 - Modular architecture enables independent development of game systems
 - Clear separation between game logic, rendering, and data management
 
+### Game Constants Configuration
+The `src/constants.py` file centralizes all game configuration values:
+- **Screen constants**: 800x600 resolution at 60 FPS
+- **Physics constants**: Gravity (0.8), jump strength (-15), player speed (5), max fall speed (15)
+- **Game rules**: 3 starting lives, 10-second laser duration, 0.5-second cooldown
+- **Entity dimensions**: Player (40x60), Enemy (40x50), Platform (100x20 default), Power-up (30x30), Laser (10x4)
+- **Color constants**: RGB tuples for placeholder graphics (player blue, enemy red, platforms brown/gray, power-up gold, laser cyan)
+- **AI constants**: Enemy patrol speed (2 pixels/frame)
+
+All constants follow UPPER_SNAKE_CASE naming convention and can be imported via `from src.constants import *`.
+
 ---
 
 ## Current State
@@ -108,9 +120,9 @@ Assets are organized by type for easy management:
 - ✓ Pygame 2.6.1 installed and verified
 - ✓ All package directories initialized
 - ✓ Development documentation in place
+- ✓ Game constants configuration (`src/constants.py`)
 
 ### What's Pending
-- Constants configuration file (game settings, physics values)
 - Main game loop and window initialization
 - All game entities and systems (to be implemented in subsequent phases)
 

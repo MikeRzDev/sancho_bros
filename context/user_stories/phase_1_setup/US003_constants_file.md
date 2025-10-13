@@ -13,39 +13,39 @@ High
 ## Acceptance Criteria
 
 1. **Constants File Created**
-   - [ ] `src/constants.py` exists
+   - [x] `src/constants.py` exists
 
 2. **Screen Constants Defined**
-   - [ ] `SCREEN_WIDTH = 800`
-   - [ ] `SCREEN_HEIGHT = 600`
-   - [ ] `FPS = 60`
+   - [x] `SCREEN_WIDTH = 800`
+   - [x] `SCREEN_HEIGHT = 600`
+   - [x] `FPS = 60`
 
 3. **Physics Constants Defined**
-   - [ ] `GRAVITY = 0.8`
-   - [ ] `MAX_FALL_SPEED = 15`
-   - [ ] `JUMP_STRENGTH = -15`
-   - [ ] `PLAYER_SPEED = 5`
+   - [x] `GRAVITY = 0.8`
+   - [x] `MAX_FALL_SPEED = 15`
+   - [x] `JUMP_STRENGTH = -15`
+   - [x] `PLAYER_SPEED = 5`
 
 4. **Game Rules Constants Defined**
-   - [ ] `PLAYER_LIVES = 3`
-   - [ ] `LASER_DURATION = 10` (seconds)
-   - [ ] `LASER_COOLDOWN = 0.5` (seconds between shots)
+   - [x] `PLAYER_LIVES = 3`
+   - [x] `LASER_DURATION = 10` (seconds)
+   - [x] `LASER_COOLDOWN = 0.5` (seconds between shots)
 
 5. **Entity Size Constants**
-   - [ ] Player dimensions defined
-   - [ ] Enemy dimensions defined
-   - [ ] Platform dimensions defined
+   - [x] Player dimensions defined
+   - [x] Enemy dimensions defined
+   - [x] Platform dimensions defined
 
 6. **Color Constants** (for placeholder graphics)
-   - [ ] Background color
-   - [ ] Player color
-   - [ ] Enemy color
-   - [ ] Platform colors
-   - [ ] Power-up color
+   - [x] Background color
+   - [x] Player color
+   - [x] Enemy color
+   - [x] Platform colors
+   - [x] Power-up color
 
 7. **Validation**
-   - [ ] Constants can be imported successfully: `from src.constants import *`
-   - [ ] All constants match specifications in game_implementation.md Section 4.2
+   - [x] Constants can be imported successfully: `from src.constants import *`
+   - [x] All constants match specifications in game_implementation.md Section 4.2
 
 ## Technical Notes
 
