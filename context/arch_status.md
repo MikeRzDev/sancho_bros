@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-13
-**Current Development Phase:** Phase 1 - Setup (COMPLETE)
+**Current Development Phase:** Phase 2 - Level Generator (IN PROGRESS)
 
 ---
 
@@ -30,7 +30,13 @@ sancho_bros/
       utils/                     # Utility functions
           __init__.py
    tools/                         # Development tools
-   levels/                        # JSON level files (to be generated)
+      level_generator.py         # Level generator tool
+   levels/                        # JSON level files
+      level_1.json               # Level 1 data (2000px, tutorial)
+      level_2.json               # Level 2 data (2500px)
+      level_3.json               # Level 3 data (3000px)
+      level_4.json               # Level 4 data (3500px)
+      level_5.json               # Level 5 data (4000px, maximum challenge)
    assets/                        # Game assets
       sprites/                   # Sprite images
          sancho/               # Player sprites
@@ -138,9 +144,13 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Basic game state management (running/stopped states)
 - ✓ 60 FPS game loop with delta time calculation
 - ✓ Event handling system (ESC key, window close)
+- ✓ Level generator tool (`tools/level_generator.py`)
+- ✓ 5 JSON level files with progressive difficulty (Phase 2 - US005)
 
 ### What's Pending
-- Level generator tool (Phase 2)
+- Platform generation logic (Phase 2 - US006)
+- Enemy placement logic (Phase 2 - US007)
+- Power-up and pit placement logic (Phase 2 - US008)
 - Game entities (Player, Enemy, PowerUp, Projectile)
 - Physics system (collision detection, gravity)
 - Level loading system
@@ -180,6 +190,43 @@ The core game loop is implemented in `src/game.py` with the following structure:
 **State Management:**
 - Boolean `self.running` flag controls game loop execution
 - Clean shutdown with `pygame.quit()` when loop exits
+
+### Level Generator Tool (US005)
+The level generator tool creates all 5 JSON level files with progressive difficulty. Located at `tools/level_generator.py`.
+
+**LevelGenerator Class:**
+- `__init__()`: Initializes difficulty configurations for all 5 levels
+- `generate_level(level_num)`: Creates complete level data structure with all required fields
+- `place_platforms(level_data, difficulty)`: Platform generation (to be implemented in US006)
+- `place_enemies(level_data, difficulty)`: Enemy placement (to be implemented in US007)
+- `place_powerups(level_data, difficulty)`: Power-up placement (to be implemented in US008)
+- `create_pits(level_data, difficulty)`: Pit hazard generation (to be implemented in US008)
+- `save_to_file(level_data, filename)`: Writes JSON with proper formatting
+- `generate_all_levels()`: Generates all 5 levels at once
+
+**Difficulty Configuration:**
+- Level 1: 2000px wide, 2-3 enemies, 1 power-up, 1-2 pits (tutorial)
+- Level 2: 2500px wide, 4-5 enemies, 1 power-up, 2-3 pits
+- Level 3: 3000px wide, 6-7 enemies, 2 power-ups, 3-4 pits
+- Level 4: 3500px wide, 8-9 enemies, 2 power-ups, 4-5 pits
+- Level 5: 4000px wide, 10-12 enemies, 2-3 power-ups, 5-6 pits (maximum challenge)
+
+**JSON Output Structure:**
+Each level file contains:
+- `level_number`: Level identifier (1-5)
+- `width`, `height`: Level dimensions (variable width, 600px height)
+- `background_color`: RGB array [135, 206, 235] (sky blue)
+- `player_spawn`: Starting position {x: 100, y: 400}
+- `platforms`: Array of platform objects (empty until US006)
+- `enemies`: Array of enemy spawn points (empty until US007)
+- `powerups`: Array of power-up locations (empty until US008)
+- `pits`: Array of pit hazards (empty until US008)
+- `goal`: Level exit position (level_width - 200, 500)
+
+**Usage:**
+```bash
+python tools/level_generator.py
+```
 
 ---
 

@@ -19,7 +19,7 @@
 
 ## PHASE 2: LEVEL GENERATOR (5 stories, 19 points)
 
-- [ ] **US005:** Create Level Generator Tool Structure
+- [x] **US005:** Create Level Generator Tool Structure
   `context/user_stories/phase_2_level_generator/US005_level_generator_structure.md`
 - [ ] **US006:** Implement Platform Generation Logic
   `context/user_stories/phase_2_level_generator/US006_platform_generation.md`

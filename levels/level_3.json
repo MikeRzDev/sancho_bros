@@ -1,0 +1,22 @@
+{
+  "level_number": 3,
+  "width": 3000,
+  "height": 600,
+  "background_color": [
+    135,
+    206,
+    235
+  ],
+  "player_spawn": {
+    "x": 100,
+    "y": 400
+  },
+  "platforms": [],
+  "enemies": [],
+  "powerups": [],
+  "pits": [],
+  "goal": {
+    "x": 2800,
+    "y": 500
+  }
+}
