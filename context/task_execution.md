@@ -35,17 +35,17 @@
    - Show me a summary of what was implemented
    - Ask for confirmation before moving to the next user story
 
-6. **Create Phase Summary (when completing a full phase)**
-   - After finishing all user stories in a phase, create a comprehensive summary including in a document with user-store-name-resume.md:
+6. **Create User Story Resume Document (after completing each user story)**
+   - After finishing each user story, create a comprehensive resume document named `context/resumes/user-story-id-resume.md` (e.g., `US001_project_structure_resume.md`):
      - **Changes Made:** High-level overview of what was implemented
      - **Files Modified/Created:** List each file with a brief explanation of its purpose and changes
      - **Rationale:** Clear explanation for an LLM context of what was completed, why these changes matter, and how they fit into the overall architecture
-     - **Next Steps:** What phase comes next and any dependencies or prerequisites
+     - **Next Steps:** What user story comes next and any dependencies or prerequisites
    - This summary helps future LLM sessions understand the project state without re-reading all code
 
 7. check the user story in the implementation plan
 
-8. update the @context/arch_status.md with the latest version of the architecture 
+8. update the @context/arch_status.md with the latest version of the architecture
 
 9. wait for my instruction and review dont do anything else that is not included here.
 ---

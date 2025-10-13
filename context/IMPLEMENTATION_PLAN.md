@@ -6,7 +6,7 @@
 
 ## PHASE 1: SETUP (4 stories, 7 points)
 
-- [ ] **US001:** Set Up Project Directory Structure
+- [x] **US001:** Set Up Project Directory Structure
   `context/user_stories/phase_1_setup/US001_project_structure.md`
 - [ ] **US002:** Install Pygame and Dependencies
   `context/user_stories/phase_1_setup/US002_install_pygame.md`
