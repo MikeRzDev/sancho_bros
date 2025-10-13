@@ -13,13 +13,13 @@ High
 ## Acceptance Criteria
 
 1. **Main Entry Point Created**
-   - [ ] `src/main.py` exists
-   - [ ] Running `python src/main.py` opens a game window
-   - [ ] Window dimensions are SCREEN_WIDTH x SCREEN_HEIGHT (800x600)
+   - [x] `src/main.py` exists
+   - [x] Running `python src/main.py` opens a game window
+   - [x] Window dimensions are SCREEN_WIDTH x SCREEN_HEIGHT (800x600)
 
 2. **Game Class Structure**
-   - [ ] `src/game.py` exists
-   - [ ] `Game` class is defined with the following methods:
+   - [x] `src/game.py` exists
+   - [x] `Game` class is defined with the following methods:
      - `__init__()`: Initialize pygame and create window
      - `run()`: Main game loop
      - `handle_events()`: Process input events
@@ -27,20 +27,20 @@ High
      - `render()`: Draw to screen (placeholder)
 
 3. **Game Loop Functionality**
-   - [ ] Game loop runs at 60 FPS
-   - [ ] Window displays with a solid background color
-   - [ ] Window title is "Sancho Bros"
-   - [ ] ESC key or window close button exits the game cleanly
+   - [x] Game loop runs at 60 FPS
+   - [x] Window displays with a solid background color
+   - [x] Window title is "Sancho Bros"
+   - [x] ESC key or window close button exits the game cleanly
 
 4. **Basic State Management**
-   - [ ] Game state variable initialized (e.g., `RUNNING`)
-   - [ ] Game loop continues while in running state
+   - [x] Game state variable initialized (e.g., `RUNNING`)
+   - [x] Game loop continues while in running state
 
 5. **Validation**
-   - [ ] Window opens without errors
-   - [ ] FPS is maintained at ~60
-   - [ ] No memory leaks when running for 30 seconds
-   - [ ] Clean exit without errors
+   - [x] Window opens without errors
+   - [x] FPS is maintained at ~60
+   - [x] No memory leaks when running for 30 seconds
+   - [x] Clean exit without errors
 
 ## Technical Notes
 

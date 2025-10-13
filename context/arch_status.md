@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-13
-**Current Development Phase:** Phase 1 - Setup
+**Current Development Phase:** Phase 1 - Setup (COMPLETE)
 
 ---
 
@@ -16,6 +16,8 @@ sancho_bros/
    venv/                          # Python virtual environment (excluded from git)
    src/                           # Source code directory
       __init__.py
+      main.py                    # Game entry point
+      game.py                    # Main Game class with game loop
       constants.py               # Game configuration constants
       entities/                  # Player, enemies, power-ups, projectiles
          __init__.py
@@ -67,9 +69,20 @@ sancho_bros/
 
 ## Architecture Overview
 
+### Core Game Loop
+The game uses a centralized Game class (`src/game.py`) that manages:
+- **Initialization**: Pygame setup, window creation (800x600), display settings
+- **Main Loop**: 60 FPS game loop using `pygame.time.Clock()`
+- **Event Handling**: Input processing (ESC key, window close)
+- **Update Cycle**: Frame-independent updates using delta time
+- **Render Cycle**: Screen clearing and entity rendering
+
 ### Modular Package Structure
 The codebase follows a clean separation of concerns:
 
+- **src/main.py**: Entry point that instantiates and runs the Game
+- **src/game.py**: Main Game class containing the game loop and state management
+- **src/constants.py**: Centralized game configuration
 - **src/entities/**: Game objects (Player, Enemy, PowerUp, Projectile classes)
 - **src/level/**: Level loading system and JSON parsing
 - **src/physics/**: Collision detection and gravity systems
@@ -121,10 +134,17 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ All package directories initialized
 - ✓ Development documentation in place
 - ✓ Game constants configuration (`src/constants.py`)
+- ✓ Main game loop and window initialization (`src/main.py`, `src/game.py`)
+- ✓ Basic game state management (running/stopped states)
+- ✓ 60 FPS game loop with delta time calculation
+- ✓ Event handling system (ESC key, window close)
 
 ### What's Pending
-- Main game loop and window initialization
-- All game entities and systems (to be implemented in subsequent phases)
+- Level generator tool (Phase 2)
+- Game entities (Player, Enemy, PowerUp, Projectile)
+- Physics system (collision detection, gravity)
+- Level loading system
+- UI components (menus, HUD)
 
 ---
 
@@ -138,6 +158,28 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - Python 3.13.3
 - Pygame 2.6.1 (SDL 2.28.4)
 - macOS (Darwin 24.6.0)
+
+---
+
+## Implemented Systems
+
+### Game Loop Architecture (US004)
+The core game loop is implemented in `src/game.py` with the following structure:
+
+**Game Class Methods:**
+- `__init__()`: Initializes Pygame, creates 800x600 window with title "Sancho Bros", sets up clock and running state
+- `run()`: Main game loop that maintains 60 FPS, calculates delta time, and calls handle_events/update/render
+- `handle_events()`: Processes pygame events (QUIT event, ESC key for exit)
+- `update(dt)`: Placeholder for game state updates (receives delta time in seconds)
+- `render()`: Clears screen with background color, updates display
+
+**Entry Point (`src/main.py`):**
+- Simple entry point that imports Game class and calls `game.run()`
+- Follows standard Python `if __name__ == "__main__"` pattern
+
+**State Management:**
+- Boolean `self.running` flag controls game loop execution
+- Clean shutdown with `pygame.quit()` when loop exits
 
 ---
 
