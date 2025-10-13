@@ -16,17 +16,31 @@ Sancho Bros is a Python and Pygame-based platformer with 5 levels of increasing 
 
 ## Setup
 
-### Install Dependencies
+### 1. Create Virtual Environment
+```bash
+python3 -m venv venv
+```
+
+### 2. Activate Virtual Environment
+```bash
+# On macOS/Linux:
+source venv/bin/activate
+
+# On Windows:
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Generate Levels (Required before first run)
+### 4. Generate Levels (Required before first run)
 ```bash
 python tools/level_generator.py
 ```
 
-### Run the Game
+### 5. Run the Game
 ```bash
 python src/main.py
 ```
@@ -55,8 +69,8 @@ sancho_bros/
 
 ## Technical Stack
 
-- Python 3.x
-- Pygame 2.5.2
+- Python 3.8+ (tested with Python 3.13.3)
+- Pygame 2.6.1
 
 ## License
 

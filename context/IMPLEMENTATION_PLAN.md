@@ -8,7 +8,7 @@
 
 - [x] **US001:** Set Up Project Directory Structure
   `context/user_stories/phase_1_setup/US001_project_structure.md`
-- [ ] **US002:** Install Pygame and Dependencies
+- [x] **US002:** Install Pygame and Dependencies
   `context/user_stories/phase_1_setup/US002_install_pygame.md`
 - [ ] **US003:** Create Game Constants Configuration
   `context/user_stories/phase_1_setup/US003_constants_file.md`
