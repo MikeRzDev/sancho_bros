@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US010 COMPLETE)
+**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US011 COMPLETE)
 
 ---
 
@@ -27,6 +27,7 @@ sancho_bros/
          __init__.py
       physics/                   # Collision detection and gravity
          __init__.py
+         gravity.py              # Gravity physics system
       ui/                        # Menus and HUD
          __init__.py
       utils/                     # Utility functions
@@ -157,9 +158,13 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Camera placeholder system for rendering offsets (Phase 3 - US010)
 - ✓ Player rendering as blue rectangle (Phase 3 - US010)
 - ✓ Player integrated into main game loop (Phase 3 - US010)
+- ✓ Gravity physics system with terminal velocity (Phase 3 - US011)
+- ✓ Player jump mechanics (Phase 3 - US011)
+- ✓ Basic platform collision detection for grounded state (Phase 3 - US011)
+- ✓ Physics integrated into player update loop (Phase 3 - US011)
 
 ### What's Pending
-- Phase 3: Core Mechanics (Physics system, player controls, collision detection, camera following - US011-US014)
+- Phase 3: Core Mechanics (Player movement/controls, full collision detection, camera following - US012-US014)
 - Phase 4: Level Loading (JSON parser, level management)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
@@ -342,6 +347,69 @@ The Player class represents Sancho, the player character, with complete state ma
 **Entity Package Organization:**
 - `src/entities/__init__.py` exports Player class for clean imports
 - Ready to add Enemy, PowerUp, and Projectile classes in future phases
+
+### Physics and Gravity System (US011)
+The gravity physics system enables realistic falling, jumping, and grounded detection for all game entities.
+
+**Gravity Module (`src/physics/gravity.py`):**
+- `apply_gravity(entity, dt)`: Applies gravity to entities not grounded
+  - Adds GRAVITY constant (0.8 pixels/frame²) to vertical velocity each frame
+  - Caps fall speed at MAX_FALL_SPEED (15 pixels/frame) for terminal velocity
+  - Only applies when `entity.is_grounded` is False (no gravity when standing on platforms)
+  - Frame-independent ready (dt parameter prepared for future use)
+
+**Player Physics Integration:**
+- `Player.update()` method enhanced to:
+  1. Call `apply_gravity()` from physics module
+  2. Update position based on velocity (`position += velocity`)
+  3. Sync rect with position for collision detection
+  4. Call `check_collision()` to handle platform interactions
+- Physics applied every frame at 60 FPS
+- Position updates use pygame.Vector2 for smooth sub-pixel movement
+
+**Jump Mechanics (`Player.jump()`):**
+- Sets vertical velocity to JUMP_STRENGTH (-15 pixels/frame) for upward motion
+- Only allows jumping when `is_grounded` is True (prevents air jumping)
+- Updates state flags: `is_jumping = True`, `is_grounded = False`
+- Triggered by space bar input in game event handler
+
+**Grounded Detection (`Player.check_collision()`):**
+- Basic platform collision detection implemented for grounded state
+- Checks each platform using pygame rect collision (`rect.colliderect()`)
+- **Landing on platform** (falling down, velocity.y > 0):
+  - Snaps player to platform top: `rect.bottom = platform.rect.top`
+  - Resets vertical velocity to 0 (stops falling)
+  - Sets `is_grounded = True`, `is_jumping = False`
+- **Hitting platform from below** (moving up, velocity.y < 0):
+  - Snaps player to platform bottom: `rect.top = platform.rect.bottom`
+  - Resets vertical velocity to 0 (stops upward motion)
+- Position synced with rect after collision resolution
+- Full collision resolution (horizontal, edge cases) planned for US013
+
+**Visual Validation (US011 Testing):**
+- Test platforms added to `game.py` for physics validation:
+  - Ground platform at y=550 (800x50 pixels)
+  - Floating platforms at various heights
+  - `TestPlatform` class with rect and render method
+- Player spawns at (100, 200) in air to test falling
+- Observable behaviors verified:
+  - Player falls when spawned in air ✓
+  - Fall speed accelerates over time ✓
+  - Fall speed caps at 15 pixels/frame ✓
+  - Space bar makes player jump ✓
+  - Player lands on platforms and can jump again ✓
+
+**Physics Constants (from `src/constants.py`):**
+- `GRAVITY = 0.8` - Acceleration per frame (downward)
+- `MAX_FALL_SPEED = 15` - Terminal velocity cap
+- `JUMP_STRENGTH = -15` - Initial jump velocity (negative = upward)
+- Y-axis increases downward (standard pygame convention)
+
+**State Management:**
+- `is_grounded`: Boolean flag indicating if player is standing on platform
+- `is_jumping`: Boolean flag indicating if player is in jump state
+- `velocity.y`: Vertical velocity component (positive = down, negative = up)
+- Flags reset properly during collision resolution
 
 ### Power-Up and Pit Placement (US008)
 The level generator now includes complete power-up and pit placement systems with strategic positioning and validation.

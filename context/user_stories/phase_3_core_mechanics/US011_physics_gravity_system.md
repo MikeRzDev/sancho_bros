@@ -13,38 +13,38 @@ Critical
 ## Acceptance Criteria
 
 1. **Gravity Module Created**
-   - [ ] `src/physics/gravity.py` exists
-   - [ ] `apply_gravity(entity, dt)` function is defined
+   - [x] `src/physics/gravity.py` exists
+   - [x] `apply_gravity(entity, dt)` function is defined
 
 2. **Gravity Behavior**
-   - [ ] Gravity adds GRAVITY constant to vertical velocity each frame
-   - [ ] Velocity increases by 0.8 pixels/frame² (downward)
-   - [ ] Vertical velocity is capped at MAX_FALL_SPEED (15)
-   - [ ] Gravity only applies when entity is not grounded
+   - [x] Gravity adds GRAVITY constant to vertical velocity each frame
+   - [x] Velocity increases by 0.8 pixels/frame² (downward)
+   - [x] Vertical velocity is capped at MAX_FALL_SPEED (15)
+   - [x] Gravity only applies when entity is not grounded
 
 3. **Player Physics Integration**
-   - [ ] Player's `update()` method calls gravity system
-   - [ ] Player falls when not on a platform
-   - [ ] Player velocity accumulates correctly
-   - [ ] Position updates based on velocity: `position += velocity * dt`
+   - [x] Player's `update()` method calls gravity system
+   - [x] Player falls when not on a platform
+   - [x] Player velocity accumulates correctly
+   - [x] Position updates based on velocity: `position += velocity * dt`
 
 4. **Jump Mechanics**
-   - [ ] `jump()` method sets velocity.y to JUMP_STRENGTH (-15)
-   - [ ] Jump only works when `is_grounded` is True
-   - [ ] Sets `is_jumping` to True
-   - [ ] Sets `is_grounded` to False
+   - [x] `jump()` method sets velocity.y to JUMP_STRENGTH (-15)
+   - [x] Jump only works when `is_grounded` is True
+   - [x] Sets `is_jumping` to True
+   - [x] Sets `is_grounded` to False
 
 5. **Grounded Detection**
-   - [ ] Player is grounded when standing on a platform
-   - [ ] `is_grounded` flag is set correctly
-   - [ ] Vertical velocity resets to 0 when landing
-   - [ ] `is_jumping` set to False when grounded
+   - [x] Player is grounded when standing on a platform
+   - [x] `is_grounded` flag is set correctly
+   - [x] Vertical velocity resets to 0 when landing
+   - [x] `is_jumping` set to False when grounded
 
 6. **Visual Validation**
-   - [ ] Player falls when spawned in air
-   - [ ] Player accelerates downward over time
-   - [ ] Fall speed caps at MAX_FALL_SPEED
-   - [ ] Pressing space makes player jump
+   - [x] Player falls when spawned in air
+   - [x] Player accelerates downward over time
+   - [x] Fall speed caps at MAX_FALL_SPEED
+   - [x] Pressing space makes player jump
 
 ## Technical Notes
 

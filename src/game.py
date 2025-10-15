@@ -8,10 +8,24 @@ from src.constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
     FPS,
-    COLOR_BACKGROUND
+    COLOR_BACKGROUND,
+    COLOR_PLATFORM_SOLID
 )
 from src.entities import Player
 from src.camera import Camera
+
+
+# Simple test platform class for US011 physics validation
+class TestPlatform:
+    """Temporary platform class for testing physics system."""
+    def __init__(self, x, y, width, height):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = COLOR_PLATFORM_SOLID
+
+    def render(self, screen, camera):
+        screen_x = self.rect.x - camera.x
+        screen_y = self.rect.y - camera.y
+        pygame.draw.rect(screen, self.color, (screen_x, screen_y, self.rect.width, self.rect.height))
 
 
 class Game:
@@ -35,10 +49,17 @@ class Game:
         self.running = True
 
         # Initialize game entities
-        self.player = Player(100, 400)  # Spawn at standard spawn position
+        self.player = Player(100, 200)  # Spawn in air to test falling
 
         # Initialize camera
         self.camera = Camera(0, 0)
+
+        # Create test platforms for US011 physics validation
+        self.platforms = [
+            TestPlatform(0, 550, 800, 50),      # Ground platform
+            TestPlatform(300, 400, 200, 20),    # Floating platform
+            TestPlatform(600, 300, 150, 20)     # Higher floating platform
+        ]
 
     def run(self):
         """
@@ -74,6 +95,9 @@ class Game:
                 # ESC key exits the game
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
+                # Space bar to jump (US011 physics validation)
+                elif event.key == pygame.K_SPACE:
+                    self.player.jump()
 
     def update(self, dt):
         """
@@ -82,8 +106,8 @@ class Game:
         Args:
             dt (float): Delta time in seconds since last frame
         """
-        # Update player (platforms list empty for now - added in US015)
-        self.player.update(dt, [])
+        # Update player with test platforms
+        self.player.update(dt, self.platforms)
 
     def render(self):
         """
@@ -91,6 +115,10 @@ class Game:
         """
         # Clear the screen with background color
         self.screen.fill(COLOR_BACKGROUND)
+
+        # Render test platforms
+        for platform in self.platforms:
+            platform.render(self.screen, self.camera)
 
         # Render game entities
         self.player.render(self.screen, self.camera)

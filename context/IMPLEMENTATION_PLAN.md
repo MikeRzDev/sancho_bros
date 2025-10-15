@@ -36,7 +36,7 @@
 
 - [x] **US010:** Create Player Entity Class (Sancho)
   `context/user_stories/phase_3_core_mechanics/US010_player_entity_class.md`
-- [ ] **US011:** Implement Gravity and Physics System
+- [x] **US011:** Implement Gravity and Physics System
   `context/user_stories/phase_3_core_mechanics/US011_physics_gravity_system.md`
 - [ ] **US012:** Implement Player Movement and Controls
   `context/user_stories/phase_3_core_mechanics/US012_player_movement_controls.md`
