@@ -34,7 +34,7 @@
 
 ## PHASE 3: CORE MECHANICS (5 stories, 21 points)
 
-- [ ] **US010:** Create Player Entity Class (Sancho)
+- [x] **US010:** Create Player Entity Class (Sancho)
   `context/user_stories/phase_3_core_mechanics/US010_player_entity_class.md`
 - [ ] **US011:** Implement Gravity and Physics System
   `context/user_stories/phase_3_core_mechanics/US011_physics_gravity_system.md`

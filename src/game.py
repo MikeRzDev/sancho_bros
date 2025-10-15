@@ -10,6 +10,8 @@ from src.constants import (
     FPS,
     COLOR_BACKGROUND
 )
+from src.entities import Player
+from src.camera import Camera
 
 
 class Game:
@@ -31,6 +33,12 @@ class Game:
 
         # Game state
         self.running = True
+
+        # Initialize game entities
+        self.player = Player(100, 400)  # Spawn at standard spawn position
+
+        # Initialize camera
+        self.camera = Camera(0, 0)
 
     def run(self):
         """
@@ -74,8 +82,8 @@ class Game:
         Args:
             dt (float): Delta time in seconds since last frame
         """
-        # Placeholder - game logic will be added in future user stories
-        pass
+        # Update player (platforms list empty for now - added in US015)
+        self.player.update(dt, [])
 
     def render(self):
         """
@@ -84,7 +92,8 @@ class Game:
         # Clear the screen with background color
         self.screen.fill(COLOR_BACKGROUND)
 
-        # Placeholder - entities and UI will be rendered in future user stories
+        # Render game entities
+        self.player.render(self.screen, self.camera)
 
         # Update the display
         pygame.display.flip()

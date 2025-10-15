@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 2 - Level Generator (COMPLETE)
+**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US010 COMPLETE)
 
 ---
 
@@ -19,8 +19,10 @@ sancho_bros/
       main.py                    # Game entry point
       game.py                    # Main Game class with game loop
       constants.py               # Game configuration constants
+      camera.py                  # Camera system (placeholder for US014)
       entities/                  # Player, enemies, power-ups, projectiles
          __init__.py
+         player.py               # Player entity class (Sancho)
       level/                     # Level loading and management
          __init__.py
       physics/                   # Collision detection and gravity
@@ -151,9 +153,13 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Enemy placement logic with patrol routes (Phase 2 - US007)
 - ✓ Power-up placement logic with strategic positioning (Phase 2 - US008)
 - ✓ Complete level JSON generation validated (Phase 2 - US009)
+- ✓ Player entity class with all core attributes and methods (Phase 3 - US010)
+- ✓ Camera placeholder system for rendering offsets (Phase 3 - US010)
+- ✓ Player rendering as blue rectangle (Phase 3 - US010)
+- ✓ Player integrated into main game loop (Phase 3 - US010)
 
 ### What's Pending
-- Phase 3: Core Mechanics (Player entity, physics, collision, camera)
+- Phase 3: Core Mechanics (Physics system, player controls, collision detection, camera following - US011-US014)
 - Phase 4: Level Loading (JSON parser, level management)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
@@ -303,6 +309,39 @@ All 5 level JSON files have been successfully generated with complete, validated
 ```
 
 **Phase 2 Status:** COMPLETE - All 5 user stories (US005-US009) implemented and validated.
+
+### Player Entity System (US010)
+The Player class represents Sancho, the player character, with complete state management and rendering.
+
+**Player Class (`src/entities/player.py`):**
+- `__init__(x, y)`: Initializes player at spawn position with pygame.Vector2 for position/velocity
+- Attributes:
+  - `position`, `velocity`: pygame.Vector2 for smooth movement
+  - `rect`: pygame.Rect for collision detection (40x60 pixels from constants)
+  - `lives`: Integer starting at 3 (from PLAYER_LIVES constant)
+  - `has_powerup`, `powerup_timer`: Power-up state tracking
+  - `facing_direction`: "LEFT" or "RIGHT" for sprite orientation
+  - `is_jumping`, `is_grounded`: Movement state flags
+- Methods:
+  - `update(dt, platforms)`: Updates player state, rect position, and powerup timer
+  - `render(screen, camera)`: Draws player as COLOR_PLAYER (blue) rectangle with camera offset
+  - `take_damage()`: Decrements lives when hit
+  - `handle_input(keys)`, `jump()`, `apply_gravity(dt)`, `check_collision(platforms)`: Placeholder methods for future user stories
+
+**Camera System (`src/camera.py`):**
+- Simple placeholder class with x, y offset attributes
+- Enables player rendering with camera offset (full implementation in US014)
+- Initialized at (0, 0) in game.py
+
+**Game Integration:**
+- Player instantiated at spawn position (100, 400) in `Game.__init__()`
+- `player.update(dt, [])` called every frame (empty platforms list until US015)
+- `player.render(screen, camera)` draws player on screen
+- Successfully tested - game runs without errors, player visible at spawn position
+
+**Entity Package Organization:**
+- `src/entities/__init__.py` exports Player class for clean imports
+- Ready to add Enemy, PowerUp, and Projectile classes in future phases
 
 ### Power-Up and Pit Placement (US008)
 The level generator now includes complete power-up and pit placement systems with strategic positioning and validation.
