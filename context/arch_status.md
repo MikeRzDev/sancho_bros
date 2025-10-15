@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US011 COMPLETE)
+**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US012 COMPLETE)
 
 ---
 
@@ -162,9 +162,14 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Player jump mechanics (Phase 3 - US011)
 - ✓ Basic platform collision detection for grounded state (Phase 3 - US011)
 - ✓ Physics integrated into player update loop (Phase 3 - US011)
+- ✓ Player horizontal movement controls (LEFT/RIGHT, A/D keys) (Phase 3 - US012)
+- ✓ Direction tracking (facing_direction) (Phase 3 - US012)
+- ✓ Complete input handling system in handle_input() method (Phase 3 - US012)
+- ✓ Smooth movement at 60 FPS (Phase 3 - US012)
+- ✓ Jump key press detection (requires release/repress) (Phase 3 - US012)
 
 ### What's Pending
-- Phase 3: Core Mechanics (Player movement/controls, full collision detection, camera following - US012-US014)
+- Phase 3: Core Mechanics (Full collision detection, camera following - US013-US014)
 - Phase 4: Level Loading (JSON parser, level management)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
@@ -410,6 +415,50 @@ The gravity physics system enables realistic falling, jumping, and grounded dete
 - `is_jumping`: Boolean flag indicating if player is in jump state
 - `velocity.y`: Vertical velocity component (positive = down, negative = up)
 - Flags reset properly during collision resolution
+
+### Player Movement and Controls (US012)
+The complete input handling system enables smooth player control with keyboard input for horizontal movement and jumping.
+
+**Input Handling (`Player.handle_input()` method):**
+- Called every frame from `Player.update()` with `pygame.key.get_pressed()` result
+- Processes all player controls in one unified method for smooth simultaneous actions
+- Responsive controls with no input lag at 60 FPS
+
+**Horizontal Movement:**
+- **LEFT arrow / A key**: Sets `velocity.x = -PLAYER_SPEED` (-5 pixels/frame), updates `facing_direction = "LEFT"`
+- **RIGHT arrow / D key**: Sets `velocity.x = PLAYER_SPEED` (5 pixels/frame), updates `facing_direction = "RIGHT"`
+- **No keys pressed**: Resets `velocity.x = 0` (immediate stop)
+- Movement works both on ground and in air (no restriction)
+- Direction changes are immediate and smooth
+
+**Direction Tracking:**
+- `facing_direction` attribute tracks last movement direction ("LEFT" or "RIGHT")
+- Updates only when movement keys are pressed
+- Persists when not moving (remembers last direction)
+- Will be used for sprite orientation in future phases
+
+**Jump Control:**
+- **SPACE key**: Triggers jump via `jump()` method
+- **Jump requirements**: Only works when `is_grounded = True`
+- **Key detection**: Uses `space_was_pressed` flag to detect key press vs hold
+  - Compares current frame key state with previous frame
+  - Only jumps on transition from not-pressed to pressed
+  - Prevents "bunny hopping" (holding space for continuous jumps)
+  - Requires key release and repress for next jump
+- Jump state managed by `jump()` method (sets `velocity.y = JUMP_STRENGTH`, `is_jumping = True`, `is_grounded = False`)
+
+**Control Flow (in `Player.update()`):**
+1. Get keyboard state: `keys = pygame.key.get_pressed()`
+2. Process input: `self.handle_input(keys)` (sets velocities, detects jump)
+3. Apply physics: Gravity affects velocity.y
+4. Update position: `position += velocity`
+5. Resolve collisions: Check platforms, update grounded state
+
+**Integration:**
+- All controls work simultaneously (move + jump at the same time)
+- Input processing happens before physics updates
+- Smooth movement and responsive controls at 60 FPS
+- No conflicts between horizontal movement and jumping
 
 ### Power-Up and Pit Placement (US008)
 The level generator now includes complete power-up and pit placement systems with strategic positioning and validation.

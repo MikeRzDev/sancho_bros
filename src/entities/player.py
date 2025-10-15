@@ -47,6 +47,10 @@ class Player:
         self.facing_direction = "RIGHT"
         self.is_jumping = False
         self.is_grounded = False
+        self.was_grounded = False  # Track previous frame's grounded state
+
+        # Input tracking (to prevent holding jump key)
+        self.space_was_pressed = False
 
     def update(self, dt, platforms):
         """
@@ -56,6 +60,10 @@ class Player:
             dt (float): Delta time in seconds since last frame
             platforms (list): List of platform objects for collision detection
         """
+        # Get keyboard input and process controls
+        keys = pygame.key.get_pressed()
+        self.handle_input(keys)
+
         # Apply physics - gravity system
         from src.physics.gravity import apply_gravity
         apply_gravity(self, dt)
@@ -85,8 +93,27 @@ class Player:
         Args:
             keys: pygame.key.get_pressed() result
         """
-        # Placeholder - full implementation in US012
-        pass
+        # Reset horizontal velocity
+        self.velocity.x = 0
+
+        # Horizontal movement (LEFT arrow or A key)
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.velocity.x = -PLAYER_SPEED
+            self.facing_direction = "LEFT"
+        # Horizontal movement (RIGHT arrow or D key)
+        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.velocity.x = PLAYER_SPEED
+            self.facing_direction = "RIGHT"
+
+        # Jump control (SPACE key)
+        # Allow jump if: space is pressed AND (player just landed OR space wasn't pressed before)
+        space_is_pressed = keys[pygame.K_SPACE]
+        just_landed = self.is_grounded and not self.was_grounded
+
+        if space_is_pressed and (just_landed or not self.space_was_pressed):
+            self.jump()
+
+        self.space_was_pressed = space_is_pressed
 
     def jump(self):
         """
@@ -117,6 +144,9 @@ class Player:
         Args:
             platforms (list): List of platform objects with rect attribute
         """
+        # Save previous grounded state
+        self.was_grounded = self.is_grounded
+
         # Assume not grounded initially
         self.is_grounded = False
 

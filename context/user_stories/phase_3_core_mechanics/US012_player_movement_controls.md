@@ -13,38 +13,38 @@ Critical
 ## Acceptance Criteria
 
 1. **Horizontal Movement**
-   - [ ] LEFT arrow / A key: Move left at PLAYER_SPEED
-   - [ ] RIGHT arrow / D key: Move right at PLAYER_SPEED
-   - [ ] Velocity.x set to PLAYER_SPEED (5 pixels/frame) when moving
-   - [ ] Velocity.x set to 0 when no keys pressed
-   - [ ] Movement works while in air (not restricted to ground)
+   - [x] LEFT arrow / A key: Move left at PLAYER_SPEED
+   - [x] RIGHT arrow / D key: Move right at PLAYER_SPEED
+   - [x] Velocity.x set to PLAYER_SPEED (5 pixels/frame) when moving
+   - [x] Velocity.x set to 0 when no keys pressed
+   - [x] Movement works while in air (not restricted to ground)
 
 2. **Direction Tracking**
-   - [ ] `facing_direction` updates to "LEFT" when moving left
-   - [ ] `facing_direction` updates to "RIGHT" when moving right
-   - [ ] Direction persists when not moving (remembers last direction)
+   - [x] `facing_direction` updates to "LEFT" when moving left
+   - [x] `facing_direction` updates to "RIGHT" when moving right
+   - [x] Direction persists when not moving (remembers last direction)
 
 3. **Jump Control**
-   - [ ] SPACE key triggers jump
-   - [ ] Jump only works when grounded
-   - [ ] Jump cannot be held for continuous jumping
-   - [ ] Requires key release and repress for next jump
+   - [x] SPACE key triggers jump
+   - [x] Jump only works when grounded
+   - [x] Jump cannot be held for continuous jumping
+   - [x] Requires key release and repress for next jump
 
 4. **Input Handling**
-   - [ ] `handle_input(keys)` method processes pygame key states
-   - [ ] Uses `pygame.key.get_pressed()` for continuous input
-   - [ ] Responsive controls (no input lag)
+   - [x] `handle_input(keys)` method processes pygame key states
+   - [x] Uses `pygame.key.get_pressed()` for continuous input
+   - [x] Responsive controls (no input lag)
 
 5. **Movement Smoothness**
-   - [ ] Movement is smooth and consistent
-   - [ ] No stuttering or jittering
-   - [ ] Direction changes are immediate
-   - [ ] Feels responsive at 60 FPS
+   - [x] Movement is smooth and consistent
+   - [x] No stuttering or jittering
+   - [x] Direction changes are immediate
+   - [x] Feels responsive at 60 FPS
 
 6. **Integration**
-   - [ ] `handle_input()` called in player's `update()` method
-   - [ ] Controls work in game loop
-   - [ ] Player can move left, right, and jump simultaneously
+   - [x] `handle_input()` called in player's `update()` method
+   - [x] Controls work in game loop
+   - [x] Player can move left, right, and jump simultaneously
 
 ## Technical Notes
 

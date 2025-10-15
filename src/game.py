@@ -95,9 +95,6 @@ class Game:
                 # ESC key exits the game
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
-                # Space bar to jump (US011 physics validation)
-                elif event.key == pygame.K_SPACE:
-                    self.player.jump()
 
     def update(self, dt):
         """

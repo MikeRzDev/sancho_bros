@@ -38,7 +38,7 @@
   `context/user_stories/phase_3_core_mechanics/US010_player_entity_class.md`
 - [x] **US011:** Implement Gravity and Physics System
   `context/user_stories/phase_3_core_mechanics/US011_physics_gravity_system.md`
-- [ ] **US012:** Implement Player Movement and Controls
+- [x] **US012:** Implement Player Movement and Controls
   `context/user_stories/phase_3_core_mechanics/US012_player_movement_controls.md`
 - [ ] **US013:** Implement Collision Detection System
   `context/user_stories/phase_3_core_mechanics/US013_collision_detection_system.md`
