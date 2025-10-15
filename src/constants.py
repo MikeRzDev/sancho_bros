@@ -9,7 +9,7 @@ FPS = 60
 # ===== PHYSICS CONSTANTS =====
 GRAVITY = 0.8              # Applied each frame (pixels/frame²)
 MAX_FALL_SPEED = 15        # Terminal velocity
-JUMP_STRENGTH = -15        # Initial upward velocity (negative = up)
+JUMP_STRENGTH = -16        # Initial upward velocity (negative = up) - reaches ~160px
 PLAYER_SPEED = 5           # Horizontal pixels per frame
 
 # ===== GAME RULES CONSTANTS =====

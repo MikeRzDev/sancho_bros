@@ -13,19 +13,7 @@ from src.constants import (
 )
 from src.entities import Player
 from src.camera import Camera
-
-
-# Simple test platform class for US011 physics validation
-class TestPlatform:
-    """Temporary platform class for testing physics system."""
-    def __init__(self, x, y, width, height):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.color = COLOR_PLATFORM_SOLID
-
-    def render(self, screen, camera):
-        screen_x = self.rect.x - camera.x
-        screen_y = self.rect.y - camera.y
-        pygame.draw.rect(screen, self.color, (screen_x, screen_y, self.rect.width, self.rect.height))
+from src.level.tile import Platform
 
 
 class Game:
@@ -51,15 +39,28 @@ class Game:
         # Initialize game entities
         self.player = Player(100, 200)  # Spawn in air to test falling
 
-        # Initialize camera
-        self.camera = Camera(0, 0)
+        # Initialize camera with viewport dimensions
+        self.camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        # Create test platforms for US011 physics validation
+        # Create extended test platforms for camera system validation
+        # Level extends to 2000px to test scrolling
         self.platforms = [
-            TestPlatform(0, 550, 800, 50),      # Ground platform
-            TestPlatform(300, 400, 200, 20),    # Floating platform
-            TestPlatform(600, 300, 150, 20)     # Higher floating platform
+            # Ground platforms (solid)
+            Platform(0, 550, 500, 50, "solid"),        # Left ground
+            Platform(600, 550, 400, 50, "solid"),      # Middle ground (gap at 500-600)
+            Platform(1100, 550, 900, 50, "solid"),     # Right ground
+
+            # Floating platforms
+            Platform(300, 400, 200, 20, "floating"),   # Early jump
+            Platform(600, 300, 150, 20, "floating"),   # Over gap
+            Platform(900, 350, 180, 20, "floating"),   # Mid level
+            Platform(1200, 250, 120, 20, "floating"),  # High platform
+            Platform(1500, 400, 200, 20, "floating"),  # Late game
+            Platform(1800, 300, 150, 20, "floating"),  # Near end
         ]
+
+        # Calculate level width from platforms
+        self.level_width = max(platform.rect.right for platform in self.platforms)
 
     def run(self):
         """
@@ -105,6 +106,9 @@ class Game:
         """
         # Update player with test platforms
         self.player.update(dt, self.platforms)
+
+        # Update camera to follow player
+        self.camera.update(self.player.position, self.level_width)
 
     def render(self):
         """

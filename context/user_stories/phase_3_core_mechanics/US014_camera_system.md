@@ -13,51 +13,51 @@ High
 ## Acceptance Criteria
 
 1. **Camera Class Created**
-   - [ ] `src/camera.py` exists
-   - [ ] `Camera` class is defined
+   - [x] `src/camera.py` exists
+   - [x] `Camera` class is defined
 
 2. **Camera Attributes**
-   - [ ] `x`, `y`: Camera position in world coordinates
-   - [ ] `width`, `height`: Viewport dimensions (SCREEN_WIDTH, SCREEN_HEIGHT)
-   - [ ] `target`: Reference to player object
-   - [ ] `level_width`: Maximum camera boundary
+   - [x] `x`, `y`: Camera position in world coordinates
+   - [x] `width`, `height`: Viewport dimensions (SCREEN_WIDTH, SCREEN_HEIGHT)
+   - [x] `target`: Reference to player object
+   - [x] `level_width`: Maximum camera boundary
 
 3. **Camera Methods**
-   - [ ] `__init__(width, height)`: Initialize camera
-   - [ ] `update(target_pos, level_width)`: Follow target smoothly
-   - [ ] `apply(world_pos)`: Transform world coords to screen coords
-   - [ ] `is_visible(entity)`: Check if entity is in viewport
+   - [x] `__init__(width, height)`: Initialize camera
+   - [x] `update(target_pos, level_width)`: Follow target smoothly
+   - [x] `apply(world_pos)`: Transform world coords to screen coords
+   - [x] `is_visible(entity)`: Check if entity is in viewport
 
 4. **Camera Following Behavior**
-   - [ ] Camera centers on player horizontally
-   - [ ] Camera follows player smoothly (no jittering)
-   - [ ] Camera doesn't move beyond level boundaries:
+   - [x] Camera centers on player horizontally
+   - [x] Camera follows player smoothly (no jittering)
+   - [x] Camera doesn't move beyond level boundaries:
      - Left boundary: camera.x >= 0
      - Right boundary: camera.x <= level_width - SCREEN_WIDTH
-   - [ ] Camera keeps player visible at all times
+   - [x] Camera keeps player visible at all times
 
 5. **Boundary Handling**
-   - [ ] When level_width < SCREEN_WIDTH: camera stays at x=0
-   - [ ] Camera stops at left edge (x=0)
-   - [ ] Camera stops at right edge (level_width - SCREEN_WIDTH)
-   - [ ] Smooth behavior at boundaries (no jumping)
+   - [x] When level_width < SCREEN_WIDTH: camera stays at x=0
+   - [x] Camera stops at left edge (x=0)
+   - [x] Camera stops at right edge (level_width - SCREEN_WIDTH)
+   - [x] Smooth behavior at boundaries (no jumping)
 
 6. **Coordinate Transformation**
-   - [ ] `apply()` returns screen coordinates from world coordinates
-   - [ ] Formula: screen_x = world_x - camera.x
-   - [ ] All entities render using camera.apply()
+   - [x] `apply()` returns screen coordinates from world coordinates
+   - [x] Formula: screen_x = world_x - camera.x
+   - [x] All entities render using camera.apply()
 
 7. **Integration**
-   - [ ] Camera updates in game loop before rendering
-   - [ ] Camera passed to all render() methods
-   - [ ] Player stays centered (or near center) in viewport
-   - [ ] Platforms scroll smoothly with camera
+   - [x] Camera updates in game loop before rendering
+   - [x] Camera passed to all render() methods
+   - [x] Player stays centered (or near center) in viewport
+   - [x] Platforms scroll smoothly with camera
 
 8. **Validation**
-   - [ ] Player remains visible during all movement
-   - [ ] Level scrolls smoothly left and right
-   - [ ] No tearing or stuttering
-   - [ ] Camera stops at level edges correctly
+   - [x] Player remains visible during all movement
+   - [x] Level scrolls smoothly left and right
+   - [x] No tearing or stuttering
+   - [x] Camera stops at level edges correctly
 
 ## Technical Notes
 

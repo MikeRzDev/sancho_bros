@@ -137,9 +137,8 @@ class Player:
 
     def check_collision(self, platforms):
         """
-        Check and resolve collisions with platforms.
-        Handles grounded detection for physics system (US011).
-        Full collision resolution will be implemented in US013.
+        Check and resolve collisions with platforms using the collision system.
+        Uses the dedicated collision module for proper AABB collision resolution.
 
         Args:
             platforms (list): List of platform objects with rect attribute
@@ -147,27 +146,9 @@ class Player:
         # Save previous grounded state
         self.was_grounded = self.is_grounded
 
-        # Assume not grounded initially
-        self.is_grounded = False
-
-        # Check collision with each platform
-        for platform in platforms:
-            if self.rect.colliderect(platform.rect):
-                # Vertical collision (landing on or hitting platform from below)
-                if self.velocity.y > 0:  # Falling down
-                    # Landing on top of platform
-                    if self.rect.bottom >= platform.rect.top:
-                        self.rect.bottom = platform.rect.top
-                        self.position.y = self.rect.y
-                        self.velocity.y = 0
-                        self.is_grounded = True
-                        self.is_jumping = False
-                elif self.velocity.y < 0:  # Moving up
-                    # Hitting platform from below
-                    if self.rect.top <= platform.rect.bottom:
-                        self.rect.top = platform.rect.bottom
-                        self.position.y = self.rect.y
-                        self.velocity.y = 0
+        # Use collision module for full collision resolution
+        from src.physics.collision import resolve_platform_collision
+        resolve_platform_collision(self, platforms)
 
     def take_damage(self):
         """

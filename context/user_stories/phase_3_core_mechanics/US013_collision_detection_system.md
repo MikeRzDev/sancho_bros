@@ -13,58 +13,58 @@ Critical
 ## Acceptance Criteria
 
 1. **Collision Module Created**
-   - [ ] `src/physics/collision.py` exists
-   - [ ] Functions defined for collision checking:
+   - [x] `src/physics/collision.py` exists
+   - [x] Functions defined for collision checking:
      - `check_aabb_collision(rect1, rect2)`: AABB collision detection
      - `resolve_platform_collision(entity, platforms)`: Platform collision resolution
 
 2. **AABB Collision Detection**
-   - [ ] Returns True if two rectangles overlap
-   - [ ] Checks all four edges correctly
-   - [ ] Works with pygame.Rect objects
+   - [x] Returns True if two rectangles overlap
+   - [x] Checks all four edges correctly
+   - [x] Works with pygame.Rect objects
 
 3. **Platform Collision Resolution**
-   - [ ] Detects collision between player and platform
-   - [ ] Determines collision side (top, bottom, left, right)
-   - [ ] Resolves collision by adjusting player position
-   - [ ] Sets appropriate flags (`is_grounded`, etc.)
+   - [x] Detects collision between player and platform
+   - [x] Determines collision side (top, bottom, left, right)
+   - [x] Resolves collision by adjusting player position
+   - [x] Sets appropriate flags (`is_grounded`, etc.)
 
 4. **Top Collision (Landing)**
-   - [ ] Player lands on platform when falling (velocity.y > 0)
-   - [ ] Player positioned exactly on platform surface
-   - [ ] Vertical velocity set to 0
-   - [ ] `is_grounded` set to True
-   - [ ] Player can walk on platform
+   - [x] Player lands on platform when falling (velocity.y > 0)
+   - [x] Player positioned exactly on platform surface
+   - [x] Vertical velocity set to 0
+   - [x] `is_grounded` set to True
+   - [x] Player can walk on platform
 
 5. **Bottom Collision (Head Bump)**
-   - [ ] Player hits bottom of platform when jumping up
-   - [ ] Vertical velocity set to 0 (stops upward movement)
-   - [ ] Player starts falling after collision
+   - [x] Player hits bottom of platform when jumping up
+   - [x] Vertical velocity set to 0 (stops upward movement)
+   - [x] Player starts falling after collision
 
 6. **Side Collisions (Walls)**
-   - [ ] Player stops when hitting left side of platform
-   - [ ] Player stops when hitting right side of platform
-   - [ ] Horizontal velocity set to 0 on wall collision
-   - [ ] Player slides down wall if in air
+   - [x] Player stops when hitting left side of platform
+   - [x] Player stops when hitting right side of platform
+   - [x] Horizontal velocity set to 0 on wall collision
+   - [x] Player slides down wall if in air
 
 7. **Platform Class Created**
-   - [ ] `src/level/tile.py` exists
-   - [ ] `Platform` class defined with:
+   - [x] `src/level/tile.py` exists
+   - [x] `Platform` class defined with:
      - `__init__(x, y, width, height, type)`
      - `rect`: pygame.Rect for collision
      - `render(screen, camera)`: Draw platform
 
 8. **Integration with Player**
-   - [ ] Player's `update()` calls collision resolution
-   - [ ] Player receives list of platforms to check
-   - [ ] Collision checked every frame
-   - [ ] Works with multiple platforms
+   - [x] Player's `update()` calls collision resolution
+   - [x] Player receives list of platforms to check
+   - [x] Collision checked every frame
+   - [x] Works with multiple platforms
 
 9. **Visual Validation**
-   - [ ] Player stands on platform without falling through
-   - [ ] Player stops at edges and walls
-   - [ ] Player can jump from platform
-   - [ ] Multiple platforms work correctly
+   - [x] Player stands on platform without falling through
+   - [x] Player stops at edges and walls
+   - [x] Player can jump from platform
+   - [x] Multiple platforms work correctly
 
 ## Technical Notes
 

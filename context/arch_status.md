@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 3 - Core Mechanics (IN PROGRESS - US012 COMPLETE)
+**Current Development Phase:** Phase 3 - Core Mechanics (COMPLETE - US010-US014)
 
 ---
 
@@ -25,9 +25,11 @@ sancho_bros/
          player.py               # Player entity class (Sancho)
       level/                     # Level loading and management
          __init__.py
+         tile.py                 # Platform class for collision and rendering
       physics/                   # Collision detection and gravity
          __init__.py
          gravity.py              # Gravity physics system
+         collision.py            # AABB collision detection and resolution
       ui/                        # Menus and HUD
          __init__.py
       utils/                     # Utility functions
@@ -167,10 +169,19 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Complete input handling system in handle_input() method (Phase 3 - US012)
 - ✓ Smooth movement at 60 FPS (Phase 3 - US012)
 - ✓ Jump key press detection (requires release/repress) (Phase 3 - US012)
+- ✓ AABB collision detection system (Phase 3 - US013)
+- ✓ Platform collision resolution (top, bottom, left, right) (Phase 3 - US013)
+- ✓ Platform class with rendering and collision (Phase 3 - US013)
+- ✓ Side collision detection (wall blocking) (Phase 3 - US013)
+- ✓ Proper grounded state management via collision system (Phase 3 - US013)
+- ✓ Camera system with smooth player following (Phase 3 - US014)
+- ✓ Camera boundary clamping (prevents showing empty space) (Phase 3 - US014)
+- ✓ Coordinate transformation system (world to screen coords) (Phase 3 - US014)
+- ✓ Viewport culling support (is_visible method) (Phase 3 - US014)
+- ✓ Extended test level (2000px) for camera scrolling validation (Phase 3 - US014)
 
 ### What's Pending
-- Phase 3: Core Mechanics (Full collision detection, camera following - US013-US014)
-- Phase 4: Level Loading (JSON parser, level management)
+- Phase 4: Level Loading (JSON parser, level management, level progression)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
@@ -459,6 +470,126 @@ The complete input handling system enables smooth player control with keyboard i
 - Input processing happens before physics updates
 - Smooth movement and responsive controls at 60 FPS
 - No conflicts between horizontal movement and jumping
+
+### Collision Detection System (US013)
+The collision detection system provides AABB collision detection and comprehensive platform collision resolution for all game entities.
+
+**Collision Module (`src/physics/collision.py`):**
+- `check_aabb_collision(rect1, rect2)`: Simple AABB collision detection using pygame's `colliderect()`
+  - Returns True if two rectangles overlap
+  - Works with all pygame.Rect objects
+  - Fast and efficient for rectangular collision checks
+
+- `resolve_platform_collision(entity, platforms)`: Complete collision resolution system
+  - **Overlap Calculation**: Determines smallest overlap on X and Y axes
+  - **Collision Side Detection**: Identifies which side collided (top, bottom, left, right)
+  - **Top Collision (Landing)**:
+    - Triggers when entity falling (velocity.y > 0)
+    - Snaps entity to platform top surface
+    - Sets velocity.y = 0, is_grounded = True, is_jumping = False
+    - Allows entity to walk on platform
+  - **Bottom Collision (Head Bump)**:
+    - Triggers when entity moving up (velocity.y < 0)
+    - Snaps entity to platform bottom
+    - Sets velocity.y = 0 (stops upward motion)
+    - Entity begins falling after collision
+  - **Side Collisions (Walls)**:
+    - Triggers when horizontal overlap is smaller than vertical
+    - Left collision: Snaps entity to platform left edge, velocity.x = 0
+    - Right collision: Snaps entity to platform right edge, velocity.x = 0
+    - Entity slides down if in air (gravity still applies)
+  - **Position Syncing**: Updates entity.rect to match resolved position
+
+**Platform Class (`src/level/tile.py`):**
+- `__init__(x, y, width, height, platform_type)`: Constructor for platforms
+  - Creates pygame.Rect at specified position
+  - Stores platform type ("solid" or "floating")
+- `render(screen, camera)`: Camera-relative rendering
+  - Brown color (139, 69, 19) for "solid" platforms (ground)
+  - Gray color (100, 100, 100) for "floating" platforms (air)
+  - Draws relative to camera offset for scrolling levels
+
+**Player Integration:**
+- `Player.check_collision()` now delegates to `resolve_platform_collision()`
+- Simplified collision handling in player class
+- Consistent collision behavior across all game entities
+- Maintains was_grounded state for jump detection
+
+**Game Integration:**
+- Replaced temporary `TestPlatform` class with proper `Platform` class
+- Test platforms created as solid and floating types
+- Platforms rendered with correct colors
+- Full collision testing available in game
+
+**Collision Algorithm:**
+1. Check if entity rect overlaps platform rect (AABB test)
+2. Calculate overlap on X-axis and Y-axis
+3. Resolve smallest overlap (indicates collision direction):
+   - If overlap_x < overlap_y: Side collision (left/right)
+   - If overlap_y <= overlap_x: Top/bottom collision
+4. Use velocity direction to determine specific collision type
+5. Adjust entity position and velocity accordingly
+6. Update collision state flags (is_grounded, is_jumping)
+
+**Testing:**
+- All modules compile without errors
+- Game runs successfully with collision system
+- Three test platforms: ground platform + two floating platforms
+- Player can land on platforms, hit walls, and bump head on ceilings
+
+### Camera/Viewport System (US014)
+The camera system enables smooth scrolling levels that extend beyond the screen width, following the player while respecting level boundaries.
+
+**Camera Class (`src/camera.py`):**
+- `__init__(width, height)`: Initializes camera with viewport dimensions
+  - `width`, `height`: Viewport size (SCREEN_WIDTH=800, SCREEN_HEIGHT=600)
+  - `x`, `y`: Camera position in world coordinates (starts at 0, 0)
+  - `level_width`: Maximum camera boundary for current level
+- Methods:
+  - `update(target_pos, level_width)`: Updates camera position every frame
+    - Centers camera on target: `x = target_pos.x - width // 2`
+    - Clamps to left boundary: `x = max(0, x)`
+    - Clamps to right boundary: `x = min(x, level_width - width)` (if level > screen width)
+    - Handles small levels: Camera stays at x=0 when level_width < SCREEN_WIDTH
+    - Fixed vertical: y=0 (no vertical scrolling for 2D side-scroller)
+  - `apply(world_pos)`: Transforms world coordinates to screen coordinates
+    - Returns: `(world_pos.x - camera.x, world_pos.y - camera.y)`
+    - Used by all render methods for camera-relative rendering
+  - `is_visible(entity)`: Checks if entity is within viewport bounds
+    - Returns True if `entity.rect.right > camera.x` AND `entity.rect.left < camera.x + width`
+    - Useful for optimization (skip rendering off-screen entities)
+
+**Game Integration:**
+- Camera instantiated in `Game.__init__()`: `self.camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT)`
+- Camera updated in `Game.update()`: `self.camera.update(self.player.position, self.level_width)`
+- Camera passed to all render methods: `player.render(screen, camera)`, `platform.render(screen, camera)`
+- Level width calculated from platform positions: `max(platform.rect.right for platform in platforms)`
+
+**Test Level Configuration:**
+- Extended test platforms from 800px to 2000px for camera validation
+- 3 ground platform segments with gaps: 0-500, 600-1000, 1100-2000
+- 6 floating platforms distributed across level width
+- Level width: 2000px (calculated from rightmost platform edge)
+
+**Camera Behavior:**
+- **Following**: Camera centers on player horizontally, creating smooth scrolling effect
+- **Left Boundary**: Camera stops at x=0, player can move to left edge of screen
+- **Right Boundary**: Camera stops at `level_width - 800`, player can move to right edge
+- **Small Levels**: If level < 800px, camera stays at x=0 (no scrolling needed)
+- **Smooth Scrolling**: No jittering or jumping, 60 FPS updates
+
+**Coordinate System:**
+- World coordinates: Absolute positions in level (0 to level_width)
+- Screen coordinates: Positions on display (0 to SCREEN_WIDTH)
+- Transformation: `screen_x = world_x - camera.x`
+- Example: Player at world x=1000, camera at x=600 → renders at screen x=400
+
+**Benefits:**
+- Enables levels larger than screen width (critical for Phase 4 level loading)
+- Player stays centered for optimal visibility
+- Smooth scrolling creates professional game feel
+- Boundary clamping prevents showing empty space beyond level edges
+- Viewport culling support ready for performance optimization
 
 ### Power-Up and Pit Placement (US008)
 The level generator now includes complete power-up and pit placement systems with strategic positioning and validation.
