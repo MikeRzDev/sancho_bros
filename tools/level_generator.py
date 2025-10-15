@@ -300,8 +300,75 @@ class LevelGenerator:
             level_data: Level data dictionary to modify
             difficulty: Difficulty configuration for this level
         """
-        # TODO: Implement power-up placement logic in US008
-        pass
+        powerups = []
+        level_num = level_data['level_number']
+        level_width = level_data['width']
+        config = self.level_configs[level_num]
+
+        # Determine power-up count (handle both int and tuple)
+        powerup_config = config['powerups']
+        if isinstance(powerup_config, tuple):
+            powerup_count = random.randint(powerup_config[0], powerup_config[1])
+        else:
+            powerup_count = powerup_config
+
+        # Get all platforms to place power-ups above
+        platforms = level_data['platforms']
+        if not platforms:
+            level_data['powerups'] = powerups
+            return
+
+        # Divide level into segments to ensure distribution
+        # First power-up should be in first half of level (AC 7)
+        segment_width = level_width // (powerup_count + 1)
+
+        for i in range(powerup_count):
+            # Calculate target x position with some randomness
+            target_x = (i + 1) * segment_width + random.randint(-100, 100)
+            target_x = max(300, min(target_x, level_width - 300))  # Keep in safe bounds
+
+            # Find nearest platform below this x position
+            # Prefer platforms that are wide and near the target x
+            nearest_platform = None
+            min_distance = float('inf')
+
+            for platform in platforms:
+                # Check if power-up x would be above this platform
+                if platform['x'] <= target_x <= platform['x'] + platform['width']:
+                    # Target x is directly above this platform
+                    distance = 0
+                    if distance < min_distance:
+                        min_distance = distance
+                        nearest_platform = platform
+                else:
+                    # Calculate distance to platform center
+                    platform_center = platform['x'] + platform['width'] / 2
+                    distance = abs(target_x - platform_center)
+                    if distance < min_distance and distance < 200:  # Within reasonable range
+                        min_distance = distance
+                        nearest_platform = platform
+
+            if nearest_platform:
+                # Place power-up 50-150 pixels above the platform (AC 2)
+                height_above = random.randint(50, 150)
+                powerup_y = nearest_platform['y'] - height_above
+
+                # Ensure y is within level bounds
+                powerup_y = max(50, min(powerup_y, self.level_height - 100))
+
+                # Place at target x (may be slightly off-center from platform for variety)
+                powerup_x = target_x
+
+                powerups.append({
+                    'type': 'arepa_dorada',
+                    'x': powerup_x,
+                    'y': powerup_y
+                })
+
+        # Sort by x position for easier debugging
+        powerups.sort(key=lambda p: p['x'])
+
+        level_data['powerups'] = powerups
 
     def create_pits(self, level_data, difficulty):
         """
@@ -321,9 +388,9 @@ class LevelGenerator:
         else:
             num_pits = pit_config
 
-        # Safe zones: Don't place pits near spawn (first 500px) or goal (last 500px)
-        safe_start = 500
-        safe_end = level_width - 500
+        # Safe zones: Don't place pits near spawn (first 300px) or goal (last 200px) (AC 5)
+        safe_start = 300
+        safe_end = level_width - 200
         placeable_width = safe_end - safe_start
 
         if placeable_width > 0 and num_pits > 0:
@@ -335,20 +402,32 @@ class LevelGenerator:
                 segment_start = safe_start + (i * segment_width)
                 segment_end = segment_start + segment_width
 
-                # Pit width varies: 80-150 pixels (smaller for level 1, larger for later levels)
-                min_width = 80
-                max_width = 100 + (level_data['level_number'] * 10)  # Scales with difficulty
-                pit_width = random.randint(min_width, min(max_width, 150))
+                # Pit width varies: 100-200 pixels (AC 5)
+                # Scale with difficulty for variety
+                min_width = 100
+                max_width = min(200, 120 + (level_data['level_number'] * 15))
+                pit_width = random.randint(min_width, max_width)
 
                 # Random x position within segment, ensuring pit fits
                 max_x = segment_end - pit_width
                 if max_x > segment_start:
                     pit_x = random.randint(segment_start, max_x)
 
-                    pits.append({
-                        'x': pit_x,
-                        'width': pit_width
-                    })
+                    # Ensure no overlaps with existing pits (AC 6)
+                    overlaps = False
+                    for existing_pit in pits:
+                        if not (pit_x + pit_width < existing_pit['x'] or pit_x > existing_pit['x'] + existing_pit['width']):
+                            overlaps = True
+                            break
+
+                    if not overlaps:
+                        pits.append({
+                            'x': pit_x,
+                            'width': pit_width
+                        })
+
+        # Sort pits by x position (AC 6)
+        pits.sort(key=lambda p: p['x'])
 
         level_data['pits'] = pits
 

@@ -25,7 +25,7 @@
   `context/user_stories/phase_2_level_generator/US006_platform_generation.md`
 - [x] **US007:** Implement Enemy Placement Logic
   `context/user_stories/phase_2_level_generator/US007_enemy_placement.md`
-- [ ] **US008:** Implement Power-Up and Pit Placement
+- [x] **US008:** Implement Power-Up and Pit Placement
   `context/user_stories/phase_2_level_generator/US008_powerup_and_pit_placement.md`
 - [ ] **US009:** Generate Complete Level JSON Files
   `context/user_stories/phase_2_level_generator/US009_level_json_generation.md`

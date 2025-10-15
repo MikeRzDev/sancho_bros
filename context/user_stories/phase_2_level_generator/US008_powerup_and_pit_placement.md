@@ -15,59 +15,59 @@ High
 ### Power-Up Placement
 
 1. **Power-Up Count Per Level**
-   - [ ] Level 1: 1 Arepa Dorada
-   - [ ] Level 2: 1 Arepa Dorada
-   - [ ] Level 3: 2 Arepa Doradas
-   - [ ] Level 4: 2 Arepa Doradas
-   - [ ] Level 5: 2-3 Arepa Doradas
-   - [ ] Count matches game_implementation.md Section 6.2
+   - [x] Level 1: 1 Arepa Dorada
+   - [x] Level 2: 1 Arepa Dorada
+   - [x] Level 3: 2 Arepa Doradas
+   - [x] Level 4: 2 Arepa Doradas
+   - [x] Level 5: 2-3 Arepa Doradas
+   - [x] Count matches game_implementation.md Section 6.2
 
 2. **Power-Up Positioning**
-   - [ ] Power-ups placed above platforms (floating in air)
-   - [ ] Height: 50-150 pixels above nearest platform
-   - [ ] Positioned in reachable locations (require jumping)
-   - [ ] Spread throughout level (not all in one area)
-   - [ ] Some require defeating enemies or risky jumps to reach
+   - [x] Power-ups placed above platforms (floating in air)
+   - [x] Height: 50-150 pixels above nearest platform
+   - [x] Positioned in reachable locations (require jumping)
+   - [x] Spread throughout level (not all in one area)
+   - [x] Some require defeating enemies or risky jumps to reach
 
 3. **Power-Up JSON Format**
-   - [ ] Each power-up has: `type`, `x`, `y`
-   - [ ] Type is always "arepa_dorada"
-   - [ ] Coordinates are within level bounds
+   - [x] Each power-up has: `type`, `x`, `y`
+   - [x] Type is always "arepa_dorada"
+   - [x] Coordinates are within level bounds
 
 ### Pit Placement
 
 4. **Pit Count Per Level**
-   - [ ] Level 1: 1-2 pits
-   - [ ] Level 2: 2-3 pits
-   - [ ] Level 3: 3-4 pits
-   - [ ] Level 4: 4-5 pits
-   - [ ] Level 5: 5-6 pits
-   - [ ] Count matches game_implementation.md Section 6.2
+   - [x] Level 1: 1-2 pits
+   - [x] Level 2: 2-3 pits
+   - [x] Level 3: 3-4 pits
+   - [x] Level 4: 4-5 pits
+   - [x] Level 5: 5-6 pits
+   - [x] Count matches game_implementation.md Section 6.2
 
 5. **Pit Positioning**
-   - [ ] Pits are gaps in the ground floor
-   - [ ] Pit widths: 100-200 pixels
-   - [ ] Pits are jumpable OR have floating platforms to cross
-   - [ ] Not placed in first 300 pixels (spawn area)
-   - [ ] Not placed in last 200 pixels (goal area)
+   - [x] Pits are gaps in the ground floor
+   - [x] Pit widths: 100-200 pixels
+   - [x] Pits are jumpable OR have floating platforms to cross
+   - [x] Not placed in first 300 pixels (spawn area)
+   - [x] Not placed in last 200 pixels (goal area)
 
 6. **Pit JSON Format**
-   - [ ] Each pit has: `x`, `width`
-   - [ ] Pits don't overlap
-   - [ ] Pits array is properly formatted
+   - [x] Each pit has: `x`, `width`
+   - [x] Pits don't overlap
+   - [x] Pits array is properly formatted
 
 ### Overall
 
 7. **Strategic Placement**
-   - [ ] Some pits require power-up (laser) to safely cross
-   - [ ] Power-ups placed near challenging sections
-   - [ ] At least one power-up in first half of level
-   - [ ] Risk/reward balance maintained
+   - [x] Some pits require power-up (laser) to safely cross
+   - [x] Power-ups placed near challenging sections
+   - [x] At least one power-up in first half of level
+   - [x] Risk/reward balance maintained
 
 8. **Validation**
-   - [ ] All power-ups are reachable
-   - [ ] All pits are crossable
-   - [ ] Level remains completable with placed hazards
+   - [x] All power-ups are reachable
+   - [x] All pits are crossable
+   - [x] Level remains completable with placed hazards
 
 ## Technical Notes
 

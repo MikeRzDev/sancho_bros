@@ -147,11 +147,11 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Level generator tool (`tools/level_generator.py`)
 - ✓ 5 JSON level files with progressive difficulty (Phase 2 - US005)
 - ✓ Platform generation logic with ground and floating platforms (Phase 2 - US006)
-- ✓ Basic pit placement logic (Phase 2 - US006)
+- ✓ Pit placement logic with proper spacing and validation (Phase 2 - US006, US008)
 - ✓ Enemy placement logic with patrol routes (Phase 2 - US007)
+- ✓ Power-up placement logic with strategic positioning (Phase 2 - US008)
 
 ### What's Pending
-- Power-up placement enhancement (Phase 2 - US008)
 - Level generation completion (Phase 2 - US009)
 - Game entities (Player, Enemy, PowerUp, Projectile)
 - Physics system (collision detection, gravity)
@@ -262,6 +262,37 @@ Each level file contains:
 ```bash
 python3 tools/level_generator.py
 ```
+
+### Power-Up and Pit Placement (US008)
+The level generator now includes complete power-up and pit placement systems with strategic positioning and validation.
+
+**Power-Up Placement (`place_powerups()` method):**
+- **Power-Up Counts**: L1-L2 (1), L3-L4 (2), L5 (2-3)
+- **Distribution**: Power-ups divided across level segments for even spread
+- **Positioning Strategy**:
+  - Places power-ups 50-150 pixels above nearest platform (floating in air)
+  - Finds nearest platform below target position using distance calculation
+  - Ensures first power-up appears in first half of level
+  - Coordinates kept within safe bounds (300px from edges)
+- **JSON Format**: `{type: "arepa_dorada", x: int, y: int}`
+- **Reachability**: All power-ups positioned to require jumping from platforms
+- **Strategic Placement**: Power-ups near challenging sections and enemy locations
+
+**Pit Placement Enhancement (`create_pits()` method):**
+- **Pit Counts**: L1 (1-2), L2 (2-3), L3 (3-4), L4 (4-5), L5 (5-6)
+- **Pit Dimensions**: 100-200 pixels wide (scales with difficulty)
+- **Safe Zones**: 300px from spawn, 200px from goal (prevents unfair deaths)
+- **Validation**:
+  - Overlap detection ensures pits don't intersect
+  - Segment-based placement prevents clustering
+  - Ground platforms automatically split at pit locations (from US006)
+- **JSON Format**: `{x: int, width: int}` sorted by x position
+- **Crossability**: Floating platforms positioned to allow crossing all pits
+
+**Risk/Reward Balance:**
+- Power-ups strategically positioned near pits and enemies
+- Level remains completable with all hazards in place
+- Progressive difficulty maintained across all 5 levels
 
 ---
 
