@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 624,
+      "width": 571,
       "height": 50
     },
     {
@@ -28,107 +28,107 @@
     },
     {
       "type": "floating",
-      "x": 335,
-      "y": 327,
-      "width": 85,
+      "x": 305,
+      "y": 408,
+      "width": 127,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 524,
-      "y": 464,
-      "width": 123,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 699,
-      "y": 472,
-      "width": 126,
+      "x": 516,
+      "y": 435,
+      "width": 91,
       "height": 20
     },
     {
       "type": "solid",
-      "x": 718,
+      "x": 680,
       "y": 550,
-      "width": 713,
+      "width": 1026,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 933,
-      "y": 468,
-      "width": 90,
+      "x": 734,
+      "y": 340,
+      "width": 82,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1127,
-      "y": 475,
-      "width": 107,
+      "x": 894,
+      "y": 441,
+      "width": 129,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1270,
-      "y": 300,
-      "width": 114,
+      "x": 1082,
+      "y": 442,
+      "width": 109,
       "height": 20
     },
     {
       "type": "floating",
-      "x": 1466,
-      "y": 321,
-      "width": 113,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 1529,
-      "y": 550,
-      "width": 604,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 1662,
-      "y": 428,
-      "width": 84,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1844,
-      "y": 438,
-      "width": 125,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 2044,
-      "y": 419,
-      "width": 130,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 2212,
-      "y": 407,
+      "x": 1296,
+      "y": 451,
       "width": 80,
       "height": 20
     },
     {
+      "type": "floating",
+      "x": 1491,
+      "y": 387,
+      "width": 81,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1690,
+      "y": 473,
+      "width": 85,
+      "height": 20
+    },
+    {
       "type": "solid",
-      "x": 2252,
+      "x": 1841,
       "y": 550,
-      "width": 748,
+      "width": 212,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 2446,
-      "y": 471,
-      "width": 126,
+      "x": 1846,
+      "y": 336,
+      "width": 113,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2049,
+      "y": 333,
+      "width": 86,
+      "height": 20
+    },
+    {
+      "type": "solid",
+      "x": 2183,
+      "y": 550,
+      "width": 817,
+      "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 2235,
+      "y": 345,
+      "width": 87,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 2447,
+      "y": 422,
+      "width": 104,
       "height": 20
     },
     {
@@ -142,67 +142,78 @@
   "enemies": [
     {
       "type": "polocho",
-      "x": 762,
-      "y": 432,
-      "patrol_left": 709,
-      "patrol_right": 815
+      "x": 310,
+      "y": 360,
+      "patrol_left": 260,
+      "patrol_right": 360
     },
     {
       "type": "polocho",
-      "x": 933,
+      "x": 931,
       "y": 510,
-      "patrol_left": 800,
-      "patrol_right": 1066
+      "patrol_left": 868,
+      "patrol_right": 994
     },
     {
       "type": "polocho",
-      "x": 1180,
-      "y": 435,
-      "patrol_left": 1137,
-      "patrol_right": 1224
+      "x": 959,
+      "y": 401,
+      "patrol_left": 905,
+      "patrol_right": 1013
     },
     {
       "type": "polocho",
-      "x": 1327,
-      "y": 260,
-      "patrol_left": 1280,
-      "patrol_right": 1374
+      "x": 1902,
+      "y": 296,
+      "patrol_left": 1856,
+      "patrol_right": 1949
     },
     {
       "type": "polocho",
-      "x": 1900,
+      "x": 1938,
       "y": 510,
-      "patrol_left": 1812,
-      "patrol_right": 1988
+      "patrol_left": 1862,
+      "patrol_right": 2014
     },
     {
       "type": "polocho",
-      "x": 1906,
-      "y": 398,
-      "patrol_left": 1854,
-      "patrol_right": 1959
+      "x": 2499,
+      "y": 382,
+      "patrol_left": 2457,
+      "patrol_right": 2541
     },
     {
       "type": "polocho",
-      "x": 2111,
-      "y": 379,
-      "patrol_left": 2060,
-      "patrol_right": 2162
+      "x": 2660,
+      "y": 410,
+      "patrol_left": 2610,
+      "patrol_right": 2710
     }
   ],
-  "powerups": [],
+  "powerups": [
+    {
+      "type": "arepa_dorada",
+      "x": 933,
+      "y": 437
+    },
+    {
+      "type": "arepa_dorada",
+      "x": 1969,
+      "y": 410
+    }
+  ],
   "pits": [
     {
-      "x": 624,
-      "width": 94
+      "x": 571,
+      "width": 109
     },
     {
-      "x": 1431,
-      "width": 98
+      "x": 1706,
+      "width": 135
     },
     {
-      "x": 2133,
-      "width": 119
+      "x": 2053,
+      "width": 130
     }
   ],
   "goal": {

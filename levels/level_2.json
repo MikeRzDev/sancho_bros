@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 646,
+      "width": 333,
       "height": 50
     },
     {
@@ -28,80 +28,73 @@
     },
     {
       "type": "floating",
-      "x": 309,
-      "y": 403,
-      "width": 129,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 605,
-      "y": 342,
-      "width": 114,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 731,
-      "y": 550,
-      "width": 448,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 820,
-      "y": 463,
-      "width": 118,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1007,
-      "y": 406,
-      "width": 109,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1224,
-      "y": 444,
-      "width": 118,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 1271,
-      "y": 550,
-      "width": 560,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 1463,
-      "y": 347,
-      "width": 122,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1692,
-      "y": 471,
+      "x": 355,
+      "y": 314,
       "width": 108,
       "height": 20
     },
     {
+      "type": "solid",
+      "x": 470,
+      "y": 550,
+      "width": 859,
+      "height": 50
+    },
+    {
       "type": "floating",
-      "x": 1887,
-      "y": 397,
-      "width": 129,
+      "x": 570,
+      "y": 385,
+      "width": 123,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 770,
+      "y": 382,
+      "width": 110,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 996,
+      "y": 401,
+      "width": 137,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1249,
+      "y": 479,
+      "width": 113,
       "height": 20
     },
     {
       "type": "solid",
-      "x": 1912,
+      "x": 1432,
       "y": 550,
-      "width": 588,
+      "width": 1068,
       "height": 50
+    },
+    {
+      "type": "floating",
+      "x": 1441,
+      "y": 429,
+      "width": 136,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1673,
+      "y": 407,
+      "width": 129,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1932,
+      "y": 336,
+      "width": 130,
+      "height": 20
     },
     {
       "type": "floating",
@@ -114,31 +107,24 @@
   "enemies": [
     {
       "type": "polocho",
-      "x": 662,
-      "y": 302,
-      "patrol_left": 615,
-      "patrol_right": 709
+      "x": 409,
+      "y": 274,
+      "patrol_left": 365,
+      "patrol_right": 453
     },
     {
       "type": "polocho",
-      "x": 879,
-      "y": 423,
-      "patrol_left": 830,
-      "patrol_right": 928
+      "x": 1305,
+      "y": 439,
+      "patrol_left": 1259,
+      "patrol_right": 1352
     },
     {
       "type": "polocho",
-      "x": 1283,
-      "y": 404,
-      "patrol_left": 1234,
-      "patrol_right": 1332
-    },
-    {
-      "type": "polocho",
-      "x": 1746,
-      "y": 431,
-      "patrol_left": 1702,
-      "patrol_right": 1790
+      "x": 1509,
+      "y": 389,
+      "patrol_left": 1453,
+      "patrol_right": 1566
     },
     {
       "type": "polocho",
@@ -148,19 +134,21 @@
       "patrol_right": 2210
     }
   ],
-  "powerups": [],
+  "powerups": [
+    {
+      "type": "arepa_dorada",
+      "x": 1228,
+      "y": 426
+    }
+  ],
   "pits": [
     {
-      "x": 646,
-      "width": 85
+      "x": 333,
+      "width": 137
     },
     {
-      "x": 1179,
-      "width": 92
-    },
-    {
-      "x": 1831,
-      "width": 81
+      "x": 1329,
+      "width": 103
     }
   ],
   "goal": {

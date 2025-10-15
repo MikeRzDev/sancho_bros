@@ -16,7 +16,7 @@
       "type": "solid",
       "x": 0,
       "y": 550,
-      "width": 579,
+      "width": 793,
       "height": 50
     },
     {
@@ -28,51 +28,44 @@
     },
     {
       "type": "floating",
-      "x": 316,
-      "y": 366,
-      "width": 138,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 577,
-      "y": 421,
-      "width": 135,
-      "height": 20
-    },
-    {
-      "type": "solid",
-      "x": 659,
-      "y": 550,
-      "width": 442,
-      "height": 50
-    },
-    {
-      "type": "floating",
-      "x": 911,
-      "y": 399,
-      "width": 129,
-      "height": 20
-    },
-    {
-      "type": "floating",
-      "x": 1087,
-      "y": 376,
+      "x": 383,
+      "y": 413,
       "width": 123,
       "height": 20
     },
     {
+      "type": "floating",
+      "x": 560,
+      "y": 402,
+      "width": 148,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 874,
+      "y": 397,
+      "width": 137,
+      "height": 20
+    },
+    {
       "type": "solid",
-      "x": 1194,
+      "x": 894,
       "y": 550,
-      "width": 806,
+      "width": 1106,
       "height": 50
     },
     {
       "type": "floating",
-      "x": 1362,
-      "y": 366,
-      "width": 122,
+      "x": 1161,
+      "y": 407,
+      "width": 150,
+      "height": 20
+    },
+    {
+      "type": "floating",
+      "x": 1406,
+      "y": 351,
+      "width": 130,
       "height": 20
     },
     {
@@ -86,28 +79,37 @@
   "enemies": [
     {
       "type": "polocho",
-      "x": 974,
-      "y": 359,
-      "patrol_left": 922,
-      "patrol_right": 1027
+      "x": 946,
+      "y": 357,
+      "patrol_left": 895,
+      "patrol_right": 998
     },
     {
       "type": "polocho",
-      "x": 1148,
-      "y": 336,
-      "patrol_left": 1097,
-      "patrol_right": 1200
-    }
-  ],
-  "powerups": [],
-  "pits": [
-    {
-      "x": 579,
-      "width": 80
+      "x": 1244,
+      "y": 367,
+      "patrol_left": 1188,
+      "patrol_right": 1300
     },
     {
-      "x": 1101,
-      "width": 93
+      "type": "polocho",
+      "x": 1660,
+      "y": 410,
+      "patrol_left": 1610,
+      "patrol_right": 1710
+    }
+  ],
+  "powerups": [
+    {
+      "type": "arepa_dorada",
+      "x": 1086,
+      "y": 470
+    }
+  ],
+  "pits": [
+    {
+      "x": 793,
+      "width": 101
     }
   ],
   "goal": {
