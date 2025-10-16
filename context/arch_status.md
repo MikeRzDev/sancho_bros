@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 4 - Level Loading (IN PROGRESS - US015 COMPLETE)
+**Current Development Phase:** Phase 4 - Level Loading (IN PROGRESS - US016 COMPLETE)
 
 ---
 
@@ -27,6 +27,7 @@ sancho_bros/
          __init__.py
          tile.py                 # Platform class for collision and rendering
          level_loader.py         # JSON level file loader with validation
+         level.py                # Level class for game management
       physics/                   # Collision detection and gravity
          __init__.py
          gravity.py              # Gravity physics system
@@ -184,9 +185,14 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Comprehensive level data validation (all fields, types, bounds) (Phase 4 - US015)
 - ✓ Error handling for missing/corrupted level files (Phase 4 - US015)
 - ✓ Tested loading of all 5 generated level files (Phase 4 - US015)
+- ✓ Level class for complete game management (Phase 4 - US016)
+- ✓ Level initialization from JSON data with Platform object creation (Phase 4 - US016)
+- ✓ Pit detection and goal detection systems (Phase 4 - US016)
+- ✓ Level rendering with background, platforms, and goal indicator (Phase 4 - US016)
+- ✓ Level entity management methods (update, render, reset, getters) (Phase 4 - US016)
 
 ### What's Pending
-- Phase 4: Level Class for game management (US016), integration into game loop (US017), playability testing (US018)
+- Phase 4: Integration into game loop (US017), playability testing (US018)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
@@ -671,6 +677,66 @@ The level loader provides robust JSON file loading and comprehensive validation 
 - Exported from `src/level/__init__.py` for clean imports
 - Ready for use in Level class (US016) and game loop integration (US017)
 - Provides foundation for level progression system
+
+### Level Class System (US016)
+The Level class provides complete game management for loaded levels, converting JSON data into active game objects and managing all level entities.
+
+**Level Class (`src/level/level.py`):**
+- `__init__(level_data)`: Initializes level from LevelLoader parsed JSON data
+  - **Attributes**:
+    - `level_number`: Integer level identifier (1-5)
+    - `width`, `height`: Level dimensions in pixels
+    - `background_color`: RGB tuple for level background
+    - `player_spawn`: Dict with x, y spawn coordinates
+    - `goal`: Dict with x, y goal position
+    - `pits`: List of pit zones (x, width dicts)
+    - `platforms`: List of Platform objects (converted from JSON)
+    - `enemies`: Empty list (placeholder for Phase 5)
+    - `powerups`: Empty list (placeholder for Phase 6)
+
+**Platform Object Creation:**
+- Converts JSON platform data to Platform objects on initialization
+- Each platform created with: `Platform(x, y, width, height, type)`
+- Platform types preserved: "solid" (ground) and "floating" (air platforms)
+- All platforms accessible via `get_platforms()` for collision detection
+
+**Core Methods:**
+- `update(dt, player)`: Updates all level entities each frame
+  - Currently placeholder for enemy/powerup updates (Phase 5/6)
+  - Receives delta time and player reference
+  - Will manage entity AI and interactions in future phases
+
+- `render(screen, camera)`: Draws all level elements with camera offset
+  - Fills background with `background_color`
+  - Renders all platforms via `platform.render(screen, camera)`
+  - Draws goal indicator as green 50x50 rectangle
+  - All rendering respects camera position for scrolling
+
+- `check_goal(player)`: Detects level completion
+  - Returns True if player within 50 pixels of goal x position
+  - Uses distance calculation: `abs(player.position.x - goal['x']) < 50`
+
+- `check_pits(player)`: Detects pit falls
+  - Checks if player x position within any pit's x to x+width range
+  - Triggers if player y position exceeds `height - 100` (falling threshold)
+  - Returns True if player should lose a life
+
+- `get_platforms()`: Returns list of Platform objects for collision
+- `get_spawn_position()`: Returns (x, y) tuple for player spawning
+- `reset()`: Placeholder for level reset (will reset enemies/powerups in future)
+
+**Validation:**
+- ✓ Successfully imports and compiles without errors
+- ✓ Can be instantiated from loaded JSON data
+- ✓ Platform objects created correctly from JSON
+- ✓ All attributes accessible and match JSON data
+- ✓ Methods callable and return expected types
+
+**Integration:**
+- Exported from `src/level/__init__.py` alongside LevelLoader and Platform
+- Ready for game loop integration (US017)
+- Provides foundation for enemy (Phase 5) and powerup (Phase 6) systems
+- Works seamlessly with existing Camera and collision systems
 
 ---
 
