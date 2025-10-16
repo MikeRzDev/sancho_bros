@@ -13,56 +13,56 @@ High
 ## Acceptance Criteria
 
 1. **Stomp Detection Logic**
-   - [ ] `check_stomp(player, enemy)` function created in collision.py
-   - [ ] Detects when player lands on enemy from above
-   - [ ] Requires player moving downward (velocity.y > 0)
-   - [ ] Requires player rect.bottom near enemy rect.top
-   - [ ] Returns True if valid stomp, False otherwise
+   - [x] `check_stomp(player, enemy)` function created in collision.py
+   - [x] Detects when player lands on enemy from above
+   - [x] Requires player moving downward (velocity.y > 0)
+   - [x] Requires player rect.bottom near enemy rect.top
+   - [x] Returns True if valid stomp, False otherwise
 
 2. **Stomp Conditions**
-   - [ ] Player must be falling (velocity.y > 0)
-   - [ ] Player's bottom must hit enemy's top half
-   - [ ] Collision must be from above (not sides)
-   - [ ] Enemy must be alive
+   - [x] Player must be falling (velocity.y > 0)
+   - [x] Player's bottom must hit enemy's top half
+   - [x] Collision must be from above (not sides)
+   - [x] Enemy must be alive
 
 3. **Enemy Defeat**
-   - [ ] Enemy's `die()` method called on stomp
-   - [ ] `is_alive` set to False
-   - [ ] Enemy stops updating
-   - [ ] Enemy stops rendering
-   - [ ] Enemy removed from collision checks
+   - [x] Enemy's `die()` method called on stomp
+   - [x] `is_alive` set to False
+   - [x] Enemy stops updating
+   - [x] Enemy stops rendering
+   - [x] Enemy removed from collision checks
 
 4. **Player Bounce**
-   - [ ] Player bounces upward after stomping
-   - [ ] Bounce velocity: velocity.y = small negative value (e.g., -8)
-   - [ ] Allows chaining stomps
-   - [ ] Feels responsive and satisfying
+   - [x] Player bounces upward after stomping
+   - [x] Bounce velocity: velocity.y = small negative value (e.g., -8)
+   - [x] Allows chaining stomps
+   - [x] Feels responsive and satisfying
 
 5. **Stomp vs Damage Distinction**
-   - [ ] Stomp takes priority over damage collision
-   - [ ] Checked before damage collision
-   - [ ] Clear distinction in collision checking order
+   - [x] Stomp takes priority over damage collision
+   - [x] Checked before damage collision
+   - [x] Clear distinction in collision checking order
 
 6. **Visual Feedback**
-   - [ ] Enemy disappears when defeated (basic)
-   - [ ] Player bounces visibly
-   - [ ] Optional: squash animation (placeholder)
+   - [x] Enemy disappears when defeated (basic)
+   - [x] Player bounces visibly
+   - [x] Optional: squash animation (placeholder)
 
 7. **Audio Feedback (Placeholder)**
-   - [ ] Print message when enemy stomped
-   - [ ] Prepared for sound effect in Phase 7
+   - [x] Print message when enemy stomped
+   - [x] Prepared for sound effect in Phase 7
 
 8. **Multiple Enemy Testing**
-   - [ ] Can stomp multiple enemies in sequence
-   - [ ] Stomping one doesn't affect others
-   - [ ] All enemies can be defeated individually
+   - [x] Can stomp multiple enemies in sequence
+   - [x] Stomping one doesn't affect others
+   - [x] All enemies can be defeated individually
 
 9. **Validation**
-   - [ ] Jumping on enemy defeats it
-   - [ ] Landing from above triggers stomp
-   - [ ] Walking into enemy still causes damage
-   - [ ] Player bounces after stomp
-   - [ ] Can complete levels by defeating all enemies
+   - [x] Jumping on enemy defeats it
+   - [x] Landing from above triggers stomp
+   - [x] Walking into enemy still causes damage
+   - [x] Player bounces after stomp
+   - [x] Can complete levels by defeating all enemies
 
 ## Technical Notes
 

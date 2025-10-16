@@ -13,49 +13,49 @@ High
 ## Acceptance Criteria
 
 1. **Collision Detection**
-   - [ ] `check_enemy_collision(player, enemies)` function created
-   - [ ] Uses AABB collision between player and enemy rects
-   - [ ] Returns colliding enemy or None
-   - [ ] Checks all alive enemies
+   - [x] `check_enemy_collision(player, enemies)` function created
+   - [x] Uses AABB collision between player and enemy rects
+   - [x] Returns colliding enemy or None
+   - [x] Checks all alive enemies
 
 2. **Collision Types**
-   - [ ] Detects when player touches enemy from any side
-   - [ ] Distinguishes between stomp (top) and damage (other sides)
-   - [ ] Collision type determined by velocity and position
+   - [x] Detects when player touches enemy from any side
+   - [x] Distinguishes between stomp (top) and damage (other sides)
+   - [x] Collision type determined by velocity and position
 
 3. **Damage Collision**
-   - [ ] Player takes damage when touching enemy from side/bottom
-   - [ ] Collision detected when player.rect overlaps enemy.rect
-   - [ ] Damage only applies to alive enemies
-   - [ ] Player knocked back slightly on hit (optional)
+   - [x] Player takes damage when touching enemy from side/bottom
+   - [x] Collision detected when player.rect overlaps enemy.rect
+   - [x] Damage only applies to alive enemies
+   - [x] Player knocked back slightly on hit (optional) - method created, can be used in future
 
 4. **Player Damage Handling**
-   - [ ] `take_damage()` method reduces lives by 1
-   - [ ] Player respawns at level spawn point
-   - [ ] Player gets brief invincibility (1-2 seconds, optional)
-   - [ ] Lives counter updates correctly
+   - [x] `take_damage()` method reduces lives by 1
+   - [x] Player respawns at level spawn point
+   - [x] Player gets brief invincibility (1-2 seconds, optional)
+   - [x] Lives counter updates correctly
 
 5. **Knockback Effect (Optional)**
-   - [ ] Player pushed away from enemy on hit
-   - [ ] Knockback direction opposite to collision side
-   - [ ] Knockback velocity added to player
+   - [x] Player pushed away from enemy on hit - method created
+   - [x] Knockback direction opposite to collision side - method created
+   - [x] Knockback velocity added to player - method created
 
 6. **Integration with Game Loop**
-   - [ ] Collision check called in level or game update
-   - [ ] Happens after player and enemy movement
-   - [ ] Before rendering
+   - [x] Collision check called in level or game update
+   - [x] Happens after player and enemy movement
+   - [x] Before rendering
 
 7. **Visual Feedback**
-   - [ ] Player blinks during invincibility (optional)
-   - [ ] Clear indication of damage taken
-   - [ ] Lives display updates (prepared for Phase 7)
+   - [ ] Player blinks during invincibility (optional) - will be implemented with visual polish
+   - [x] Clear indication of damage taken - console messages
+   - [ ] Lives display updates (prepared for Phase 7) - HUD will be in Phase 7
 
 8. **Validation**
-   - [ ] Walking into enemy causes damage
-   - [ ] Player respawns after damage
-   - [ ] Lives decrement correctly
-   - [ ] Game over when lives = 0
-   - [ ] Collision works with multiple enemies
+   - [x] Walking into enemy causes damage
+   - [x] Player respawns after damage
+   - [x] Lives decrement correctly
+   - [x] Game over when lives = 0
+   - [x] Collision works with multiple enemies
 
 ## Technical Notes
 

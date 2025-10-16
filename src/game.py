@@ -171,6 +171,30 @@ class Game:
         # Update camera to follow player with level width as boundary
         self.camera.update(self.player.position, self.current_level.width)
 
+        # Check enemy collisions
+        from src.physics.collision import check_enemy_collision, check_stomp
+        colliding_enemy = check_enemy_collision(self.player, self.current_level.enemies)
+
+        if colliding_enemy:
+            # Check stomp first (priority over damage)
+            if check_stomp(self.player, colliding_enemy):
+                # Stomp! Defeat the enemy
+                colliding_enemy.die()
+                self.player.velocity.y = -8  # Bounce player upward
+                print("Enemy stomped!")
+            else:
+                # Player takes damage from side/bottom collision
+                damage_applied = self.player.take_damage()
+
+                if damage_applied:  # Only respawn if damage was actually applied (not invincible)
+                    if self.player.lives > 0:
+                        # Respawn player at spawn point
+                        self.respawn_player()
+                    else:
+                        # Game over - no lives remaining
+                        print("Game Over! No lives remaining.")
+                        self.running = False
+
         # Check win condition
         if self.current_level.check_goal(self.player):
             self.load_next_level()

@@ -46,6 +46,10 @@ class Polocho:
         self.is_grounded = False
         self.is_jumping = False  # Enemies don't jump, but collision system expects this
 
+        # Death animation
+        self.squashed = False
+        self.death_timer = 0.0
+
     def update(self, dt, platforms):
         """
         Update enemy state with patrol AI, physics, and collision detection.
@@ -54,6 +58,14 @@ class Polocho:
             dt (float): Delta time in seconds
             platforms (list): List of platform objects for collision
         """
+        # Handle squashed death animation
+        if self.squashed:
+            self.death_timer -= dt
+            if self.death_timer <= 0:
+                # Animation complete (enemy will be removed by level)
+                pass
+            return
+
         if not self.is_alive:
             return
 
@@ -143,9 +155,11 @@ class Polocho:
         Handle enemy death.
 
         Called when enemy is defeated by stomp or laser.
-        Sets is_alive to False to stop updates and rendering.
+        Sets is_alive to False and activates squash animation.
         """
         self.is_alive = False
+        self.squashed = True
+        self.death_timer = 0.5  # Show squashed sprite for 0.5 seconds
 
     def render(self, screen, camera):
         """
@@ -155,13 +169,21 @@ class Polocho:
             screen (pygame.Surface): Surface to draw on
             camera: Camera object with x, y offset attributes
         """
-        if not self.is_alive:
+        # Don't render if dead and not squashed
+        if not self.is_alive and not self.squashed:
             return
 
         # Calculate screen position relative to camera
         screen_x = self.position.x - camera.x
         screen_y = self.position.y - camera.y
 
-        # Draw as red rectangle (placeholder graphics)
-        pygame.draw.rect(screen, COLOR_ENEMY,
-                        (screen_x, screen_y, self.width, self.height))
+        if self.squashed:
+            # Draw squashed (flattened rectangle)
+            squash_height = 10
+            pygame.draw.rect(screen, COLOR_ENEMY,
+                            (screen_x, screen_y + self.height - squash_height,
+                             self.width, squash_height))
+        else:
+            # Draw normal sprite as red rectangle (placeholder graphics)
+            pygame.draw.rect(screen, COLOR_ENEMY,
+                            (screen_x, screen_y, self.width, self.height))

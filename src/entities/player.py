@@ -43,6 +43,11 @@ class Player:
         self.has_powerup = False
         self.powerup_timer = 0.0
 
+        # Invincibility system
+        self.is_invincible = False
+        self.invincibility_timer = 0.0
+        self.invincibility_duration = 2.0  # 2 seconds of invincibility after taking damage
+
         # Movement state
         self.facing_direction = "RIGHT"
         self.is_jumping = False
@@ -85,6 +90,13 @@ class Player:
             if self.powerup_timer <= 0:
                 self.has_powerup = False
                 self.powerup_timer = 0.0
+
+        # Update invincibility timer if active
+        if self.is_invincible and self.invincibility_timer > 0:
+            self.invincibility_timer -= dt
+            if self.invincibility_timer <= 0:
+                self.is_invincible = False
+                self.invincibility_timer = 0.0
 
     def handle_input(self, keys):
         """
@@ -153,10 +165,38 @@ class Player:
     def take_damage(self):
         """
         Handle player taking damage (lose a life).
+        Only applies damage if player is not currently invincible.
+        Activates invincibility period after taking damage.
+
+        Returns:
+            bool: True if damage was applied, False if player was invincible
         """
-        if self.lives > 0:
-            self.lives -= 1
-            # Additional damage handling (invincibility, respawn) in future user stories
+        # Don't take damage if invincible
+        if self.is_invincible:
+            return False
+
+        # Apply damage
+        self.lives -= 1
+        print(f"Player hit! Lives remaining: {self.lives}")
+
+        # Activate invincibility
+        self.is_invincible = True
+        self.invincibility_timer = self.invincibility_duration
+
+        return True
+
+    def apply_knockback(self, direction, strength=5):
+        """
+        Apply knockback force to player (pushes player away from enemy).
+
+        Args:
+            direction (str): "LEFT" or "RIGHT" - direction to push player
+            strength (int): Knockback force strength (default 5)
+        """
+        if direction == "LEFT":
+            self.velocity.x = -strength
+        elif direction == "RIGHT":
+            self.velocity.x = strength
 
     def render(self, screen, camera):
         """

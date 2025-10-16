@@ -71,3 +71,55 @@ def resolve_platform_collision(entity, platforms):
             # Update rect to match resolved position
             entity.rect.x = int(entity.position.x)
             entity.rect.y = int(entity.position.y)
+
+
+def check_enemy_collision(player, enemies):
+    """
+    Check collision between player and enemies.
+
+    Args:
+        player: Player entity with rect attribute
+        enemies (list): List of enemy entities with rect and is_alive attributes
+
+    Returns:
+        Enemy object if collision detected, None otherwise
+    """
+    for enemy in enemies:
+        if enemy.is_alive and check_aabb_collision(player.rect, enemy.rect):
+            return enemy
+    return None
+
+
+def check_stomp(player, enemy):
+    """
+    Check if player is stomping on enemy from above.
+
+    Stomp requirements:
+    - Enemy must be alive
+    - Player must be falling (velocity.y > 0)
+    - Player's bottom must hit enemy's top half
+    - Horizontal overlap must exist
+
+    Args:
+        player: Player entity with rect and velocity attributes
+        enemy: Enemy entity with rect and is_alive attributes
+
+    Returns:
+        bool: True if valid stomp, False otherwise
+    """
+    # Enemy must be alive
+    if not enemy.is_alive:
+        return False
+
+    # Player must be falling
+    if player.velocity.y <= 0:
+        return False
+
+    # Check if player's bottom is hitting enemy's top half
+    # Player bottom should be between enemy top and enemy center
+    if player.rect.bottom >= enemy.rect.top and player.rect.bottom <= enemy.rect.centery:
+        # Check horizontal overlap
+        if check_aabb_collision(player.rect, enemy.rect):
+            return True
+
+    return False

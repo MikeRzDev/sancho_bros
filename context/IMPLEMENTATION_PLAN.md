@@ -66,9 +66,9 @@
   `context/user_stories/phase_5_enemies/US019_enemy_entity_class.md`
 - [x] **US020:** Implement Enemy Patrol AI
   `context/user_stories/phase_5_enemies/US020_enemy_patrol_ai.md`
-- [ ] **US021:** Implement Player-Enemy Collision Detection
+- [x] **US021:** Implement Player-Enemy Collision Detection
   `context/user_stories/phase_5_enemies/US021_player_enemy_collision.md`
-- [ ] **US022:** Implement Stomp Mechanic to Defeat Enemies
+- [x] **US022:** Implement Stomp Mechanic to Defeat Enemies
   `context/user_stories/phase_5_enemies/US022_stomp_enemy_defeat.md`
 - [ ] **US023:** Test Enemy System Integration
   `context/user_stories/phase_5_enemies/US023_enemy_integration_testing.md`
