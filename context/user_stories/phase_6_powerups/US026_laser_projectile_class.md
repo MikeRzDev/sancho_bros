@@ -13,72 +13,72 @@ High
 ## Acceptance Criteria
 
 1. **Laser Class Created**
-   - [ ] `src/entities/projectile.py` exists
-   - [ ] `Laser` class is defined
+   - [x] `src/entities/projectile.py` exists
+   - [x] `Laser` class is defined
 
 2. **Laser Attributes**
-   - [ ] `position`: pygame.Vector2 (x, y)
-   - [ ] `velocity`: pygame.Vector2 (vx, 0) - horizontal only
-   - [ ] `rect`: pygame.Rect for collision
-   - [ ] `width`, `height`: int (e.g., 16x4 pixels)
-   - [ ] `direction`: string ("LEFT" or "RIGHT")
-   - [ ] `speed`: int (e.g., 10 pixels/frame)
-   - [ ] `lifetime`: float (starts at 2.0 seconds)
-   - [ ] `is_active`: bool (starts True)
+   - [x] `position`: pygame.Vector2 (x, y)
+   - [x] `velocity`: pygame.Vector2 (vx, 0) - horizontal only
+   - [x] `rect`: pygame.Rect for collision
+   - [x] `width`, `height`: int (e.g., 16x4 pixels)
+   - [x] `direction`: string ("LEFT" or "RIGHT")
+   - [x] `speed`: int (e.g., 10 pixels/frame)
+   - [x] `lifetime`: float (starts at 2.0 seconds)
+   - [x] `is_active`: bool (starts True)
 
 3. **Laser Initialization**
-   - [ ] `__init__(x, y, direction)`: Create laser
-   - [ ] Position set to player position
-   - [ ] Direction determines velocity sign
-   - [ ] Speed constant and fast
+   - [x] `__init__(x, y, direction)`: Create laser
+   - [x] Position set to player position
+   - [x] Direction determines velocity sign
+   - [x] Speed constant and fast
 
 4. **Laser Methods**
-   - [ ] `update(dt, platforms, enemies)`: Update position and check collisions
-   - [ ] `check_collisions(platforms, enemies)`: Detect hits
-   - [ ] `destroy()`: Deactivate laser
-   - [ ] `render(screen, camera)`: Draw laser
+   - [x] `update(dt, platforms, enemies)`: Update position and check collisions
+   - [x] `check_collisions(platforms, enemies)`: Detect hits
+   - [x] `destroy()`: Deactivate laser
+   - [x] `render(screen, camera)`: Draw laser
 
 5. **Laser Movement**
-   - [ ] Moves horizontally at high speed
-   - [ ] Direction matches player facing direction
-   - [ ] Velocity constant (no acceleration)
-   - [ ] Updates position each frame
+   - [x] Moves horizontally at high speed
+   - [x] Direction matches player facing direction
+   - [x] Velocity constant (no acceleration)
+   - [x] Updates position each frame
 
 6. **Lifetime System**
-   - [ ] Lifetime decreases each frame (dt)
-   - [ ] Laser destroys when lifetime <= 0
-   - [ ] Auto-destruction after 2 seconds
-   - [ ] Prevents lasers from lingering forever
+   - [x] Lifetime decreases each frame (dt)
+   - [x] Laser destroys when lifetime <= 0
+   - [x] Auto-destruction after 2 seconds
+   - [x] Prevents lasers from lingering forever
 
 7. **Collision Detection**
-   - [ ] Detects collision with platforms
-   - [ ] Detects collision with enemies
-   - [ ] Destroys on contact with either
-   - [ ] Uses AABB collision
+   - [x] Detects collision with platforms
+   - [x] Detects collision with enemies
+   - [x] Destroys on contact with either
+   - [x] Uses AABB collision
 
 8. **Enemy Hit Detection**
-   - [ ] Checks collision with all alive enemies
-   - [ ] Returns hit enemy or None
-   - [ ] Laser destroys after hitting enemy
-   - [ ] Enemy dies from laser hit
+   - [x] Checks collision with all alive enemies
+   - [x] Returns hit enemy or None
+   - [x] Laser destroys after hitting enemy
+   - [x] Enemy dies from laser hit
 
 9. **Platform Hit Detection**
-   - [ ] Checks collision with all platforms
-   - [ ] Laser destroys on platform contact
-   - [ ] Prevents lasers from going through walls
+   - [x] Checks collision with all platforms
+   - [x] Laser destroys on platform contact
+   - [x] Prevents lasers from going through walls
 
 10. **Rendering**
-    - [ ] Laser renders as colored line/rectangle
-    - [ ] Bright color (white, yellow, or cyan)
-    - [ ] Clearly visible against background
-    - [ ] Only renders when active
+    - [x] Laser renders as colored line/rectangle
+    - [x] Bright color (white, yellow, or cyan)
+    - [x] Clearly visible against background
+    - [x] Only renders when active
 
 11. **Validation**
-    - [ ] Laser can be created
-    - [ ] Laser moves in correct direction
-    - [ ] Laser destroys after 2 seconds
-    - [ ] Laser destroys on collision
-    - [ ] Multiple lasers can exist
+    - [x] Laser can be created
+    - [x] Laser moves in correct direction
+    - [x] Laser destroys after 2 seconds
+    - [x] Laser destroys on collision
+    - [x] Multiple lasers can exist
 
 ## Technical Notes
 

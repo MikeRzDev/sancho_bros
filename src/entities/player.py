@@ -213,6 +213,32 @@ class Player:
         self.powerup_timer = LASER_DURATION
         print(f"Power-up activated! Duration: {LASER_DURATION}s")
 
+    def shoot(self):
+        """
+        Shoot a laser projectile in the direction player is facing.
+        Only works when powered up and cooldown is ready.
+
+        Returns:
+            Laser or None: New Laser instance if shot is successful, None otherwise
+        """
+        # Can only shoot if powered up and cooldown is ready
+        if not self.has_powerup or self.laser_cooldown > 0:
+            return None
+
+        # Import here to avoid circular dependency
+        from src.entities.projectile import Laser
+
+        # Create laser at player position (centered vertically)
+        laser_x = self.position.x + self.width if self.facing_direction == "RIGHT" else self.position.x
+        laser_y = self.position.y + self.height // 2 - 2  # Center vertically (laser is 4px tall)
+
+        # Reset cooldown
+        from src.constants import LASER_COOLDOWN
+        self.laser_cooldown = LASER_COOLDOWN
+
+        print(f"Player shot laser! Direction: {self.facing_direction}")
+        return Laser(laser_x, laser_y, self.facing_direction)
+
     def render(self, screen, camera):
         """
         Draw the player on screen relative to camera position.

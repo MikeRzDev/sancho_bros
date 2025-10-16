@@ -47,6 +47,9 @@ class Game:
         spawn = self.current_level.get_spawn_position()
         self.player = Player(spawn[0], spawn[1])
 
+        # Projectile management
+        self.lasers = []  # List of active laser projectiles
+
     def load_level(self, level_num):
         """
         Load a level by number.
@@ -171,6 +174,12 @@ class Game:
                     self.player.is_invincible = not self.player.is_invincible
                     print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
 
+                # X or Ctrl key: Shoot laser (when powered up)
+                elif event.key == pygame.K_x or event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL:
+                    laser = self.player.shoot()
+                    if laser:
+                        self.lasers.append(laser)
+
     def update(self, dt):
         """
         Update game state.
@@ -241,6 +250,12 @@ class Game:
                 print("Game Over! No lives remaining.")
                 self.running = False
 
+        # Update lasers
+        for laser in self.lasers[:]:  # Copy list to allow removal during iteration
+            laser.update(dt, platforms, self.current_level.enemies)
+            if not laser.is_active:
+                self.lasers.remove(laser)
+
     def render(self):
         """
         Render the game to the screen.
@@ -250,6 +265,10 @@ class Game:
 
         # Render player on top of level
         self.player.render(self.screen, self.camera)
+
+        # Render lasers
+        for laser in self.lasers:
+            laser.render(self.screen, self.camera)
 
         # Display power-up timer if active
         if self.player.has_powerup:
