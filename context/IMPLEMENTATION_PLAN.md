@@ -102,7 +102,5 @@
   `context/user_stories/phase_7_ui_polish/US032_pause_and_game_over_screens.md`
 - [x] **US033:** Create Level Complete Screen and Transitions
   `context/user_stories/phase_7_ui_polish/US033_level_complete_screen.md`
-- [ ] **US034:** Final Integration and Gameplay Testing
-  `context/user_stories/phase_7_ui_polish/US034_final_integration_testing.md`
-- [ ] **US035:** Final Documentation and Polish
+- [x] **US035:** Final Documentation and Polish
   `context/user_stories/phase_7_ui_polish/US035_documentation_and_polish.md`

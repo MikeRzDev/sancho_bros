@@ -8,7 +8,8 @@ from src.constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
     FPS,
-    GameState
+    GameState,
+    DEBUG
 )
 from src.entities import Player
 from src.camera import Camera
@@ -70,7 +71,8 @@ class Game:
         Args:
             new_state (str): The new game state to transition to
         """
-        print(f"[STATE] {self.state} -> {new_state}")
+        if DEBUG:
+            print(f"[STATE] {self.state} -> {new_state}")
         self.state = new_state
 
         # Handle state-specific setup
@@ -89,9 +91,10 @@ class Game:
         if level_data:
             self.current_level = Level(level_data)
             self.current_level_number = level_num
-            print(f"Loaded Level {level_num}")
+            if DEBUG:
+                print(f"Loaded Level {level_num}")
         else:
-            print(f"Failed to load Level {level_num}")
+            print(f"Failed to load Level {level_num}")  # Error message - always show
             self.running = False
 
     def load_next_level(self):
@@ -100,9 +103,11 @@ class Game:
         if next_level <= 5:
             self.load_level(next_level)
             self.respawn_player()
-            print(f"Level {self.current_level_number - 1} Complete! Moving to Level {self.current_level_number}")
+            if DEBUG:
+                print(f"Level {self.current_level_number - 1} Complete! Moving to Level {self.current_level_number}")
         else:
-            print("Game Complete! You beat all 5 levels!")
+            if DEBUG:
+                print("Game Complete! You beat all 5 levels!")
             self.running = False
 
     def advance_to_next_level(self):
@@ -131,15 +136,17 @@ class Game:
             self.lasers = []
 
             # Reset camera
-            self.camera.offset.x = 0
-            self.camera.offset.y = 0
+            self.camera.x = 0
+            self.camera.y = 0
 
             # Return to playing state
             self.change_state(GameState.PLAYING)
-            print(f"[LEVEL ADVANCE] Moving to Level {self.current_level_number}")
+            if DEBUG:
+                print(f"[LEVEL ADVANCE] Moving to Level {self.current_level_number}")
         else:
             # All 5 levels completed! Transition to game complete screen
-            print("[GAME COMPLETE] All levels beaten!")
+            if DEBUG:
+                print("[GAME COMPLETE] All levels beaten!")
             self.change_state(GameState.GAME_COMPLETE)
 
     def respawn_player(self):
@@ -150,14 +157,16 @@ class Game:
         self.player.velocity.x = 0
         self.player.velocity.y = 0
         self.player.is_grounded = False
-        print(f"Player respawned at ({spawn[0]}, {spawn[1]})")
+        if DEBUG:
+            print(f"Player respawned at ({spawn[0]}, {spawn[1]})")
 
     def restart_level(self):
         """
         Restart the current level from the beginning.
         Used when player chooses to restart from pause menu.
         """
-        print(f"[RESTART] Restarting Level {self.current_level_number}")
+        if DEBUG:
+            print(f"[RESTART] Restarting Level {self.current_level_number}")
 
         # Reload the current level
         self.load_level(self.current_level_number)
@@ -173,8 +182,8 @@ class Game:
         self.lasers = []
 
         # Reset camera
-        self.camera.offset.x = 0
-        self.camera.offset.y = 0
+        self.camera.x = 0
+        self.camera.y = 0
 
         # Return to playing state
         self.change_state(GameState.PLAYING)
@@ -193,11 +202,13 @@ class Game:
             self.player.position.y = spawn[1]
             self.player.velocity = pygame.Vector2(0, 0)
             self.player.is_grounded = False
-            self.camera.offset.x = 0
-            self.camera.offset.y = 0
-            print(f"[TEST] Jumped to Level {level_num}")
+            self.camera.x = 0
+            self.camera.y = 0
+            if DEBUG:
+                print(f"[TEST] Jumped to Level {level_num}")
         else:
-            print(f"[TEST] Invalid level number: {level_num}. Must be 1-5.")
+            if DEBUG:
+                print(f"[TEST] Invalid level number: {level_num}. Must be 1-5.")
 
     def run(self):
         """
@@ -281,30 +292,31 @@ class Game:
                     if event.key == pygame.K_r:
                         self.load_specific_level(self.current_level_number)
 
-                    # DEBUG COMMANDS
-                    # K key: Kill all enemies
-                    if event.key == pygame.K_k:
-                        for enemy in self.current_level.enemies:
-                            enemy.die()
-                        print("[DEBUG] All enemies defeated")
+                    # DEBUG COMMANDS (only active when DEBUG = True)
+                    if DEBUG:
+                        # K key: Kill all enemies
+                        if event.key == pygame.K_k:
+                            for enemy in self.current_level.enemies:
+                                enemy.die()
+                            print("[DEBUG] All enemies defeated")
 
-                    # L key: Reset lives to 3
-                    if event.key == pygame.K_l:
-                        self.player.lives = 3
-                        print(f"[DEBUG] Lives reset to 3")
+                        # L key: Reset lives to 3
+                        if event.key == pygame.K_l:
+                            self.player.lives = 3
+                            print(f"[DEBUG] Lives reset to 3")
 
-                    # I key: Toggle invincibility
-                    if event.key == pygame.K_i:
-                        self.player.is_invincible = not self.player.is_invincible
-                        print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
+                        # I key: Toggle invincibility
+                        if event.key == pygame.K_i:
+                            self.player.is_invincible = not self.player.is_invincible
+                            print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
 
-                    # T key: Add time to power-up timer
-                    if event.key == pygame.K_t:
-                        if self.player.has_powerup:
-                            self.player.powerup_timer = 30.0
-                            print("[DEBUG] Power-up timer extended to 30s")
-                        else:
-                            print("[DEBUG] No active power-up to extend")
+                        # T key: Add time to power-up timer
+                        if event.key == pygame.K_t:
+                            if self.player.has_powerup:
+                                self.player.powerup_timer = 30.0
+                                print("[DEBUG] Power-up timer extended to 30s")
+                            else:
+                                print("[DEBUG] No active power-up to extend")
 
                 elif self.state == GameState.LEVEL_COMPLETE:
                     # ENTER key advances to next level
@@ -359,25 +371,26 @@ class Game:
                     # Stomp! Defeat the enemy
                     colliding_enemy.die()
                     self.player.velocity.y = -8  # Bounce player upward
-                    # DEBUG logging for stomp
-                    print(f"[STOMP] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
-                          f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f})")
+                    if DEBUG:
+                        print(f"[STOMP] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                              f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f})")
                 else:
                     # Player takes damage from side/bottom collision
                     damage_applied = self.player.take_damage()
 
                     if damage_applied:  # Only respawn if damage was actually applied (not invincible)
-                        # DEBUG logging for damage
-                        print(f"[DAMAGE] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
-                              f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f}), "
-                              f"Lives: {self.player.lives}")
+                        if DEBUG:
+                            print(f"[DAMAGE] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                                  f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f}), "
+                                  f"Lives: {self.player.lives}")
 
                         if self.player.lives > 0:
                             # Respawn player at spawn point
                             self.respawn_player()
                         else:
                             # Game over - no lives remaining
-                            print("Game Over! No lives remaining.")
+                            if DEBUG:
+                                print("Game Over! No lives remaining.")
                             self.change_state(GameState.GAME_OVER)
 
             # Check win condition
@@ -387,13 +400,15 @@ class Game:
             # Check lose condition
             if self.current_level.check_pits(self.player):
                 self.player.take_damage()
-                print(f"Player fell in pit! Lives remaining: {self.player.lives}")
+                if DEBUG:
+                    print(f"Player fell in pit! Lives remaining: {self.player.lives}")
 
                 if self.player.lives > 0:
                     # Respawn player
                     self.respawn_player()
                 else:
-                    print("Game Over! No lives remaining.")
+                    if DEBUG:
+                        print("Game Over! No lives remaining.")
                     self.change_state(GameState.GAME_OVER)
 
             # Update lasers
@@ -506,7 +521,8 @@ class Game:
 
     def restart_game(self):
         """Restart the game from Level 1."""
-        print("[RESTART] Restarting game from Level 1")
+        if DEBUG:
+            print("[RESTART] Restarting game from Level 1")
 
         # Reset to level 1
         self.load_level(1)

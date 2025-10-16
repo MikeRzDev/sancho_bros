@@ -12,7 +12,8 @@ from src.constants import (
     GRAVITY,
     JUMP_STRENGTH,
     PLAYER_SPEED,
-    LASER_DURATION
+    LASER_DURATION,
+    DEBUG
 )
 
 
@@ -183,7 +184,8 @@ class Player:
 
         # Apply damage
         self.lives -= 1
-        print(f"Player hit! Lives remaining: {self.lives}")
+        if DEBUG:
+            print(f"Player hit! Lives remaining: {self.lives}")
 
         # Activate invincibility
         self.is_invincible = True
@@ -211,7 +213,8 @@ class Player:
         """
         self.has_powerup = True
         self.powerup_timer = LASER_DURATION
-        print(f"Power-up activated! Duration: {LASER_DURATION}s")
+        if DEBUG:
+            print(f"Power-up activated! Duration: {LASER_DURATION}s")
 
     def shoot(self):
         """
@@ -236,7 +239,8 @@ class Player:
         from src.constants import LASER_COOLDOWN
         self.laser_cooldown = LASER_COOLDOWN
 
-        print(f"Player shot laser! Direction: {self.facing_direction}")
+        if DEBUG:
+            print(f"Player shot laser! Direction: {self.facing_direction}")
         return Laser(laser_x, laser_y, self.facing_direction)
 
     def render(self, screen, camera):

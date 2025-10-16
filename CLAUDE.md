@@ -81,7 +81,30 @@ The level loader (`level/level_loader.py`) parses these files and instantiates g
 - Player can stomp enemies by landing on their heads (detected via vertical velocity + top collision)
 - Pits check if player Y coordinate exceeds level height
 
+## Project Status
+
+**Current Version**: 1.0 - All core features complete
+**Last Updated**: October 2025
+**Status**: Feature-complete, polished, ready for distribution
+
+### Known Issues
+- Debug commands (K, L, I, T, 1-5) available during gameplay (low priority - useful for testing)
+- No audio/sound effects (expected - out of scope for v1.0)
+
+See `docs/KNOWN_ISSUES.md` for complete list.
+
 ## Development Commands
+
+### Debug Mode
+Set `DEBUG = True` in `src/constants.py` to enable debug print statements throughout the codebase. When False (default), the game runs silently except for error messages.
+
+This affects print statements in:
+- game.py (state changes, level loading, player respawn, collision events)
+- player.py (damage, power-up collection, laser shooting)
+- entities (projectile hits, power-up collection)
+- level_loader.py (successful level loads)
+
+### Initial Setup (IMPORTANT)
 
 ### Initial Setup
 ```bash
@@ -167,6 +190,8 @@ def update(self, dt, *args):
 - Entity classes handle their own collision and update logic
 - Level loader only parses files, Level class manages game objects
 - UI components are self-contained and state-aware
+- Test files organized in `tests/` directory
+- Documentation in `docs/` directory (TESTING.md, KNOWN_ISSUES.md, FUTURE_IMPROVEMENTS.md)
 
 ## Development Roadmap
 

@@ -3,7 +3,7 @@
 
 import pygame
 import math
-from src.constants import COLOR_POWERUP, POWERUP_WIDTH, POWERUP_HEIGHT
+from src.constants import COLOR_POWERUP, POWERUP_WIDTH, POWERUP_HEIGHT, DEBUG
 
 
 class PowerUp:
@@ -72,7 +72,8 @@ class PowerUp:
         Mark power-up as collected and provide feedback.
         """
         self.collected = True
-        print(f"Power-up collected: {self.type}")
+        if DEBUG:
+            print(f"Power-up collected: {self.type}")
 
     def render(self, screen, camera):
         """

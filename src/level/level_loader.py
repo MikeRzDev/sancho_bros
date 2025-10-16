@@ -6,6 +6,7 @@ Loads and validates JSON level files for Sancho Bros.
 
 import json
 import os
+from src.constants import DEBUG
 
 
 class LevelLoader:
@@ -41,7 +42,8 @@ class LevelLoader:
 
             # Validate the level data structure
             if self.validate_level(level_data):
-                print(f"Successfully loaded level: {filename}")
+                if DEBUG:
+                    print(f"Successfully loaded level: {filename}")
                 return level_data
             else:
                 raise ValueError(f"Invalid level data in {filename}")

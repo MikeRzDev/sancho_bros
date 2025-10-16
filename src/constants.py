@@ -1,6 +1,9 @@
 # SANCHO BROS - GAME CONSTANTS
 # Centralized configuration for all game parameters
 
+# ===== DEVELOPMENT CONSTANTS =====
+DEBUG = False  # Set to True to enable debug print statements
+
 # ===== SCREEN CONSTANTS =====
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600

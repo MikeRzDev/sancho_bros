@@ -4,6 +4,7 @@ Represents laser projectiles shot by the player when powered up.
 """
 
 import pygame
+from src.constants import DEBUG
 
 
 class Laser:
@@ -88,7 +89,8 @@ class Laser:
             if enemy.is_alive and check_aabb_collision(self.rect, enemy.rect):
                 enemy.die()
                 self.destroy()
-                print(f"Laser hit enemy at ({enemy.position.x:.1f}, {enemy.position.y:.1f})")
+                if DEBUG:
+                    print(f"Laser hit enemy at ({enemy.position.x:.1f}, {enemy.position.y:.1f})")
                 return
 
     def destroy(self):
