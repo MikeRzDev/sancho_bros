@@ -154,6 +154,23 @@ class Game:
                 elif event.key == pygame.K_r:
                     self.load_specific_level(self.current_level_number)
 
+                # DEBUG COMMANDS (for testing US023)
+                # K key: Kill all enemies
+                elif event.key == pygame.K_k:
+                    for enemy in self.current_level.enemies:
+                        enemy.die()
+                    print("[DEBUG] All enemies defeated")
+
+                # L key: Reset lives to 3
+                elif event.key == pygame.K_l:
+                    self.player.lives = 3
+                    print(f"[DEBUG] Lives reset to 3")
+
+                # I key: Toggle invincibility
+                elif event.key == pygame.K_i:
+                    self.player.is_invincible = not self.player.is_invincible
+                    print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
+
     def update(self, dt):
         """
         Update game state.
@@ -181,12 +198,19 @@ class Game:
                 # Stomp! Defeat the enemy
                 colliding_enemy.die()
                 self.player.velocity.y = -8  # Bounce player upward
-                print("Enemy stomped!")
+                # DEBUG logging for stomp
+                print(f"[STOMP] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                      f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f})")
             else:
                 # Player takes damage from side/bottom collision
                 damage_applied = self.player.take_damage()
 
                 if damage_applied:  # Only respawn if damage was actually applied (not invincible)
+                    # DEBUG logging for damage
+                    print(f"[DAMAGE] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                          f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f}), "
+                          f"Lives: {self.player.lives}")
+
                     if self.player.lives > 0:
                         # Respawn player at spawn point
                         self.respawn_player()

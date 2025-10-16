@@ -13,72 +13,72 @@ High
 ## Acceptance Criteria
 
 1. **Enemy Spawning**
-   - [ ] All enemies from level JSON spawn correctly
-   - [ ] Enemy counts match specifications:
+   - [x] All enemies from level JSON spawn correctly
+   - [x] Enemy counts match specifications:
      - Level 1: 2-3 enemies
      - Level 2: 4-5 enemies
      - Level 3: 6-7 enemies
      - Level 4: 8-9 enemies
      - Level 5: 10-12 enemies
-   - [ ] Enemies spawn at correct positions
-   - [ ] Enemies spawn on platforms (not in air)
+   - [x] Enemies spawn at correct positions
+   - [x] Enemies spawn on platforms (not in air)
 
 2. **Patrol Behavior Testing**
-   - [ ] All enemies patrol within their boundaries
-   - [ ] No enemies fall off platforms unexpectedly
-   - [ ] Enemies turn around at patrol boundaries
-   - [ ] Patrol ranges from JSON are respected
-   - [ ] Multiple enemies patrol independently
+   - [x] All enemies patrol within their boundaries
+   - [x] No enemies fall off platforms unexpectedly
+   - [x] Enemies turn around at patrol boundaries
+   - [x] Patrol ranges from JSON are respected
+   - [x] Multiple enemies patrol independently
 
 3. **Collision Testing**
-   - [ ] Walking into enemy causes damage
-   - [ ] Jumping on enemy defeats it
-   - [ ] Stomp works from different approach angles
-   - [ ] Side collision causes damage (not stomp)
-   - [ ] Dead enemies don't cause collision
+   - [x] Walking into enemy causes damage
+   - [x] Jumping on enemy defeats it
+   - [x] Stomp works from different approach angles
+   - [x] Side collision causes damage (not stomp)
+   - [x] Dead enemies don't cause collision
 
 4. **Player Lives System**
-   - [ ] Lives start at 3
-   - [ ] Lives decrement on enemy collision
-   - [ ] Lives displayed correctly (prepared for HUD)
-   - [ ] Player respawns after taking damage
-   - [ ] Game over when lives reach 0
+   - [x] Lives start at 3
+   - [x] Lives decrement on enemy collision
+   - [x] Lives displayed correctly (prepared for HUD)
+   - [x] Player respawns after taking damage
+   - [x] Game over when lives reach 0
 
 5. **Respawn System**
-   - [ ] Player respawns at level spawn point
-   - [ ] Player velocity resets on respawn
-   - [ ] Enemies continue patrolling after player respawn
-   - [ ] Level state persists (defeated enemies stay dead)
+   - [x] Player respawns at level spawn point
+   - [x] Player velocity resets on respawn
+   - [x] Enemies continue patrolling after player respawn
+   - [x] Level state persists (defeated enemies stay dead)
 
 6. **Multi-Enemy Scenarios**
-   - [ ] Can defeat multiple enemies in sequence
-   - [ ] Can stomp chain (stomp, bounce, stomp again)
-   - [ ] Multiple enemies in same area work correctly
-   - [ ] No collision detection bugs with many enemies
+   - [x] Can defeat multiple enemies in sequence
+   - [x] Can stomp chain (stomp, bounce, stomp again)
+   - [x] Multiple enemies in same area work correctly
+   - [x] No collision detection bugs with many enemies
 
 7. **Level Completion with Enemies**
-   - [ ] Can complete level without defeating all enemies
-   - [ ] Can complete level after defeating all enemies
-   - [ ] Enemy defeat is optional (can be avoided)
-   - [ ] Level progression works with active enemies
+   - [x] Can complete level without defeating all enemies
+   - [x] Can complete level after defeating all enemies
+   - [x] Enemy defeat is optional (can be avoided)
+   - [x] Level progression works with active enemies
 
 8. **Edge Cases**
-   - [ ] Enemy at screen edge renders correctly
-   - [ ] Enemy near pit doesn't fall in (patrol boundaries)
-   - [ ] Simultaneous collision with multiple enemies handled
-   - [ ] Very fast player movement doesn't skip collision
+   - [x] Enemy at screen edge renders correctly
+   - [x] Enemy near pit doesn't fall in (patrol boundaries)
+   - [x] Simultaneous collision with multiple enemies handled
+   - [x] Very fast player movement doesn't skip collision
 
 9. **Performance Testing**
-   - [ ] 60 FPS maintained with 12 enemies (Level 5)
-   - [ ] No slowdown with many enemies on screen
-   - [ ] No memory leaks over time
-   - [ ] Collision detection is efficient
+   - [x] 60 FPS maintained with 12 enemies (Level 5)
+   - [x] No slowdown with many enemies on screen
+   - [x] No memory leaks over time
+   - [x] Collision detection is efficient
 
 10. **Visual Validation**
-    - [ ] Enemy direction changes visible (facing direction)
-    - [ ] Defeated enemies disappear appropriately
-    - [ ] Player bounce on stomp is visible
-    - [ ] Multiple enemies distinguishable
+    - [x] Enemy direction changes visible (facing direction)
+    - [x] Defeated enemies disappear appropriately
+    - [x] Player bounce on stomp is visible
+    - [x] Multiple enemies distinguishable
 
 ## Technical Notes
 

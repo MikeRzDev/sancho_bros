@@ -70,7 +70,7 @@
   `context/user_stories/phase_5_enemies/US021_player_enemy_collision.md`
 - [x] **US022:** Implement Stomp Mechanic to Defeat Enemies
   `context/user_stories/phase_5_enemies/US022_stomp_enemy_defeat.md`
-- [ ] **US023:** Test Enemy System Integration
+- [x] **US023:** Test Enemy System Integration
   `context/user_stories/phase_5_enemies/US023_enemy_integration_testing.md`
 
 ---
