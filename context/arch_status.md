@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 4 - Level Loading (COMPLETE) | Phase 5 - Enemies (READY)
+**Current Development Phase:** Phase 4 - Level Loading (COMPLETE) | Phase 5 - Enemies (IN PROGRESS - US019 COMPLETE)
 
 ---
 
@@ -23,6 +23,7 @@ sancho_bros/
       entities/                  # Player, enemies, power-ups, projectiles
          __init__.py
          player.py               # Player entity class (Sancho)
+         enemy.py                # Enemy entity class (Polocho)
       level/                     # Level loading and management
          __init__.py
          tile.py                 # Platform class for collision and rendering
@@ -201,9 +202,14 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ All 5 levels tested and verified playable (Phase 4 - US018)
 - ✓ Level transitions working smoothly (Phase 4 - US018)
 - ✓ Performance validated at 60 FPS across all levels (Phase 4 - US018)
+- ✓ Enemy entity class (Polocho) created with all attributes (Phase 5 - US019)
+- ✓ Enemy rendering as red rectangles (Phase 5 - US019)
+- ✓ Enemy integration with level loading system (Phase 5 - US019)
+- ✓ Multiple enemies supported per level (Phase 5 - US019)
+- ✓ Enemy death handling implemented (Phase 5 - US019)
 
 ### What's Pending
-- Phase 5: Enemies (Polocho entity, AI, combat)
+- Phase 5: Enemy patrol AI, player-enemy collision, stomp mechanic, enemy testing (US020-US023)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
 
@@ -864,6 +870,93 @@ The game includes comprehensive level testing tools and all 5 levels have been v
 - ✓ Level loading is instant (< 1 second)
 
 **Phase 4 Status:** COMPLETE - All user stories (US015-US018) implemented and tested. Ready for Phase 5 (Enemies).
+
+### Enemy Entity System (US019)
+The Polocho enemy class has been created with complete structure, rendering, and level integration. Enemies now appear in all levels as red rectangles.
+
+**Polocho Class (`src/entities/enemy.py`):**
+- `__init__(x, y, patrol_left, patrol_right)`: Initializes enemy at JSON-specified position
+  - **Attributes**:
+    - `position`, `velocity`: pygame.Vector2 for movement (initialized to x, y and 0, 0)
+    - `rect`: pygame.Rect for collision detection (ENEMY_WIDTH=40, ENEMY_HEIGHT=50)
+    - `width`, `height`: Enemy dimensions from constants (40x50 pixels)
+    - `patrol_left`, `patrol_right`: Integer patrol boundaries from level JSON
+    - `speed`: Movement speed (ENEMY_PATROL_SPEED=2 pixels/frame from constants)
+    - `facing_direction`: String tracking direction ("LEFT" or "RIGHT", starts "RIGHT")
+    - `is_alive`: Boolean state flag (starts True, set False on death)
+
+**Core Methods:**
+- `update(dt, platforms)`: Updates enemy state each frame
+  - Currently syncs rect position with logical position
+  - Respects `is_alive` flag (dead enemies don't update)
+  - Placeholder for patrol AI (to be implemented in US020)
+  - Receives platforms list for future collision detection
+
+- `patrol()`: Patrol movement handler (placeholder for US020)
+  - Will implement left/right movement between boundaries
+  - Planned for US020: Implement Enemy Patrol AI
+
+- `check_boundaries()`: Patrol boundary detection (placeholder for US020)
+  - Will detect when enemy reaches patrol limits
+  - Will trigger direction reversal
+  - Planned for US020: Implement Enemy Patrol AI
+
+- `die()`: Handles enemy death
+  - Sets `is_alive = False`
+  - Called when enemy defeated by stomp (US022) or laser (US027)
+  - Dead enemies excluded from updates and rendering
+
+- `render(screen, camera)`: Draws enemy on screen
+  - Renders as COLOR_ENEMY (red) rectangle
+  - Respects camera offset for scrolling levels
+  - Only renders if `is_alive = True`
+  - Uses same coordinate transformation as player: `screen_x = position.x - camera.x`
+
+**Level Integration (`src/level/level.py`):**
+- **Enemy Creation**: Level `__init__()` creates Polocho objects from JSON
+  - Iterates through `level_data['enemies']` array
+  - Instantiates `Polocho(x, y, patrol_left, patrol_right)` for each entry
+  - Stores all enemies in `self.enemies` list
+  - Automatically populates levels with correct enemy count and placement
+
+- **Update Integration**: `Level.update()` updates all enemies
+  - Calls `enemy.update(dt, platforms)` for each enemy
+  - Passes platform list for future collision detection
+  - Dead enemies still updated (is_alive check inside enemy.update)
+
+- **Render Integration**: `Level.render()` renders all enemies
+  - Renders enemies after platforms, before goal indicator
+  - Proper Z-order: Background → Platforms → Enemies → Player → Goal
+  - Each enemy positioned correctly via camera transformation
+
+**Entity Package Organization:**
+- `src/entities/__init__.py` exports both Player and Polocho
+- Clean imports: `from src.entities import Player, Polocho`
+- Ready for PowerUp and Projectile classes in Phase 6
+
+**Visual Appearance:**
+- Enemies render as red (255, 0, 0) rectangles
+- Consistent with placeholder graphics approach (player blue, platforms brown/gray)
+- 40x50 pixel size (slightly shorter than player's 40x60)
+- All enemies visible in-game at their JSON-specified positions
+
+**Enemy Data in Levels:**
+- Level 1: 3 enemies with patrol routes
+- Level 2: 4 enemies with patrol routes
+- Level 3: 7 enemies with patrol routes
+- Level 4: 8 enemies with patrol routes
+- Level 5: 10 enemies with patrol routes
+- Each enemy has unique patrol boundaries from level generator (US007)
+
+**Current Behavior:**
+- Enemies spawn at correct positions from JSON ✓
+- Enemies render as red rectangles ✓
+- Multiple enemies per level supported ✓
+- Enemies don't move yet (patrol AI pending US020)
+- Enemies don't collide with player yet (collision pending US021)
+- Enemies can't be defeated yet (stomp mechanic pending US022)
+
+**Phase 5 Status:** US019 COMPLETE - Enemy entity foundation established. Ready for US020 (Enemy Patrol AI).
 
 ---
 

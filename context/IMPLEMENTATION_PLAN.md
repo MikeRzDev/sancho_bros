@@ -62,7 +62,7 @@
 
 ## PHASE 5: ENEMIES (5 stories, 21 points)
 
-- [ ] **US019:** Create Enemy Entity Class (Polocho)
+- [x] **US019:** Create Enemy Entity Class (Polocho)
   `context/user_stories/phase_5_enemies/US019_enemy_entity_class.md`
 - [ ] **US020:** Implement Enemy Patrol AI
   `context/user_stories/phase_5_enemies/US020_enemy_patrol_ai.md`

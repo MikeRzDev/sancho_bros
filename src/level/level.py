@@ -5,6 +5,7 @@ Manages all level entities, platforms, enemies, powerups, and game logic.
 
 import pygame
 from src.level.tile import Platform
+from src.entities.enemy import Polocho
 
 
 class Level:
@@ -41,8 +42,17 @@ class Level:
             )
             self.platforms.append(platform)
 
-        # Placeholders for Phase 5 & 6
+        # Create enemy objects from JSON data
         self.enemies = []
+        for e_data in level_data['enemies']:
+            enemy = Polocho(
+                e_data['x'], e_data['y'],
+                e_data['patrol_left'],
+                e_data['patrol_right']
+            )
+            self.enemies.append(enemy)
+
+        # Placeholder for Phase 6
         self.powerups = []
 
     def update(self, dt, player):
@@ -53,7 +63,10 @@ class Level:
             dt (float): Delta time in seconds
             player: Player object
         """
-        # Update enemies (Phase 5)
+        # Update all enemies
+        for enemy in self.enemies:
+            enemy.update(dt, self.platforms)
+
         # Update powerups (Phase 6)
         pass
 
@@ -71,6 +84,10 @@ class Level:
         # Render all platforms
         for platform in self.platforms:
             platform.render(screen, camera)
+
+        # Render all enemies
+        for enemy in self.enemies:
+            enemy.render(screen, camera)
 
         # Render goal (placeholder - green rectangle)
         goal_screen_x = self.goal['x'] - camera.x

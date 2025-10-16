@@ -13,55 +13,55 @@ High
 ## Acceptance Criteria
 
 1. **Enemy Class Created**
-   - [ ] `src/entities/enemy.py` exists
-   - [ ] `Polocho` class is defined
+   - [x] `src/entities/enemy.py` exists
+   - [x] `Polocho` class is defined
 
 2. **Enemy Attributes**
-   - [ ] `position`: pygame.Vector2 (x, y)
-   - [ ] `velocity`: pygame.Vector2 (vx, vy)
-   - [ ] `rect`: pygame.Rect for collision
-   - [ ] `width`, `height`: int (e.g., 32x40 pixels)
-   - [ ] `patrol_left`: int (left boundary)
-   - [ ] `patrol_right`: int (right boundary)
-   - [ ] `facing_direction`: string ("LEFT" or "RIGHT")
-   - [ ] `is_alive`: bool (starts True)
-   - [ ] `speed`: int (e.g., 2 pixels/frame)
+   - [x] `position`: pygame.Vector2 (x, y)
+   - [x] `velocity`: pygame.Vector2 (vx, vy)
+   - [x] `rect`: pygame.Rect for collision
+   - [x] `width`, `height`: int (e.g., 32x40 pixels)
+   - [x] `patrol_left`: int (left boundary)
+   - [x] `patrol_right`: int (right boundary)
+   - [x] `facing_direction`: string ("LEFT" or "RIGHT")
+   - [x] `is_alive`: bool (starts True)
+   - [x] `speed`: int (e.g., 2 pixels/frame)
 
 3. **Enemy Initialization**
-   - [ ] `__init__(x, y, patrol_left, patrol_right)`: Create enemy
-   - [ ] Position set correctly
-   - [ ] Patrol boundaries stored
-   - [ ] Initial direction set to "RIGHT"
-   - [ ] Rect created for collision
+   - [x] `__init__(x, y, patrol_left, patrol_right)`: Create enemy
+   - [x] Position set correctly
+   - [x] Patrol boundaries stored
+   - [x] Initial direction set to "RIGHT"
+   - [x] Rect created for collision
 
 4. **Enemy Methods Structure**
-   - [ ] `update(dt, platforms)`: Update enemy state (placeholder)
-   - [ ] `patrol()`: Handle patrol movement (placeholder)
-   - [ ] `check_boundaries()`: Check patrol limits (placeholder)
-   - [ ] `die()`: Handle enemy death
-   - [ ] `render(screen, camera)`: Draw enemy
+   - [x] `update(dt, platforms)`: Update enemy state (placeholder)
+   - [x] `patrol()`: Handle patrol movement (placeholder)
+   - [x] `check_boundaries()`: Check patrol limits (placeholder)
+   - [x] `die()`: Handle enemy death
+   - [x] `render(screen, camera)`: Draw enemy
 
 5. **Basic Rendering**
-   - [ ] Enemy renders as colored rectangle (RED placeholder)
-   - [ ] Uses COLOR_ENEMY from constants
-   - [ ] Position respects camera offset
-   - [ ] Visible when in viewport
+   - [x] Enemy renders as colored rectangle (RED placeholder)
+   - [x] Uses COLOR_ENEMY from constants
+   - [x] Position respects camera offset
+   - [x] Visible when in viewport
 
 6. **Death Handling**
-   - [ ] `die()` method sets `is_alive = False`
-   - [ ] Dead enemies don't render
-   - [ ] Dead enemies don't update
+   - [x] `die()` method sets `is_alive = False`
+   - [x] Dead enemies don't render
+   - [x] Dead enemies don't update
 
 7. **Integration with Level**
-   - [ ] Enemy can be instantiated from level JSON data
-   - [ ] Level creates enemy objects from JSON
-   - [ ] Enemies stored in level.enemies list
+   - [x] Enemy can be instantiated from level JSON data
+   - [x] Level creates enemy objects from JSON
+   - [x] Enemies stored in level.enemies list
 
 8. **Validation**
-   - [ ] Enemy class imports successfully
-   - [ ] Enemy object can be created
-   - [ ] Enemy renders at correct position
-   - [ ] Multiple enemies can exist simultaneously
+   - [x] Enemy class imports successfully
+   - [x] Enemy object can be created
+   - [x] Enemy renders at correct position
+   - [x] Multiple enemies can exist simultaneously
 
 ## Technical Notes
 
