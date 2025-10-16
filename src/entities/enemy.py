@@ -43,10 +43,12 @@ class Polocho:
 
         # State
         self.is_alive = True
+        self.is_grounded = False
+        self.is_jumping = False  # Enemies don't jump, but collision system expects this
 
     def update(self, dt, platforms):
         """
-        Update enemy state (placeholder for Phase 5).
+        Update enemy state with patrol AI, physics, and collision detection.
 
         Args:
             dt (float): Delta time in seconds
@@ -55,25 +57,86 @@ class Polocho:
         if not self.is_alive:
             return
 
-        # Update rect position to match logical position
+        # Patrol movement with edge detection (sets velocity.x)
+        self.patrol(platforms)
+
+        # Apply gravity
+        from src.physics.gravity import apply_gravity
+        self.is_grounded = False  # Reset before collision detection
+        apply_gravity(self, dt)
+
+        # Update position based on velocity
+        self.position.x += self.velocity.x
+        self.position.y += self.velocity.y
+
+        # Check collisions with platforms
+        from src.physics.collision import resolve_platform_collision
+        resolve_platform_collision(self, platforms)
+
+        # Update rect to match resolved position
         self.rect.x = int(self.position.x)
         self.rect.y = int(self.position.y)
 
-    def patrol(self):
+    def patrol(self, platforms=None):
         """
-        Handle patrol movement between boundaries (placeholder for US020).
+        Handle patrol movement between boundaries.
 
-        Will be implemented in US020: Implement Enemy Patrol AI
-        """
-        pass
+        Enemies move horizontally at constant speed, reversing direction
+        when they reach patrol_left or patrol_right boundaries.
 
-    def check_boundaries(self):
+        Args:
+            platforms (list, optional): List of platforms for edge detection
         """
-        Check patrol boundaries and turn around if needed (placeholder for US020).
+        # Move based on current direction
+        if self.facing_direction == "RIGHT":
+            self.velocity.x = self.speed
 
-        Will be implemented in US020: Implement Enemy Patrol AI
+            # Check right boundary
+            if self.position.x >= self.patrol_right:
+                self.facing_direction = "LEFT"
+                self.position.x = self.patrol_right  # Snap to boundary
+            # Check for platform edge (optional safety check)
+            elif platforms and not self.is_platform_ahead(platforms):
+                self.facing_direction = "LEFT"
+
+        elif self.facing_direction == "LEFT":
+            self.velocity.x = -self.speed
+
+            # Check left boundary
+            if self.position.x <= self.patrol_left:
+                self.facing_direction = "RIGHT"
+                self.position.x = self.patrol_left  # Snap to boundary
+            # Check for platform edge (optional safety check)
+            elif platforms and not self.is_platform_ahead(platforms):
+                self.facing_direction = "RIGHT"
+
+    def is_platform_ahead(self, platforms):
         """
-        pass
+        Check if there's a platform in front of the enemy to prevent falling off edges.
+
+        Args:
+            platforms (list): List of platform objects
+
+        Returns:
+            bool: True if platform detected ahead, False otherwise
+        """
+        # Check distance slightly ahead of enemy
+        check_distance = self.width + 5
+
+        if self.facing_direction == "RIGHT":
+            check_x = self.position.x + check_distance
+        else:
+            check_x = self.position.x - check_distance
+
+        # Check slightly below enemy's feet
+        check_y = self.position.y + self.height + 5
+
+        # Look for platform at check position
+        for platform in platforms:
+            if platform.rect.collidepoint(check_x, check_y):
+                return True
+
+        return False
 
     def die(self):
         """

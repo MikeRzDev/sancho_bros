@@ -64,7 +64,7 @@
 
 - [x] **US019:** Create Enemy Entity Class (Polocho)
   `context/user_stories/phase_5_enemies/US019_enemy_entity_class.md`
-- [ ] **US020:** Implement Enemy Patrol AI
+- [x] **US020:** Implement Enemy Patrol AI
   `context/user_stories/phase_5_enemies/US020_enemy_patrol_ai.md`
 - [ ] **US021:** Implement Player-Enemy Collision Detection
   `context/user_stories/phase_5_enemies/US021_player_enemy_collision.md`

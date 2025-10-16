@@ -2,7 +2,6 @@
 
 **Context Files:**
 - @context/IMPLEMENTATION_PLAN.md (user stories and phases)
-- @context/arch_status.md (current architecture state)
 - @CLAUDE.md (project details, tech stack, coding standards)
 
 ---
@@ -24,18 +23,11 @@
 3. **Complete the User Story**
    - After ALL acceptance criteria are [x], mark the user story as complete [x] in IMPLEMENTATION_PLAN.md
 
-4. **Update Architecture Documentation**
-   - Update arch_status.md with:
-     - New/modified files and their locations
-     - New features/systems implemented
-     - Current folder structure changes
-     - Any important architectural decisions made
-
-5. **Checkpoint**
+4. **Checkpoint**
    - Show me a summary of what was implemented
    - Ask for confirmation before moving to the next user story
 
-6. **Create User Story Resume Document (after completing each user story)**
+5. **Create User Story Resume Document (after completing each user story)**
    - After finishing each user story, create a comprehensive resume document named `context/resumes/user-story-id-resume.md` (e.g., `US001_project_structure_resume.md`):
      - **Changes Made:** High-level overview of what was implemented
      - **Files Modified/Created:** List each file with a brief explanation of its purpose and changes
@@ -43,11 +35,9 @@
      - **Next Steps:** What user story comes next and any dependencies or prerequisites
    - This summary helps future LLM sessions understand the project state without re-reading all code
 
-7. check the user story in the implementation plan
+6. check the user story in the implementation plan
 
-8. update the @context/arch_status.md with the latest version of the architecture
-
-9. wait for my instruction and review dont do anything else that is not included here.
+7. wait for my instruction and review dont do anything else that is not included here.
 ---
 
 ## Important Guidelines

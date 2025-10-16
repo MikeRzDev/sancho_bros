@@ -13,51 +13,51 @@ High
 ## Acceptance Criteria
 
 1. **Basic Patrol Movement**
-   - [ ] Enemy moves horizontally at constant speed (2 px/frame)
-   - [ ] Movement direction alternates between LEFT and RIGHT
-   - [ ] Velocity.x set based on facing direction
-   - [ ] Position updates each frame
+   - [x] Enemy moves horizontally at constant speed (2 px/frame)
+   - [x] Movement direction alternates between LEFT and RIGHT
+   - [x] Velocity.x set based on facing direction
+   - [x] Position updates each frame
 
 2. **Boundary Detection**
-   - [ ] Enemy turns around at `patrol_left` boundary
-   - [ ] Enemy turns around at `patrol_right` boundary
-   - [ ] Direction changes when boundary reached
-   - [ ] Velocity reverses at boundaries
+   - [x] Enemy turns around at `patrol_left` boundary
+   - [x] Enemy turns around at `patrol_right` boundary
+   - [x] Direction changes when boundary reached
+   - [x] Velocity reverses at boundaries
 
 3. **Direction Tracking**
-   - [ ] `facing_direction` updates to "LEFT" when moving left
-   - [ ] `facing_direction` updates to "RIGHT" when moving right
-   - [ ] Direction changes smoothly (no stuttering)
+   - [x] `facing_direction` updates to "LEFT" when moving left
+   - [x] `facing_direction` updates to "RIGHT" when moving right
+   - [x] Direction changes smoothly (no stuttering)
 
 4. **Edge Detection**
-   - [ ] Enemy detects platform edges
-   - [ ] Enemy turns around before falling off platform
-   - [ ] Uses raycast or position check for edge detection
-   - [ ] Works with both solid and floating platforms
+   - [x] Enemy detects platform edges
+   - [x] Enemy turns around before falling off platform
+   - [x] Uses raycast or position check for edge detection
+   - [x] Works with both solid and floating platforms
 
 5. **Gravity Application**
-   - [ ] Enemy affected by gravity when not on platform
-   - [ ] Enemy falls if platform ends
-   - [ ] Enemy lands on platforms below
-   - [ ] Vertical velocity capped at MAX_FALL_SPEED
+   - [x] Enemy affected by gravity when not on platform
+   - [x] Enemy falls if platform ends
+   - [x] Enemy lands on platforms below
+   - [x] Vertical velocity capped at MAX_FALL_SPEED
 
 6. **Collision with Platforms**
-   - [ ] Enemy detects platform collisions
-   - [ ] Enemy stays on top of platforms
-   - [ ] Enemy doesn't fall through platforms
-   - [ ] Uses collision system from US013
+   - [x] Enemy detects platform collisions
+   - [x] Enemy stays on top of platforms
+   - [x] Enemy doesn't fall through platforms
+   - [x] Uses collision system from US013
 
 7. **Patrol Behavior**
-   - [ ] Continuous back-and-forth movement
-   - [ ] No pausing at boundaries
-   - [ ] Smooth turnaround animation/behavior
-   - [ ] Predictable and consistent
+   - [x] Continuous back-and-forth movement
+   - [x] No pausing at boundaries
+   - [x] Smooth turnaround animation/behavior
+   - [x] Predictable and consistent
 
 8. **Visual Validation**
-   - [ ] All enemies patrol correctly in Level 1
-   - [ ] Enemies don't fall off platforms
-   - [ ] Enemies turn at correct boundaries
-   - [ ] Multiple enemies patrol independently
+   - [x] All enemies patrol correctly in Level 1
+   - [x] Enemies don't fall off platforms
+   - [x] Enemies turn at correct boundaries
+   - [x] Multiple enemies patrol independently
 
 ## Technical Notes
 

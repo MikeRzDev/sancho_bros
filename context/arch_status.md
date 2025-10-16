@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 4 - Level Loading (COMPLETE) | Phase 5 - Enemies (IN PROGRESS - US019 COMPLETE)
+**Current Development Phase:** Phase 4 - Level Loading (COMPLETE) | Phase 5 - Enemies (IN PROGRESS - US019-US020 COMPLETE)
 
 ---
 
@@ -207,9 +207,14 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Enemy integration with level loading system (Phase 5 - US019)
 - ✓ Multiple enemies supported per level (Phase 5 - US019)
 - ✓ Enemy death handling implemented (Phase 5 - US019)
+- ✓ Enemy patrol AI with boundary detection (Phase 5 - US020)
+- ✓ Enemy gravity and platform collision (Phase 5 - US020)
+- ✓ Enemy edge detection to prevent falling (Phase 5 - US020)
+- ✓ Smooth back-and-forth patrol movement (Phase 5 - US020)
+- ✓ Enemy physics integration (gravity, collision, grounded state) (Phase 5 - US020)
 
 ### What's Pending
-- Phase 5: Enemy patrol AI, player-enemy collision, stomp mechanic, enemy testing (US020-US023)
+- Phase 5: Player-enemy collision, stomp mechanic, enemy testing (US021-US023)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
 
@@ -957,6 +962,81 @@ The Polocho enemy class has been created with complete structure, rendering, and
 - Enemies can't be defeated yet (stomp mechanic pending US022)
 
 **Phase 5 Status:** US019 COMPLETE - Enemy entity foundation established. Ready for US020 (Enemy Patrol AI).
+
+### Enemy Patrol AI System (US020)
+The Polocho enemies now feature complete patrol AI with boundary detection, edge detection, physics, and collision detection.
+
+**Enhanced Polocho Class (`src/entities/enemy.py`):**
+- **New Attributes (added to `__init__()`):**
+  - `is_grounded`: Boolean flag indicating if enemy is on a platform (required by collision system)
+  - `is_jumping`: Boolean flag for collision system compatibility (always False for enemies)
+
+- **Complete `update()` method:**
+  - Calls `patrol(platforms)` to set horizontal velocity based on direction and boundaries
+  - Resets `is_grounded = False` before physics updates
+  - Applies gravity using `apply_gravity(self, dt)` from physics module
+  - Updates position: `position += velocity` (both x and y components)
+  - Resolves platform collisions using `resolve_platform_collision(self, platforms)`
+  - Syncs rect with resolved position for accurate collision detection
+  - Early exit if `is_alive = False` (dead enemies don't update)
+
+- **`patrol(platforms=None)` method:**
+  - Sets `velocity.x` based on `facing_direction`:
+    - RIGHT: `velocity.x = speed` (2 pixels/frame from ENEMY_PATROL_SPEED)
+    - LEFT: `velocity.x = -speed` (-2 pixels/frame)
+  - **Boundary Detection:**
+    - Checks if `position.x >= patrol_right` → turns LEFT
+    - Checks if `position.x <= patrol_left` → turns RIGHT
+    - Snaps position to boundary when turning (prevents overshooting)
+  - **Edge Detection (safety check):**
+    - Calls `is_platform_ahead(platforms)` to check for ground ahead
+    - If no platform detected, reverses direction to prevent falling
+    - Works with both solid and floating platforms
+
+- **`is_platform_ahead(platforms)` method:**
+  - **Purpose:** Prevents enemies from walking off platform edges
+  - **Algorithm:**
+    - Check position: `width + 5` pixels ahead of enemy
+    - Check height: `height + 5` pixels below enemy's feet
+    - Uses `platform.rect.collidepoint(check_x, check_y)` for detection
+    - Returns True if platform found, False if edge detected
+  - **Direction-aware:** Check position adjusts based on facing_direction
+  - Works with all platform types from level JSON
+
+**Patrol Behavior:**
+- Enemies move continuously at 2 pixels/frame (ENEMY_PATROL_SPEED constant)
+- Smooth direction reversal at boundaries (no stuttering or pausing)
+- Predictable back-and-forth movement within patrol_left to patrol_right range
+- Enemies turn around before falling off platform edges (edge detection)
+- Each enemy patrols independently based on JSON-defined boundaries
+
+**Physics Integration:**
+- Enemies affected by gravity (0.8 pixels/frame²) when not grounded
+- Fall speed capped at MAX_FALL_SPEED (15 pixels/frame) for terminal velocity
+- Platform collision resolution handles:
+  - Landing on platforms (sets is_grounded = True, velocity.y = 0)
+  - Side collisions with platforms (stops horizontal movement)
+  - Hitting platform bottom when falling from above
+- Enemies stay on platforms and don't fall through
+- Reuses existing physics/collision modules from US011 and US013
+
+**Visual Behavior:**
+- Enemies patrol visibly in all 5 levels
+- Movement is smooth and consistent at 60 FPS
+- Red rectangle rendering (placeholder graphics)
+- Multiple enemies patrol independently without interfering
+- Enemies confined to their patrol routes (defined in level JSON)
+
+**Testing Results:**
+- ✓ All enemies patrol correctly in Level 1 (3 enemies tested)
+- ✓ Boundary detection works at both patrol_left and patrol_right
+- ✓ Edge detection prevents falling off platforms
+- ✓ Gravity and collision work correctly with enemy movement
+- ✓ Multiple enemies patrol independently without conflicts
+- ✓ Smooth turnaround at boundaries (no visual glitches)
+- ✓ Game runs without errors at 60 FPS
+
+**Phase 5 Status:** US020 COMPLETE - Enemy patrol AI fully functional. Ready for US021 (Player-Enemy Collision).
 
 ---
 
