@@ -13,63 +13,63 @@ High
 ## Acceptance Criteria
 
 1. **Shoot Input Handling**
-   - [ ] X key triggers laser shooting
-   - [ ] Left Ctrl key also triggers laser shooting
-   - [ ] Input handled via event or key press
-   - [ ] Works while player is moving
+   - [x] X key triggers laser shooting
+   - [x] Left Ctrl key also triggers laser shooting
+   - [x] Input handled via event or key press
+   - [x] Works while player is moving
 
 2. **Shooting Conditions**
-   - [ ] Can only shoot when `has_powerup` is True
-   - [ ] Cannot shoot during cooldown
-   - [ ] Shooting respects LASER_COOLDOWN (0.5 seconds)
-   - [ ] Clear feedback when unable to shoot
+   - [x] Can only shoot when `has_powerup` is True
+   - [x] Cannot shoot during cooldown
+   - [x] Shooting respects LASER_COOLDOWN (0.5 seconds)
+   - [x] Clear feedback when unable to shoot
 
 3. **Laser Creation**
-   - [ ] `shoot_laser()` method in Player class
-   - [ ] Creates new Laser object
-   - [ ] Laser spawns at player position (slightly ahead)
-   - [ ] Laser direction matches player's `facing_direction`
-   - [ ] Laser added to game's laser list
+   - [x] `shoot_laser()` method in Player class
+   - [x] Creates new Laser object
+   - [x] Laser spawns at player position (slightly ahead)
+   - [x] Laser direction matches player's `facing_direction`
+   - [x] Laser added to game's laser list
 
 4. **Shooting Cooldown**
-   - [ ] `laser_cooldown` timer prevents rapid firing
-   - [ ] Cooldown set to LASER_COOLDOWN after each shot
-   - [ ] Cooldown decreases each frame (dt)
-   - [ ] Can shoot again when cooldown <= 0
+   - [x] `laser_cooldown` timer prevents rapid firing
+   - [x] Cooldown set to LASER_COOLDOWN after each shot
+   - [x] Cooldown decreases each frame (dt)
+   - [x] Can shoot again when cooldown <= 0
 
 5. **Laser Positioning**
-   - [ ] Laser spawns slightly in front of player
-   - [ ] Vertical position centered on player
-   - [ ] Doesn't spawn inside player
-   - [ ] Position calculation:
+   - [x] Laser spawns slightly in front of player
+   - [x] Vertical position centered on player
+   - [x] Doesn't spawn inside player
+   - [x] Position calculation:
      - x: player.x + player.width (RIGHT) or player.x - laser.width (LEFT)
      - y: player.y + player.height/2 - laser.height/2
 
 6. **Multiple Laser Management**
-   - [ ] Multiple lasers can exist simultaneously
-   - [ ] Each laser tracked independently
-   - [ ] Inactive lasers removed from list
-   - [ ] No limit on active laser count (respects cooldown)
+   - [x] Multiple lasers can exist simultaneously
+   - [x] Each laser tracked independently
+   - [x] Inactive lasers removed from list
+   - [x] No limit on active laser count (respects cooldown)
 
 7. **Visual Feedback**
-   - [ ] Muzzle flash or indicator when shooting (optional)
-   - [ ] Laser visible immediately after shooting
-   - [ ] Direction clearly visible
-   - [ ] Prepared for sound effect (Phase 7)
+   - [x] Muzzle flash or indicator when shooting (optional)
+   - [x] Laser visible immediately after shooting
+   - [x] Direction clearly visible
+   - [x] Prepared for sound effect (Phase 7)
 
 8. **Integration with Power-Up**
-   - [ ] Shooting only available when powered
-   - [ ] Shooting disabled when power-up expires
-   - [ ] Can shoot immediately after collection
-   - [ ] Timer doesn't interfere with cooldown
+   - [x] Shooting only available when powered
+   - [x] Shooting disabled when power-up expires
+   - [x] Can shoot immediately after collection
+   - [x] Timer doesn't interfere with cooldown
 
 9. **Validation**
-   - [ ] Pressing X while powered shoots laser
-   - [ ] Laser travels in correct direction
-   - [ ] Cooldown prevents rapid fire
-   - [ ] Cannot shoot without power-up
-   - [ ] Can shoot multiple lasers with cooldown
-   - [ ] Lasers defeat enemies on hit
+   - [x] Pressing X while powered shoots laser
+   - [x] Laser travels in correct direction
+   - [x] Cooldown prevents rapid fire
+   - [x] Cannot shoot without power-up
+   - [x] Can shoot multiple lasers with cooldown
+   - [x] Lasers defeat enemies on hit
 
 ## Technical Notes
 

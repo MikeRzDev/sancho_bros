@@ -83,7 +83,7 @@
   `context/user_stories/phase_6_powerups/US025_powerup_collection_system.md`
 - [x] **US026:** Create Laser Projectile Class
   `context/user_stories/phase_6_powerups/US026_laser_projectile_class.md`
-- [ ] **US027:** Implement Laser Shooting Mechanics
+- [x] **US027:** Implement Laser Shooting Mechanics
   `context/user_stories/phase_6_powerups/US027_laser_shooting_mechanics.md`
 - [ ] **US028:** Test Complete Power-Up System
   `context/user_stories/phase_6_powerups/US028_powerup_system_testing.md`
