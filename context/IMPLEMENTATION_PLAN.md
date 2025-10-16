@@ -49,7 +49,7 @@
 
 ## PHASE 4: LEVEL LOADING (4 stories, 16 points)
 
-- [ ] **US015:** Create Level Loader and JSON Parser
+- [x] **US015:** Create Level Loader and JSON Parser
   `context/user_stories/phase_4_level_loading/US015_level_loader_parser.md`
 - [ ] **US016:** Create Level Class for Game Management
   `context/user_stories/phase_4_level_loading/US016_level_class_management.md`

@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 3 - Core Mechanics (COMPLETE - US010-US014)
+**Current Development Phase:** Phase 4 - Level Loading (IN PROGRESS - US015 COMPLETE)
 
 ---
 
@@ -26,6 +26,7 @@ sancho_bros/
       level/                     # Level loading and management
          __init__.py
          tile.py                 # Platform class for collision and rendering
+         level_loader.py         # JSON level file loader with validation
       physics/                   # Collision detection and gravity
          __init__.py
          gravity.py              # Gravity physics system
@@ -179,9 +180,13 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Coordinate transformation system (world to screen coords) (Phase 3 - US014)
 - ✓ Viewport culling support (is_visible method) (Phase 3 - US014)
 - ✓ Extended test level (2000px) for camera scrolling validation (Phase 3 - US014)
+- ✓ Level Loader system with JSON parsing and validation (Phase 4 - US015)
+- ✓ Comprehensive level data validation (all fields, types, bounds) (Phase 4 - US015)
+- ✓ Error handling for missing/corrupted level files (Phase 4 - US015)
+- ✓ Tested loading of all 5 generated level files (Phase 4 - US015)
 
 ### What's Pending
-- Phase 4: Level Loading (JSON parser, level management, level progression)
+- Phase 4: Level Class for game management (US016), integration into game loop (US017), playability testing (US018)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
@@ -621,6 +626,51 @@ The level generator now includes complete power-up and pit placement systems wit
 - Power-ups strategically positioned near pits and enemies
 - Level remains completable with all hazards in place
 - Progressive difficulty maintained across all 5 levels
+
+### Level Loader System (US015)
+The level loader provides robust JSON file loading and comprehensive validation for all level data.
+
+**LevelLoader Class (`src/level/level_loader.py`):**
+- `__init__()`: Initializes loader with `levels_dir = "levels"` path
+- Methods:
+  - `load_level(filename)`: Loads JSON file from path, returns validated dict or None
+  - `load_level_by_number(level_num)`: Convenience method for loading level_1.json through level_5.json
+  - `validate_level(data)`: Comprehensive validation of level data structure
+
+**Error Handling:**
+- **FileNotFoundError**: Clear message with file path, returns None
+- **JSONDecodeError**: Reports JSON parse errors with line/column, returns None
+- **ValidationError**: Field-specific error messages, returns None
+- All errors logged to console for debugging
+
+**Validation Coverage:**
+- **Required Fields**: Checks all 10 top-level fields (level_number, width, height, background_color, player_spawn, platforms, enemies, powerups, pits, goal)
+- **Data Types**: Validates integers, lists, dicts, RGB arrays
+- **Numeric Validation**: Ensures positive dimensions, 0-255 RGB values
+- **Nested Objects**: Validates player_spawn.x/y and goal.x/y exist and are numeric
+- **Array Elements**: Validates each platform/enemy/powerup/pit has required fields
+- **Coordinate Bounds**: Ensures all x/y coordinates are within level width/height
+- **Platform Validation**: type, x, y, width, height fields required
+- **Enemy Validation**: type, x, y, patrol_left, patrol_right fields required
+- **Powerup Validation**: type, x, y fields required
+- **Pit Validation**: x, width fields required
+
+**Path Handling:**
+- Accepts relative paths: `"levels/level_1.json"`
+- Accepts absolute paths
+- Works from project root directory
+- OS-independent path handling with `os.path.join()`
+
+**Testing:**
+- Successfully loads all 5 generated level JSON files (level_1 through level_5)
+- Verified with comprehensive test script: `test_level_loader.py`
+- Returns correct data structures matching JSON content
+- Error handling tested with missing files and corrupted JSON
+
+**Integration:**
+- Exported from `src/level/__init__.py` for clean imports
+- Ready for use in Level class (US016) and game loop integration (US017)
+- Provides foundation for level progression system
 
 ---
 
