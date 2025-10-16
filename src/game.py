@@ -15,6 +15,7 @@ from src.camera import Camera
 from src.level import LevelLoader, Level
 from src.ui import MainMenu
 from src.ui.hud import HUD
+from src.ui.screens import PauseMenu, GameOverScreen
 
 
 class Game:
@@ -57,6 +58,8 @@ class Game:
         # UI components
         self.main_menu = MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.hud = HUD()
+        self.pause_menu = PauseMenu(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.game_over_screen = GameOverScreen(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def change_state(self, new_state):
         """
@@ -109,6 +112,33 @@ class Game:
         self.player.velocity.y = 0
         self.player.is_grounded = False
         print(f"Player respawned at ({spawn[0]}, {spawn[1]})")
+
+    def restart_level(self):
+        """
+        Restart the current level from the beginning.
+        Used when player chooses to restart from pause menu.
+        """
+        print(f"[RESTART] Restarting Level {self.current_level_number}")
+
+        # Reload the current level
+        self.load_level(self.current_level_number)
+
+        # Reset player at spawn point
+        spawn = self.current_level.get_spawn_position()
+        self.player.position.x = spawn[0]
+        self.player.position.y = spawn[1]
+        self.player.velocity = pygame.Vector2(0, 0)
+        self.player.is_grounded = False
+
+        # Clear all projectiles
+        self.lasers = []
+
+        # Reset camera
+        self.camera.offset.x = 0
+        self.camera.offset.y = 0
+
+        # Return to playing state
+        self.change_state(GameState.PLAYING)
 
     def load_specific_level(self, level_num):
         """
@@ -178,6 +208,17 @@ class Game:
                     elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
                         self.running = False
 
+                elif self.state == GameState.PAUSED:
+                    # ENTER resumes the game
+                    if event.key == pygame.K_RETURN:
+                        self.change_state(GameState.PLAYING)
+                    # R key restarts current level
+                    elif event.key == pygame.K_r:
+                        self.restart_level()
+                    # M key returns to main menu
+                    elif event.key == pygame.K_m:
+                        self.change_state(GameState.MENU)
+
                 elif self.state == GameState.PLAYING:
                     # X or Ctrl key: Shoot laser (when powered up)
                     if event.key == pygame.K_x or event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL:
@@ -230,8 +271,8 @@ class Game:
                     # R key restarts the game from level 1
                     if event.key == pygame.K_r:
                         self.restart_game()
-                    # M key returns to menu
-                    elif event.key == pygame.K_m:
+                    # M or ESC key returns to menu
+                    elif event.key == pygame.K_m or event.key == pygame.K_ESCAPE:
                         self.change_state(GameState.MENU)
 
     def update(self, dt):
@@ -382,48 +423,11 @@ class Game:
 
     def render_pause_overlay(self):
         """Render pause overlay on top of the frozen game."""
-        from src.constants import COLOR_WHITE
-
-        # Semi-transparent overlay
-        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-        overlay.set_alpha(128)
-        overlay.fill((0, 0, 0))
-        self.screen.blit(overlay, (0, 0))
-
-        # Pause text
-        font = pygame.font.Font(None, 72)
-        pause_text = font.render("PAUSED", True, COLOR_WHITE)
-        pause_rect = pause_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
-        self.screen.blit(pause_text, pause_rect)
-
-        # Instructions
-        small_font = pygame.font.Font(None, 36)
-        resume_text = small_font.render("Press ESC or P to Resume", True, COLOR_WHITE)
-        resume_rect = resume_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
-        self.screen.blit(resume_text, resume_rect)
+        self.pause_menu.render(self.screen)
 
     def render_game_over(self):
         """Render game over screen."""
-        from src.constants import COLOR_BLACK, COLOR_WHITE, COLOR_RED
-
-        # Clear screen
-        self.screen.fill(COLOR_BLACK)
-
-        # Game Over title
-        title_font = pygame.font.Font(None, 72)
-        game_over_text = title_font.render("GAME OVER", True, COLOR_RED)
-        game_over_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, 200))
-        self.screen.blit(game_over_text, game_over_rect)
-
-        # Instructions
-        font = pygame.font.Font(None, 36)
-        restart_text = font.render("Press R to Restart", True, COLOR_WHITE)
-        restart_rect = restart_text.get_rect(center=(SCREEN_WIDTH // 2, 350))
-        self.screen.blit(restart_text, restart_rect)
-
-        menu_text = font.render("Press M for Menu", True, COLOR_WHITE)
-        menu_rect = menu_text.get_rect(center=(SCREEN_WIDTH // 2, 400))
-        self.screen.blit(menu_text, menu_rect)
+        self.game_over_screen.render(self.screen, self.current_level_number)
 
     def render_level_complete(self):
         """Render level complete screen."""

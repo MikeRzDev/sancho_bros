@@ -98,7 +98,7 @@
   `context/user_stories/phase_7_ui_polish/US030_main_menu.md`
 - [x] **US031:** Create HUD (Heads-Up Display)
   `context/user_stories/phase_7_ui_polish/US031_hud_display.md`
-- [ ] **US032:** Create Pause Menu and Game Over Screen
+- [x] **US032:** Create Pause Menu and Game Over Screen
   `context/user_stories/phase_7_ui_polish/US032_pause_and_game_over_screens.md`
 - [ ] **US033:** Create Level Complete Screen and Transitions
   `context/user_stories/phase_7_ui_polish/US033_level_complete_screen.md`
