@@ -188,6 +188,12 @@ class Game:
         # Update camera to follow player with level width as boundary
         self.camera.update(self.player.position, self.current_level.width)
 
+        # Check power-up collection
+        for powerup in self.current_level.powerups:
+            if powerup.check_collection(self.player):
+                powerup.collect()
+                self.player.collect_powerup()
+
         # Check enemy collisions
         from src.physics.collision import check_enemy_collision, check_stomp
         colliding_enemy = check_enemy_collision(self.player, self.current_level.enemies)
@@ -244,6 +250,13 @@ class Game:
 
         # Render player on top of level
         self.player.render(self.screen, self.camera)
+
+        # Display power-up timer if active
+        if self.player.has_powerup:
+            font = pygame.font.Font(None, 36)
+            timer_text = f"POWER: {int(self.player.powerup_timer)}s"
+            text_surface = font.render(timer_text, True, (255, 255, 0))
+            self.screen.blit(text_surface, (10, 10))
 
         # Update the display
         pygame.display.flip()

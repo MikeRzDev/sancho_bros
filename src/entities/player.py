@@ -11,7 +11,8 @@ from src.constants import (
     COLOR_PLAYER,
     GRAVITY,
     JUMP_STRENGTH,
-    PLAYER_SPEED
+    PLAYER_SPEED,
+    LASER_DURATION
 )
 
 
@@ -42,6 +43,7 @@ class Player:
         self.lives = PLAYER_LIVES
         self.has_powerup = False
         self.powerup_timer = 0.0
+        self.laser_cooldown = 0.0
 
         # Invincibility system
         self.is_invincible = False
@@ -97,6 +99,10 @@ class Player:
             if self.invincibility_timer <= 0:
                 self.is_invincible = False
                 self.invincibility_timer = 0.0
+
+        # Update laser cooldown if active
+        if self.laser_cooldown > 0:
+            self.laser_cooldown -= dt
 
     def handle_input(self, keys):
         """
@@ -198,6 +204,15 @@ class Player:
         elif direction == "RIGHT":
             self.velocity.x = strength
 
+    def collect_powerup(self):
+        """
+        Activate power-up effect when La Arepa Dorada is collected.
+        Grants temporary laser shooting ability.
+        """
+        self.has_powerup = True
+        self.powerup_timer = LASER_DURATION
+        print(f"Power-up activated! Duration: {LASER_DURATION}s")
+
     def render(self, screen, camera):
         """
         Draw the player on screen relative to camera position.
@@ -210,9 +225,12 @@ class Player:
         screen_x = self.position.x - camera.x
         screen_y = self.position.y - camera.y
 
+        # Change color if powered (yellow indicates power-up is active)
+        color = (255, 255, 0) if self.has_powerup else COLOR_PLAYER
+
         # Draw player as a colored rectangle (placeholder for sprite)
         pygame.draw.rect(
             screen,
-            COLOR_PLAYER,
+            color,
             (screen_x, screen_y, self.width, self.height)
         )

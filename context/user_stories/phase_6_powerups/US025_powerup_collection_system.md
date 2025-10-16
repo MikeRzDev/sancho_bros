@@ -13,55 +13,55 @@ High
 ## Acceptance Criteria
 
 1. **Collection Detection**
-   - [ ] Game checks for power-up collision each frame
-   - [ ] Uses `check_collection(player)` method
-   - [ ] Checks all power-ups in current level
+   - [x] Game checks for power-up collision each frame
+   - [x] Uses `check_collection(player)` method
+   - [x] Checks all power-ups in current level
 
 2. **Collection Effect on Player**
-   - [ ] Player's `has_powerup` flag set to True
-   - [ ] Player's `powerup_timer` set to LASER_DURATION (10 seconds)
-   - [ ] Collection triggers `collect_powerup()` method on player
+   - [x] Player's `has_powerup` flag set to True
+   - [x] Player's `powerup_timer` set to LASER_DURATION (10 seconds)
+   - [x] Collection triggers `collect_powerup()` method on player
 
 3. **Player Power-Up State**
-   - [ ] `collect_powerup()` method in Player class
-   - [ ] Activates laser ability
-   - [ ] Sets timer for duration
-   - [ ] Enables shooting (prepared for US026)
+   - [x] `collect_powerup()` method in Player class
+   - [x] Activates laser ability
+   - [x] Sets timer for duration
+   - [x] Enables shooting (prepared for US026)
 
 4. **Timer Countdown**
-   - [ ] `powerup_timer` decreases each frame (dt)
-   - [ ] When timer reaches 0: `has_powerup` = False
-   - [ ] Power-up deactivates automatically
-   - [ ] Timer updated in player's `update()` method
+   - [x] `powerup_timer` decreases each frame (dt)
+   - [x] When timer reaches 0: `has_powerup` = False
+   - [x] Power-up deactivates automatically
+   - [x] Timer updated in player's `update()` method
 
 5. **Collection Feedback**
-   - [ ] Power-up disappears when collected
-   - [ ] Visual indication player has power (placeholder)
-   - [ ] Print message confirming collection
-   - [ ] Prepared for sound effect (Phase 7)
+   - [x] Power-up disappears when collected
+   - [x] Visual indication player has power (placeholder)
+   - [x] Print message confirming collection
+   - [x] Prepared for sound effect (Phase 7)
 
 6. **Re-Collection Prevention**
-   - [ ] Collected power-ups stay collected
-   - [ ] Same power-up can't be collected twice
-   - [ ] Collected power-ups don't render
-   - [ ] Collected power-ups don't check collision
+   - [x] Collected power-ups stay collected
+   - [x] Same power-up can't be collected twice
+   - [x] Collected power-ups don't render
+   - [x] Collected power-ups don't check collision
 
 7. **Multiple Power-Ups**
-   - [ ] Can collect multiple power-ups in one level
-   - [ ] Each collection resets timer to full duration
-   - [ ] Timer doesn't stack (resets to 10s, not adds)
+   - [x] Can collect multiple power-ups in one level
+   - [x] Each collection resets timer to full duration
+   - [x] Timer doesn't stack (resets to 10s, not adds)
 
 8. **Visual Timer Indicator**
-   - [ ] Player color changes when powered (optional placeholder)
-   - [ ] OR text indicator shown (temporary)
-   - [ ] Clear indication of powered state
+   - [x] Player color changes when powered (optional placeholder)
+   - [x] OR text indicator shown (temporary)
+   - [x] Clear indication of powered state
 
 9. **Validation**
-   - [ ] Walking through power-up collects it
-   - [ ] Power-up disappears after collection
-   - [ ] Timer counts down correctly
-   - [ ] Power-up expires after 10 seconds
-   - [ ] Multiple power-ups work correctly
+   - [x] Walking through power-up collects it
+   - [x] Power-up disappears after collection
+   - [x] Timer counts down correctly
+   - [x] Power-up expires after 10 seconds
+   - [x] Multiple power-ups work correctly
 
 ## Technical Notes
 

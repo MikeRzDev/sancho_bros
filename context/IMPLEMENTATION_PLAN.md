@@ -79,7 +79,7 @@
 
 - [x] **US024:** Create Power-Up Entity Class (La Arepa Dorada)
   `context/user_stories/phase_6_powerups/US024_powerup_entity_class.md`
-- [ ] **US025:** Implement Power-Up Collection System
+- [x] **US025:** Implement Power-Up Collection System
   `context/user_stories/phase_6_powerups/US025_powerup_collection_system.md`
 - [ ] **US026:** Create Laser Projectile Class
   `context/user_stories/phase_6_powerups/US026_laser_projectile_class.md`
