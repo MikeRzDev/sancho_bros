@@ -13,59 +13,59 @@ Critical
 ## Acceptance Criteria
 
 1. **Game State Extended**
-   - [ ] Game class tracks current level number
-   - [ ] Game class has `current_level` attribute (Level object)
-   - [ ] Game can load specific level by number
+   - [x] Game class tracks current level number
+   - [x] Game class has `current_level` attribute (Level object)
+   - [x] Game can load specific level by number
 
 2. **Level Loading at Start**
-   - [ ] Game loads Level 1 when starting
-   - [ ] LevelLoader instantiated in game initialization
-   - [ ] Level object created from JSON data
-   - [ ] Player spawned at level's spawn position
+   - [x] Game loads Level 1 when starting
+   - [x] LevelLoader instantiated in game initialization
+   - [x] Level object created from JSON data
+   - [x] Player spawned at level's spawn position
 
 3. **Player-Level Integration**
-   - [ ] Player collides with level's platforms
-   - [ ] Player receives level platforms in update()
-   - [ ] Camera uses level width as boundary
-   - [ ] Player can navigate the level
+   - [x] Player collides with level's platforms
+   - [x] Player receives level platforms in update()
+   - [x] Camera uses level width as boundary
+   - [x] Player can navigate the level
 
 4. **Level Rendering Integration**
-   - [ ] Level renders before player (background)
-   - [ ] All level elements visible
-   - [ ] Camera applies to all level elements
-   - [ ] Z-order correct (background → platforms → player)
+   - [x] Level renders before player (background)
+   - [x] All level elements visible
+   - [x] Camera applies to all level elements
+   - [x] Z-order correct (background → platforms → player)
 
 5. **Level Update Integration**
-   - [ ] Level's update() called in game loop
-   - [ ] Level receives player reference
-   - [ ] Level checks win/lose conditions
-   - [ ] Pit detection active
+   - [x] Level's update() called in game loop
+   - [x] Level receives player reference
+   - [x] Level checks win/lose conditions
+   - [x] Pit detection active
 
 6. **Win Condition**
-   - [ ] Level checks if player reached goal
-   - [ ] Game state changes to LEVEL_COMPLETE when goal reached
-   - [ ] Message displayed (placeholder text)
-   - [ ] Can exit or proceed (basic handling)
+   - [x] Level checks if player reached goal
+   - [x] Game state changes to LEVEL_COMPLETE when goal reached
+   - [x] Message displayed (placeholder text)
+   - [x] Can exit or proceed (basic handling)
 
 7. **Lose Condition**
-   - [ ] Level checks if player fell in pit
-   - [ ] Player loses a life
-   - [ ] Player respawns at spawn point
-   - [ ] Game over when lives reach 0
+   - [x] Level checks if player fell in pit
+   - [x] Player loses a life
+   - [x] Player respawns at spawn point
+   - [x] Game over when lives reach 0
 
 8. **Level Progression**
-   - [ ] Method to load next level: `load_next_level()`
-   - [ ] Current level increments
-   - [ ] Player resets to new level's spawn
-   - [ ] Camera resets
-   - [ ] Can progress from Level 1 → 2 (basic test)
+   - [x] Method to load next level: `load_next_level()`
+   - [x] Current level increments
+   - [x] Player resets to new level's spawn
+   - [x] Camera resets
+   - [x] Can progress from Level 1 → 2 (basic test)
 
 9. **Validation**
-   - [ ] Level 1 loads and displays correctly
-   - [ ] Player can navigate level terrain
-   - [ ] Reaching goal shows completion
-   - [ ] Falling in pit respawns player
-   - [ ] Can load all 5 levels without errors
+   - [x] Level 1 loads and displays correctly
+   - [x] Player can navigate level terrain
+   - [x] Reaching goal shows completion
+   - [x] Falling in pit respawns player
+   - [x] Can load all 5 levels without errors
 
 ## Technical Notes
 

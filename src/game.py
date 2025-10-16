@@ -7,13 +7,11 @@ import pygame
 from src.constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
-    FPS,
-    COLOR_BACKGROUND,
-    COLOR_PLATFORM_SOLID
+    FPS
 )
 from src.entities import Player
 from src.camera import Camera
-from src.level.tile import Platform
+from src.level import LevelLoader, Level
 
 
 class Game:
@@ -36,31 +34,55 @@ class Game:
         # Game state
         self.running = True
 
-        # Initialize game entities
-        self.player = Player(100, 200)  # Spawn in air to test falling
-
         # Initialize camera with viewport dimensions
         self.camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        # Create extended test platforms for camera system validation
-        # Level extends to 2000px to test scrolling
-        self.platforms = [
-            # Ground platforms (solid)
-            Platform(0, 550, 500, 50, "solid"),        # Left ground
-            Platform(600, 550, 400, 50, "solid"),      # Middle ground (gap at 500-600)
-            Platform(1100, 550, 900, 50, "solid"),     # Right ground
+        # Level management
+        self.level_loader = LevelLoader()
+        self.current_level_number = 1
+        self.current_level = None
+        self.load_level(1)
 
-            # Floating platforms
-            Platform(300, 400, 200, 20, "floating"),   # Early jump
-            Platform(600, 300, 150, 20, "floating"),   # Over gap
-            Platform(900, 350, 180, 20, "floating"),   # Mid level
-            Platform(1200, 250, 120, 20, "floating"),  # High platform
-            Platform(1500, 400, 200, 20, "floating"),  # Late game
-            Platform(1800, 300, 150, 20, "floating"),  # Near end
-        ]
+        # Initialize player at level spawn position
+        spawn = self.current_level.get_spawn_position()
+        self.player = Player(spawn[0], spawn[1])
 
-        # Calculate level width from platforms
-        self.level_width = max(platform.rect.right for platform in self.platforms)
+    def load_level(self, level_num):
+        """
+        Load a level by number.
+
+        Args:
+            level_num (int): Level number (1-5)
+        """
+        level_data = self.level_loader.load_level_by_number(level_num)
+        if level_data:
+            self.current_level = Level(level_data)
+            self.current_level_number = level_num
+            print(f"Loaded Level {level_num}")
+        else:
+            print(f"Failed to load Level {level_num}")
+            self.running = False
+
+    def load_next_level(self):
+        """Load the next level and reset player."""
+        next_level = self.current_level_number + 1
+        if next_level <= 5:
+            self.load_level(next_level)
+            self.respawn_player()
+            print(f"Level {self.current_level_number - 1} Complete! Moving to Level {self.current_level_number}")
+        else:
+            print("Game Complete! You beat all 5 levels!")
+            self.running = False
+
+    def respawn_player(self):
+        """Respawn player at current level's spawn point."""
+        spawn = self.current_level.get_spawn_position()
+        self.player.position.x = spawn[0]
+        self.player.position.y = spawn[1]
+        self.player.velocity.x = 0
+        self.player.velocity.y = 0
+        self.player.is_grounded = False
+        print(f"Player respawned at ({spawn[0]}, {spawn[1]})")
 
     def run(self):
         """
@@ -104,24 +126,40 @@ class Game:
         Args:
             dt (float): Delta time in seconds since last frame
         """
-        # Update player with test platforms
-        self.player.update(dt, self.platforms)
+        # Update level
+        self.current_level.update(dt, self.player)
 
-        # Update camera to follow player
-        self.camera.update(self.player.position, self.level_width)
+        # Update player with level platforms
+        platforms = self.current_level.get_platforms()
+        self.player.update(dt, platforms)
+
+        # Update camera to follow player with level width as boundary
+        self.camera.update(self.player.position, self.current_level.width)
+
+        # Check win condition
+        if self.current_level.check_goal(self.player):
+            self.load_next_level()
+
+        # Check lose condition
+        if self.current_level.check_pits(self.player):
+            self.player.take_damage()
+            print(f"Player fell in pit! Lives remaining: {self.player.lives}")
+
+            if self.player.lives > 0:
+                # Respawn player
+                self.respawn_player()
+            else:
+                print("Game Over! No lives remaining.")
+                self.running = False
 
     def render(self):
         """
         Render the game to the screen.
         """
-        # Clear the screen with background color
-        self.screen.fill(COLOR_BACKGROUND)
+        # Render level (includes background color, platforms, goal)
+        self.current_level.render(self.screen, self.camera)
 
-        # Render test platforms
-        for platform in self.platforms:
-            platform.render(self.screen, self.camera)
-
-        # Render game entities
+        # Render player on top of level
         self.player.render(self.screen, self.camera)
 
         # Update the display

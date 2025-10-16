@@ -53,7 +53,7 @@
   `context/user_stories/phase_4_level_loading/US015_level_loader_parser.md`
 - [x] **US016:** Create Level Class for Game Management
   `context/user_stories/phase_4_level_loading/US016_level_class_management.md`
-- [ ] **US017:** Integrate Level Loading into Game Loop
+- [x] **US017:** Integrate Level Loading into Game Loop
   `context/user_stories/phase_4_level_loading/US017_integrate_level_into_game.md`
 - [ ] **US018:** Test All 5 Levels Are Playable
   `context/user_stories/phase_4_level_loading/US018_test_all_levels.md`

@@ -1,7 +1,7 @@
 # ARCHITECTURE STATUS
 
 **Last Updated:** 2025-10-15
-**Current Development Phase:** Phase 4 - Level Loading (IN PROGRESS - US016 COMPLETE)
+**Current Development Phase:** Phase 4 - Level Loading (COMPLETE)
 
 ---
 
@@ -190,9 +190,16 @@ All constants follow UPPER_SNAKE_CASE naming convention and can be imported via 
 - ✓ Pit detection and goal detection systems (Phase 4 - US016)
 - ✓ Level rendering with background, platforms, and goal indicator (Phase 4 - US016)
 - ✓ Level entity management methods (update, render, reset, getters) (Phase 4 - US016)
+- ✓ Game loop integration with level loading system (Phase 4 - US017)
+- ✓ Level management system (load_level, load_next_level, respawn_player methods) (Phase 4 - US017)
+- ✓ Player spawning at level-defined spawn positions (Phase 4 - US017)
+- ✓ Win condition detection with level progression (Phase 4 - US017)
+- ✓ Lose condition detection with life system and respawning (Phase 4 - US017)
+- ✓ Game over handling when lives reach 0 (Phase 4 - US017)
+- ✓ All 5 levels playable in sequence (Phase 4 - US017)
 
 ### What's Pending
-- Phase 4: Integration into game loop (US017), playability testing (US018)
+- Phase 4: Comprehensive playability testing across all 5 levels (US018)
 - Phase 5: Enemies (Polocho entity, AI, combat)
 - Phase 6: Power-Ups (PowerUp entity, laser system)
 - Phase 7: UI & Polish (Menus, HUD, game states)
@@ -734,9 +741,78 @@ The Level class provides complete game management for loaded levels, converting 
 
 **Integration:**
 - Exported from `src/level/__init__.py` alongside LevelLoader and Platform
-- Ready for game loop integration (US017)
+- Integrated into game loop (US017) ✓
 - Provides foundation for enemy (Phase 5) and powerup (Phase 6) systems
 - Works seamlessly with existing Camera and collision systems
+
+### Game Loop Integration (US017)
+The game loop has been fully integrated with the level loading system, enabling complete gameplay through all 5 levels.
+
+**Game Class Enhancements (`src/game.py`):**
+- **Level Management Attributes**:
+  - `level_loader`: LevelLoader instance for loading JSON files
+  - `current_level_number`: Tracks current level (1-5)
+  - `current_level`: Active Level object containing all level data and entities
+
+- **Level Loading Methods**:
+  - `load_level(level_num)`: Loads specific level by number (1-5)
+    - Calls `LevelLoader.load_level_by_number()`
+    - Creates Level object from JSON data
+    - Updates `current_level_number`
+    - Prints loading status to console
+    - Exits game if level fails to load
+  - `load_next_level()`: Advances to next level
+    - Increments level number
+    - Loads next level (or ends game after Level 5)
+    - Calls `respawn_player()` to reset player state
+    - Prints completion messages
+  - `respawn_player()`: Resets player at spawn point
+    - Gets spawn position from current level
+    - Resets position, velocity, and grounded state
+    - Used for both level progression and pit respawns
+
+- **Initialization Changes**:
+  - Level 1 loaded on game startup
+  - Player spawned at level's spawn position (not hardcoded)
+  - Test platforms removed (levels manage platforms now)
+
+- **Update Loop Integration** (`update()` method):
+  - Calls `current_level.update(dt, player)` to update level state
+  - Passes `current_level.get_platforms()` to player for collision
+  - Uses `current_level.width` for camera boundary
+  - **Win Condition**: Checks `current_level.check_goal(player)`
+    - If True: Loads next level automatically
+    - Progresses through all 5 levels sequentially
+    - Exits game with "Game Complete!" after Level 5
+  - **Lose Condition**: Checks `current_level.check_pits(player)`
+    - If True: Decreases player lives via `player.take_damage()`
+    - Lives > 0: Respawns player at spawn point
+    - Lives = 0: Exits game with "Game Over!"
+
+- **Render Integration** (`render()` method):
+  - Calls `current_level.render(screen, camera)` first (background + platforms + goal)
+  - Then calls `player.render(screen, camera)` on top
+  - Correct Z-order maintained (level behind player)
+  - All rendering respects camera offset for scrolling
+
+**Gameplay Flow:**
+1. Game starts → Level 1 loads → Player spawns at (100, 400)
+2. Player navigates platforms using keyboard controls
+3. Reach goal → Level complete → Load next level
+4. Fall in pit → Lose 1 life → Respawn at spawn point
+5. Lives = 0 → Game over
+6. Complete Level 5 → Game complete
+
+**Testing Results:**
+- ✓ Level 1 loads successfully from JSON
+- ✓ Player navigates level terrain with collision
+- ✓ Reaching goal triggers level progression
+- ✓ Successfully progressed Level 1 → 2 → 3 in testing
+- ✓ Player respawns correctly at spawn point (100, 400)
+- ✓ All level elements render correctly (background, platforms, goal, player)
+- ✓ Camera follows player and respects level boundaries
+
+**Phase 4 Status:** US017 COMPLETE - Game loop fully integrated with level system. All 5 levels are now playable in sequence.
 
 ---
 
