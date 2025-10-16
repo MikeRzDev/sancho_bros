@@ -84,6 +84,26 @@ class Game:
         self.player.is_grounded = False
         print(f"Player respawned at ({spawn[0]}, {spawn[1]})")
 
+    def load_specific_level(self, level_num):
+        """
+        Load a specific level (for testing purposes).
+
+        Args:
+            level_num (int): Level number (1-5)
+        """
+        if 1 <= level_num <= 5:
+            self.load_level(level_num)
+            spawn = self.current_level.get_spawn_position()
+            self.player.position.x = spawn[0]
+            self.player.position.y = spawn[1]
+            self.player.velocity = pygame.Vector2(0, 0)
+            self.player.is_grounded = False
+            self.camera.offset.x = 0
+            self.camera.offset.y = 0
+            print(f"[TEST] Jumped to Level {level_num}")
+        else:
+            print(f"[TEST] Invalid level number: {level_num}. Must be 1-5.")
+
     def run(self):
         """
         Main game loop. Runs at 60 FPS and handles events, updates, and rendering.
@@ -118,6 +138,21 @@ class Game:
                 # ESC key exits the game
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
+
+                # Testing shortcuts: Jump to specific levels (1-5 keys)
+                elif event.key == pygame.K_1:
+                    self.load_specific_level(1)
+                elif event.key == pygame.K_2:
+                    self.load_specific_level(2)
+                elif event.key == pygame.K_3:
+                    self.load_specific_level(3)
+                elif event.key == pygame.K_4:
+                    self.load_specific_level(4)
+                elif event.key == pygame.K_5:
+                    self.load_specific_level(5)
+                # R key to restart current level
+                elif event.key == pygame.K_r:
+                    self.load_specific_level(self.current_level_number)
 
     def update(self, dt):
         """

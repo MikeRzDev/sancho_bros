@@ -55,7 +55,7 @@
   `context/user_stories/phase_4_level_loading/US016_level_class_management.md`
 - [x] **US017:** Integrate Level Loading into Game Loop
   `context/user_stories/phase_4_level_loading/US017_integrate_level_into_game.md`
-- [ ] **US018:** Test All 5 Levels Are Playable
+- [x] **US018:** Test All 5 Levels Are Playable
   `context/user_stories/phase_4_level_loading/US018_test_all_levels.md`
 
 ---
