@@ -96,7 +96,7 @@
   `context/user_stories/phase_7_ui_polish/US029_game_state_management.md`
 - [x] **US030:** Create Main Menu UI
   `context/user_stories/phase_7_ui_polish/US030_main_menu.md`
-- [ ] **US031:** Create HUD (Heads-Up Display)
+- [x] **US031:** Create HUD (Heads-Up Display)
   `context/user_stories/phase_7_ui_polish/US031_hud_display.md`
 - [ ] **US032:** Create Pause Menu and Game Over Screen
   `context/user_stories/phase_7_ui_polish/US032_pause_and_game_over_screens.md`

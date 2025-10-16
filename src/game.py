@@ -14,6 +14,7 @@ from src.entities import Player
 from src.camera import Camera
 from src.level import LevelLoader, Level
 from src.ui import MainMenu
+from src.ui.hud import HUD
 
 
 class Game:
@@ -55,6 +56,7 @@ class Game:
 
         # UI components
         self.main_menu = MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.hud = HUD()
 
     def change_state(self, new_state):
         """
@@ -345,12 +347,8 @@ class Game:
             for laser in self.lasers:
                 laser.render(self.screen, self.camera)
 
-            # Display power-up timer if active
-            if self.player.has_powerup:
-                font = pygame.font.Font(None, 36)
-                timer_text = f"POWER: {int(self.player.powerup_timer)}s"
-                text_surface = font.render(timer_text, True, (255, 255, 0))
-                self.screen.blit(text_surface, (10, 10))
+            # Render HUD on top of game world
+            self.hud.render(self.screen, self.player, self.current_level)
 
         elif self.state == GameState.PAUSED:
             # Render game world (frozen)
@@ -360,6 +358,9 @@ class Game:
             # Render lasers
             for laser in self.lasers:
                 laser.render(self.screen, self.camera)
+
+            # Render HUD on top of game world
+            self.hud.render(self.screen, self.player, self.current_level)
 
             # Render pause overlay on top
             self.render_pause_overlay()

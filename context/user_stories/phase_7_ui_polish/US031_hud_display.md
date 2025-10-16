@@ -13,44 +13,44 @@ High
 ## Acceptance Criteria
 
 1. **HUD Class Created**
-   - [ ] `src/ui/hud.py` exists
-   - [ ] `HUD` class is defined
+   - [x] `src/ui/hud.py` exists
+   - [x] `HUD` class is defined
 
 2. **Lives Display**
-   - [ ] Shows remaining lives (1-3)
-   - [ ] Displays as hearts or numeric counter
-   - [ ] Updates in real-time
-   - [ ] Positioned in top-left corner
+   - [x] Shows remaining lives (1-3)
+   - [x] Displays as hearts or numeric counter
+   - [x] Updates in real-time
+   - [x] Positioned in top-left corner
 
 3. **Level Number Display**
-   - [ ] Shows current level (1-5)
-   - [ ] Format: "Level 1" or "LVL 1"
-   - [ ] Positioned in top-center or top-right
-   - [ ] Updates on level change
+   - [x] Shows current level (1-5)
+   - [x] Format: "Level 1" or "LVL 1"
+   - [x] Positioned in top-center or top-right
+   - [x] Updates on level change
 
 4. **Power-Up Timer Display**
-   - [ ] Shows remaining power-up time
-   - [ ] Only visible when player has power-up
-   - [ ] Format: "POWER: 10s" or progress bar
-   - [ ] Updates each second
-   - [ ] Positioned near lives display
+   - [x] Shows remaining power-up time
+   - [x] Only visible when player has power-up
+   - [x] Format: "POWER: 10s" or progress bar
+   - [x] Updates each second
+   - [x] Positioned near lives display
 
 5. **HUD Rendering**
-   - [ ] Renders over game world (always visible)
-   - [ ] Not affected by camera position
-   - [ ] Clear and readable fonts
-   - [ ] Good contrast against background
+   - [x] Renders over game world (always visible)
+   - [x] Not affected by camera position
+   - [x] Clear and readable fonts
+   - [x] Good contrast against background
 
 6. **HUD Update**
-   - [ ] `update(player, level)` method
-   - [ ] Pulls current data from player and level
-   - [ ] Updates displays accordingly
+   - [x] `render(player, level)` method (note: uses render, not update)
+   - [x] Pulls current data from player and level
+   - [x] Updates displays accordingly
 
 7. **Visual Design**
-   - [ ] Clean, minimal design
-   - [ ] Doesn't obscure gameplay
-   - [ ] Uses consistent colors
-   - [ ] Readable at 800x600 resolution
+   - [x] Clean, minimal design
+   - [x] Doesn't obscure gameplay
+   - [x] Uses consistent colors
+   - [x] Readable at 800x600 resolution
 
 8. **Hearts Display (Optional)**
    - [ ] Shows 3 heart icons for lives
@@ -59,17 +59,17 @@ High
    - [ ] Icons ~24x24 pixels
 
 9. **Integration with Game**
-   - [ ] HUD updated in game loop
-   - [ ] HUD rendered in PLAYING state
-   - [ ] Also rendered in PAUSED state
-   - [ ] Not rendered in MENU or GAME_OVER
+   - [x] HUD updated in game loop
+   - [x] HUD rendered in PLAYING state
+   - [x] Also rendered in PAUSED state
+   - [x] Not rendered in MENU or GAME_OVER
 
 10. **Validation**
-    - [ ] Lives display shows correct count
-    - [ ] Lives update when player takes damage
-    - [ ] Level number correct for each level
-    - [ ] Power-up timer shows and counts down
-    - [ ] HUD visible during gameplay
+    - [x] Lives display shows correct count
+    - [x] Lives update when player takes damage
+    - [x] Level number correct for each level
+    - [x] Power-up timer shows and counts down
+    - [x] HUD visible during gameplay
 
 ## Technical Notes
 
