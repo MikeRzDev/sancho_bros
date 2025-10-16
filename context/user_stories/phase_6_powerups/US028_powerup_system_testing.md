@@ -13,87 +13,87 @@ High
 ## Acceptance Criteria
 
 1. **Power-Up Spawning**
-   - [ ] Power-ups spawn at correct locations from JSON
-   - [ ] Power-up counts match specifications:
+   - [x] Power-ups spawn at correct locations from JSON
+   - [x] Power-up counts match specifications:
      - Level 1: 1 power-up
      - Level 2: 1 power-up
      - Level 3: 2 power-ups
      - Level 4: 2 power-ups
      - Level 5: 2-3 power-ups
-   - [ ] Power-ups visible and reachable
-   - [ ] Bobbing animation works
+   - [x] Power-ups visible and reachable
+   - [x] Bobbing animation works
 
 2. **Power-Up Collection**
-   - [ ] Walking through power-up collects it
-   - [ ] Power-up disappears after collection
-   - [ ] Player state changes (has_powerup = True)
-   - [ ] Timer starts at 10 seconds
-   - [ ] Visual indication of powered state
+   - [x] Walking through power-up collects it
+   - [x] Power-up disappears after collection
+   - [x] Player state changes (has_powerup = True)
+   - [x] Timer starts at 10 seconds
+   - [x] Visual indication of powered state
 
 3. **Timer Functionality**
-   - [ ] Timer counts down from 10 seconds
-   - [ ] Timer displayed (if implemented)
-   - [ ] Power-up expires after 10 seconds
-   - [ ] `has_powerup` becomes False after expiration
-   - [ ] Can no longer shoot after expiration
+   - [x] Timer counts down from 10 seconds
+   - [x] Timer displayed (if implemented)
+   - [x] Power-up expires after 10 seconds
+   - [x] `has_powerup` becomes False after expiration
+   - [x] Can no longer shoot after expiration
 
 4. **Laser Shooting**
-   - [ ] Can shoot when powered up
-   - [ ] Cannot shoot without power-up
-   - [ ] X key and Ctrl key both work
-   - [ ] Laser fires in correct direction
-   - [ ] Laser matches player facing direction
+   - [x] Can shoot when powered up
+   - [x] Cannot shoot without power-up
+   - [x] X key and Ctrl key both work
+   - [x] Laser fires in correct direction
+   - [x] Laser matches player facing direction
 
 5. **Shooting Cooldown**
-   - [ ] Cannot spam lasers (cooldown enforced)
-   - [ ] 0.5 second cooldown between shots
-   - [ ] Cooldown timer accurate
-   - [ ] Can shoot repeatedly with cooldown
+   - [x] Cannot spam lasers (cooldown enforced)
+   - [x] 0.5 second cooldown between shots
+   - [x] Cooldown timer accurate
+   - [x] Can shoot repeatedly with cooldown
 
 6. **Laser Behavior**
-   - [ ] Laser travels horizontally
-   - [ ] Laser moves at high speed
-   - [ ] Laser destroys after 2 seconds
-   - [ ] Laser destroys on platform hit
-   - [ ] Laser destroys on enemy hit
+   - [x] Laser travels horizontally
+   - [x] Laser moves at high speed
+   - [x] Laser destroys after 2 seconds
+   - [x] Laser destroys on platform hit
+   - [x] Laser destroys on enemy hit
 
 7. **Laser-Enemy Interaction**
-   - [ ] Laser defeats enemies on contact
-   - [ ] Enemy dies when hit by laser
-   - [ ] Laser disappears after hitting enemy
-   - [ ] Can defeat multiple enemies with multiple lasers
-   - [ ] Works on all enemy types
+   - [x] Laser defeats enemies on contact
+   - [x] Enemy dies when hit by laser
+   - [x] Laser disappears after hitting enemy
+   - [x] Can defeat multiple enemies with multiple lasers
+   - [x] Works on all enemy types
 
 8. **Multiple Power-Ups**
-   - [ ] Collecting 2nd power-up resets timer
-   - [ ] Timer resets to 10 seconds (doesn't add)
-   - [ ] Can collect all power-ups in level
-   - [ ] Each collection provides feedback
+   - [x] Collecting 2nd power-up resets timer
+   - [x] Timer resets to 10 seconds (doesn't add)
+   - [x] Can collect all power-ups in level
+   - [x] Each collection provides feedback
 
 9. **Power-Up Strategy**
-   - [ ] Power-ups useful for defeating enemies
-   - [ ] Can clear enemies from distance with laser
-   - [ ] Power-up placement encourages tactical use
-   - [ ] Levels completable with and without power-ups
+   - [x] Power-ups useful for defeating enemies
+   - [x] Can clear enemies from distance with laser
+   - [x] Power-up placement encourages tactical use
+   - [x] Levels completable with and without power-ups
 
 10. **Edge Cases**
-    - [ ] Shooting while jumping works
-    - [ ] Shooting while moving works
-    - [ ] Multiple lasers on screen work correctly
-    - [ ] Laser destroys enemies at screen edge
-    - [ ] Collecting power-up at low timer resets it
+    - [x] Shooting while jumping works
+    - [x] Shooting while moving works
+    - [x] Multiple lasers on screen work correctly
+    - [x] Laser destroys enemies at screen edge
+    - [x] Collecting power-up at low timer resets it
 
 11. **Performance**
-    - [ ] 60 FPS maintained with many lasers
-    - [ ] No slowdown with 10+ lasers on screen
-    - [ ] Laser collision detection is efficient
-    - [ ] No memory leaks with laser creation/destruction
+    - [x] 60 FPS maintained with many lasers
+    - [x] No slowdown with 10+ lasers on screen
+    - [x] Laser collision detection is efficient
+    - [x] No memory leaks with laser creation/destruction
 
 12. **Visual Validation**
-    - [ ] Powered state clearly visible
-    - [ ] Lasers easily distinguishable
-    - [ ] Timer countdown visible
-    - [ ] Muzzle flash shows shooting (if implemented)
+    - [x] Powered state clearly visible
+    - [x] Lasers easily distinguishable
+    - [x] Timer countdown visible
+    - [x] Muzzle flash shows shooting (if implemented)
 
 ## Technical Notes
 

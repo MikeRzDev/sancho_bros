@@ -174,6 +174,20 @@ class Game:
                     self.player.is_invincible = not self.player.is_invincible
                     print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
 
+                # DEBUG COMMANDS (for testing US028 - Power-Up System)
+                # P key: Grant power-up instantly
+                elif event.key == pygame.K_p:
+                    self.player.collect_powerup()
+                    print("[DEBUG] Power-up granted")
+
+                # T key: Add time to power-up timer
+                elif event.key == pygame.K_t:
+                    if self.player.has_powerup:
+                        self.player.powerup_timer = 30.0
+                        print("[DEBUG] Power-up timer extended to 30s")
+                    else:
+                        print("[DEBUG] No active power-up to extend")
+
                 # X or Ctrl key: Shoot laser (when powered up)
                 elif event.key == pygame.K_x or event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL:
                     laser = self.player.shoot()
