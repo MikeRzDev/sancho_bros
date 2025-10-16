@@ -13,58 +13,58 @@ High
 ## Acceptance Criteria
 
 1. **PowerUp Class Created**
-   - [ ] `src/entities/powerup.py` exists
-   - [ ] `PowerUp` class is defined
+   - [x] `src/entities/powerup.py` exists
+   - [x] `PowerUp` class is defined
 
 2. **PowerUp Attributes**
-   - [ ] `position`: pygame.Vector2 (x, y)
-   - [ ] `rect`: pygame.Rect for collision
-   - [ ] `width`, `height`: int (e.g., 32x32 pixels)
-   - [ ] `collected`: bool (starts False)
-   - [ ] `type`: string ("arepa_dorada")
-   - [ ] `animation_frame`: float (for animation)
+   - [x] `position`: pygame.Vector2 (x, y)
+   - [x] `rect`: pygame.Rect for collision
+   - [x] `width`, `height`: int (e.g., 32x32 pixels)
+   - [x] `collected`: bool (starts False)
+   - [x] `type`: string ("arepa_dorada")
+   - [x] `animation_frame`: float (for animation)
 
 3. **PowerUp Initialization**
-   - [ ] `__init__(x, y, powerup_type)`: Create power-up
-   - [ ] Position set correctly
-   - [ ] Rect created for collision
-   - [ ] Type stored
+   - [x] `__init__(x, y, powerup_type)`: Create power-up
+   - [x] Position set correctly
+   - [x] Rect created for collision
+   - [x] Type stored
 
 4. **PowerUp Methods**
-   - [ ] `update(dt)`: Update animation
-   - [ ] `check_collection(player)`: Detect player collision
-   - [ ] `collect()`: Handle collection
-   - [ ] `render(screen, camera)`: Draw power-up
+   - [x] `update(dt)`: Update animation
+   - [x] `check_collection(player)`: Detect player collision
+   - [x] `collect()`: Handle collection
+   - [x] `render(screen, camera)`: Draw power-up
 
 5. **Basic Rendering**
-   - [ ] Power-up renders as colored rectangle (YELLOW/GOLD placeholder)
-   - [ ] Uses COLOR_POWERUP from constants
-   - [ ] Position respects camera offset
-   - [ ] Visible when in viewport
-   - [ ] Not rendered when collected
+   - [x] Power-up renders as colored rectangle (YELLOW/GOLD placeholder)
+   - [x] Uses COLOR_POWERUP from constants
+   - [x] Position respects camera offset
+   - [x] Visible when in viewport
+   - [x] Not rendered when collected
 
 6. **Simple Animation**
-   - [ ] Power-up has bobbing animation (up/down motion)
-   - [ ] Animation cycle: ~2 seconds
-   - [ ] Uses sin wave or similar for smooth motion
-   - [ ] Makes power-up noticeable
+   - [x] Power-up has bobbing animation (up/down motion)
+   - [x] Animation cycle: ~2 seconds
+   - [x] Uses sin wave or similar for smooth motion
+   - [x] Makes power-up noticeable
 
 7. **Collection Detection**
-   - [ ] `check_collection(player)` uses AABB collision
-   - [ ] Returns True if player rect overlaps power-up rect
-   - [ ] Only detects when not already collected
+   - [x] `check_collection(player)` uses AABB collision
+   - [x] Returns True if player rect overlaps power-up rect
+   - [x] Only detects when not already collected
 
 8. **Integration with Level**
-   - [ ] Level creates power-up objects from JSON
-   - [ ] Power-ups stored in level.powerups list
-   - [ ] Power-up positions from JSON data
+   - [x] Level creates power-up objects from JSON
+   - [x] Power-ups stored in level.powerups list
+   - [x] Power-up positions from JSON data
 
 9. **Validation**
-   - [ ] PowerUp class imports successfully
-   - [ ] PowerUp object can be created
-   - [ ] PowerUp renders at correct position
-   - [ ] Multiple power-ups can exist
-   - [ ] Power-ups visible in all levels
+   - [x] PowerUp class imports successfully
+   - [x] PowerUp object can be created
+   - [x] PowerUp renders at correct position
+   - [x] Multiple power-ups can exist
+   - [x] Power-ups visible in all levels
 
 ## Technical Notes
 

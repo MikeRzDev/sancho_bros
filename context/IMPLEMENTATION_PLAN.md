@@ -77,7 +77,7 @@
 
 ## PHASE 6: POWER-UPS (5 stories, 19 points)
 
-- [ ] **US024:** Create Power-Up Entity Class (La Arepa Dorada)
+- [x] **US024:** Create Power-Up Entity Class (La Arepa Dorada)
   `context/user_stories/phase_6_powerups/US024_powerup_entity_class.md`
 - [ ] **US025:** Implement Power-Up Collection System
   `context/user_stories/phase_6_powerups/US025_powerup_collection_system.md`
