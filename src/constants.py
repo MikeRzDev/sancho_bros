@@ -65,3 +65,12 @@ COLOR_GREEN = (0, 255, 0)
 
 # ===== ENEMY AI CONSTANTS =====
 ENEMY_PATROL_SPEED = 2     # Horizontal pixels per frame
+
+# ===== GAME STATE CONSTANTS =====
+class GameState:
+    """Game state constants for state management."""
+    MENU = "MENU"
+    PLAYING = "PLAYING"
+    PAUSED = "PAUSED"
+    GAME_OVER = "GAME_OVER"
+    LEVEL_COMPLETE = "LEVEL_COMPLETE"

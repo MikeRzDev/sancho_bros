@@ -7,11 +7,13 @@ import pygame
 from src.constants import (
     SCREEN_WIDTH,
     SCREEN_HEIGHT,
-    FPS
+    FPS,
+    GameState
 )
 from src.entities import Player
 from src.camera import Camera
 from src.level import LevelLoader, Level
+from src.ui import MainMenu
 
 
 class Game:
@@ -33,6 +35,7 @@ class Game:
 
         # Game state
         self.running = True
+        self.state = GameState.MENU  # Start in menu state
 
         # Initialize camera with viewport dimensions
         self.camera = Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -49,6 +52,24 @@ class Game:
 
         # Projectile management
         self.lasers = []  # List of active laser projectiles
+
+        # UI components
+        self.main_menu = MainMenu(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+    def change_state(self, new_state):
+        """
+        Change game state with logging.
+
+        Args:
+            new_state (str): The new game state to transition to
+        """
+        print(f"[STATE] {self.state} -> {new_state}")
+        self.state = new_state
+
+        # Handle state-specific setup
+        if new_state == GameState.LEVEL_COMPLETE:
+            # Could add a timer here for level transition delay
+            pass
 
     def load_level(self, level_num):
         """
@@ -130,6 +151,7 @@ class Game:
     def handle_events(self):
         """
         Process input events (keyboard, mouse, window events).
+        State-aware event handling.
         """
         for event in pygame.event.get():
             # Handle window close button
@@ -138,158 +160,296 @@ class Game:
 
             # Handle keyboard events
             elif event.type == pygame.KEYDOWN:
-                # ESC key exits the game
-                if event.key == pygame.K_ESCAPE:
-                    self.running = False
+                # Pause toggle (ESC or P) - only in PLAYING or PAUSED states
+                if event.key == pygame.K_ESCAPE or event.key == pygame.K_p:
+                    if self.state == GameState.PLAYING:
+                        self.change_state(GameState.PAUSED)
+                    elif self.state == GameState.PAUSED:
+                        self.change_state(GameState.PLAYING)
 
-                # Testing shortcuts: Jump to specific levels (1-5 keys)
-                elif event.key == pygame.K_1:
-                    self.load_specific_level(1)
-                elif event.key == pygame.K_2:
-                    self.load_specific_level(2)
-                elif event.key == pygame.K_3:
-                    self.load_specific_level(3)
-                elif event.key == pygame.K_4:
-                    self.load_specific_level(4)
-                elif event.key == pygame.K_5:
-                    self.load_specific_level(5)
-                # R key to restart current level
-                elif event.key == pygame.K_r:
-                    self.load_specific_level(self.current_level_number)
+                # State-specific input handling
+                if self.state == GameState.MENU:
+                    # ENTER key starts the game
+                    if event.key == pygame.K_RETURN:
+                        self.change_state(GameState.PLAYING)
+                    # Q or ESC key quits the game
+                    elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
+                        self.running = False
 
-                # DEBUG COMMANDS (for testing US023)
-                # K key: Kill all enemies
-                elif event.key == pygame.K_k:
-                    for enemy in self.current_level.enemies:
-                        enemy.die()
-                    print("[DEBUG] All enemies defeated")
+                elif self.state == GameState.PLAYING:
+                    # X or Ctrl key: Shoot laser (when powered up)
+                    if event.key == pygame.K_x or event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL:
+                        laser = self.player.shoot()
+                        if laser:
+                            self.lasers.append(laser)
 
-                # L key: Reset lives to 3
-                elif event.key == pygame.K_l:
-                    self.player.lives = 3
-                    print(f"[DEBUG] Lives reset to 3")
+                    # Testing shortcuts: Jump to specific levels (1-5 keys)
+                    if event.key == pygame.K_1:
+                        self.load_specific_level(1)
+                    elif event.key == pygame.K_2:
+                        self.load_specific_level(2)
+                    elif event.key == pygame.K_3:
+                        self.load_specific_level(3)
+                    elif event.key == pygame.K_4:
+                        self.load_specific_level(4)
+                    elif event.key == pygame.K_5:
+                        self.load_specific_level(5)
 
-                # I key: Toggle invincibility
-                elif event.key == pygame.K_i:
-                    self.player.is_invincible = not self.player.is_invincible
-                    print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
+                    # R key to restart current level
+                    if event.key == pygame.K_r:
+                        self.load_specific_level(self.current_level_number)
 
-                # DEBUG COMMANDS (for testing US028 - Power-Up System)
-                # P key: Grant power-up instantly
-                elif event.key == pygame.K_p:
-                    self.player.collect_powerup()
-                    print("[DEBUG] Power-up granted")
+                    # DEBUG COMMANDS
+                    # K key: Kill all enemies
+                    if event.key == pygame.K_k:
+                        for enemy in self.current_level.enemies:
+                            enemy.die()
+                        print("[DEBUG] All enemies defeated")
 
-                # T key: Add time to power-up timer
-                elif event.key == pygame.K_t:
-                    if self.player.has_powerup:
-                        self.player.powerup_timer = 30.0
-                        print("[DEBUG] Power-up timer extended to 30s")
-                    else:
-                        print("[DEBUG] No active power-up to extend")
+                    # L key: Reset lives to 3
+                    if event.key == pygame.K_l:
+                        self.player.lives = 3
+                        print(f"[DEBUG] Lives reset to 3")
 
-                # X or Ctrl key: Shoot laser (when powered up)
-                elif event.key == pygame.K_x or event.key == pygame.K_LCTRL or event.key == pygame.K_RCTRL:
-                    laser = self.player.shoot()
-                    if laser:
-                        self.lasers.append(laser)
+                    # I key: Toggle invincibility
+                    if event.key == pygame.K_i:
+                        self.player.is_invincible = not self.player.is_invincible
+                        print(f"[DEBUG] Invincibility: {self.player.is_invincible}")
+
+                    # T key: Add time to power-up timer
+                    if event.key == pygame.K_t:
+                        if self.player.has_powerup:
+                            self.player.powerup_timer = 30.0
+                            print("[DEBUG] Power-up timer extended to 30s")
+                        else:
+                            print("[DEBUG] No active power-up to extend")
+
+                elif self.state == GameState.GAME_OVER:
+                    # R key restarts the game from level 1
+                    if event.key == pygame.K_r:
+                        self.restart_game()
+                    # M key returns to menu
+                    elif event.key == pygame.K_m:
+                        self.change_state(GameState.MENU)
 
     def update(self, dt):
         """
-        Update game state.
+        Update game state based on current game state.
 
         Args:
             dt (float): Delta time in seconds since last frame
         """
-        # Update level
-        self.current_level.update(dt, self.player)
+        if self.state == GameState.PLAYING:
+            # Normal gameplay updates
+            # Update level
+            self.current_level.update(dt, self.player)
 
-        # Update player with level platforms
-        platforms = self.current_level.get_platforms()
-        self.player.update(dt, platforms)
+            # Update player with level platforms
+            platforms = self.current_level.get_platforms()
+            self.player.update(dt, platforms)
 
-        # Update camera to follow player with level width as boundary
-        self.camera.update(self.player.position, self.current_level.width)
+            # Update camera to follow player with level width as boundary
+            self.camera.update(self.player.position, self.current_level.width)
 
-        # Check power-up collection
-        for powerup in self.current_level.powerups:
-            if powerup.check_collection(self.player):
-                powerup.collect()
-                self.player.collect_powerup()
+            # Check power-up collection
+            for powerup in self.current_level.powerups:
+                if powerup.check_collection(self.player):
+                    powerup.collect()
+                    self.player.collect_powerup()
 
-        # Check enemy collisions
-        from src.physics.collision import check_enemy_collision, check_stomp
-        colliding_enemy = check_enemy_collision(self.player, self.current_level.enemies)
+            # Check enemy collisions
+            from src.physics.collision import check_enemy_collision, check_stomp
+            colliding_enemy = check_enemy_collision(self.player, self.current_level.enemies)
 
-        if colliding_enemy:
-            # Check stomp first (priority over damage)
-            if check_stomp(self.player, colliding_enemy):
-                # Stomp! Defeat the enemy
-                colliding_enemy.die()
-                self.player.velocity.y = -8  # Bounce player upward
-                # DEBUG logging for stomp
-                print(f"[STOMP] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
-                      f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f})")
-            else:
-                # Player takes damage from side/bottom collision
-                damage_applied = self.player.take_damage()
+            if colliding_enemy:
+                # Check stomp first (priority over damage)
+                if check_stomp(self.player, colliding_enemy):
+                    # Stomp! Defeat the enemy
+                    colliding_enemy.die()
+                    self.player.velocity.y = -8  # Bounce player upward
+                    # DEBUG logging for stomp
+                    print(f"[STOMP] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                          f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f})")
+                else:
+                    # Player takes damage from side/bottom collision
+                    damage_applied = self.player.take_damage()
 
-                if damage_applied:  # Only respawn if damage was actually applied (not invincible)
-                    # DEBUG logging for damage
-                    print(f"[DAMAGE] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
-                          f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f}), "
-                          f"Lives: {self.player.lives}")
+                    if damage_applied:  # Only respawn if damage was actually applied (not invincible)
+                        # DEBUG logging for damage
+                        print(f"[DAMAGE] Player pos: ({self.player.position.x:.1f}, {self.player.position.y:.1f}), "
+                              f"Enemy pos: ({colliding_enemy.position.x:.1f}, {colliding_enemy.position.y:.1f}), "
+                              f"Lives: {self.player.lives}")
 
-                    if self.player.lives > 0:
-                        # Respawn player at spawn point
-                        self.respawn_player()
-                    else:
-                        # Game over - no lives remaining
-                        print("Game Over! No lives remaining.")
-                        self.running = False
+                        if self.player.lives > 0:
+                            # Respawn player at spawn point
+                            self.respawn_player()
+                        else:
+                            # Game over - no lives remaining
+                            print("Game Over! No lives remaining.")
+                            self.change_state(GameState.GAME_OVER)
 
-        # Check win condition
-        if self.current_level.check_goal(self.player):
+            # Check win condition
+            if self.current_level.check_goal(self.player):
+                self.change_state(GameState.LEVEL_COMPLETE)
+
+            # Check lose condition
+            if self.current_level.check_pits(self.player):
+                self.player.take_damage()
+                print(f"Player fell in pit! Lives remaining: {self.player.lives}")
+
+                if self.player.lives > 0:
+                    # Respawn player
+                    self.respawn_player()
+                else:
+                    print("Game Over! No lives remaining.")
+                    self.change_state(GameState.GAME_OVER)
+
+            # Update lasers
+            for laser in self.lasers[:]:  # Copy list to allow removal during iteration
+                laser.update(dt, platforms, self.current_level.enemies)
+                if not laser.is_active:
+                    self.lasers.remove(laser)
+
+        elif self.state == GameState.LEVEL_COMPLETE:
+            # Handle level transition
             self.load_next_level()
+            if self.running:  # If game is still running (not completed all levels)
+                self.change_state(GameState.PLAYING)
 
-        # Check lose condition
-        if self.current_level.check_pits(self.player):
-            self.player.take_damage()
-            print(f"Player fell in pit! Lives remaining: {self.player.lives}")
+        elif self.state == GameState.PAUSED:
+            # Don't update game entities when paused
+            pass
 
-            if self.player.lives > 0:
-                # Respawn player
-                self.respawn_player()
-            else:
-                print("Game Over! No lives remaining.")
-                self.running = False
+        elif self.state == GameState.MENU:
+            # Update menu animations
+            self.main_menu.update(dt)
 
-        # Update lasers
-        for laser in self.lasers[:]:  # Copy list to allow removal during iteration
-            laser.update(dt, platforms, self.current_level.enemies)
-            if not laser.is_active:
-                self.lasers.remove(laser)
+        elif self.state == GameState.GAME_OVER:
+            # Game over state - no game updates needed
+            pass
 
     def render(self):
         """
-        Render the game to the screen.
+        Render the game to the screen based on current state.
         """
-        # Render level (includes background color, platforms, goal)
-        self.current_level.render(self.screen, self.camera)
+        if self.state == GameState.MENU:
+            # Render main menu
+            self.render_main_menu()
 
-        # Render player on top of level
-        self.player.render(self.screen, self.camera)
+        elif self.state == GameState.PLAYING:
+            # Render game world
+            self.current_level.render(self.screen, self.camera)
+            self.player.render(self.screen, self.camera)
 
-        # Render lasers
-        for laser in self.lasers:
-            laser.render(self.screen, self.camera)
+            # Render lasers
+            for laser in self.lasers:
+                laser.render(self.screen, self.camera)
 
-        # Display power-up timer if active
-        if self.player.has_powerup:
-            font = pygame.font.Font(None, 36)
-            timer_text = f"POWER: {int(self.player.powerup_timer)}s"
-            text_surface = font.render(timer_text, True, (255, 255, 0))
-            self.screen.blit(text_surface, (10, 10))
+            # Display power-up timer if active
+            if self.player.has_powerup:
+                font = pygame.font.Font(None, 36)
+                timer_text = f"POWER: {int(self.player.powerup_timer)}s"
+                text_surface = font.render(timer_text, True, (255, 255, 0))
+                self.screen.blit(text_surface, (10, 10))
+
+        elif self.state == GameState.PAUSED:
+            # Render game world (frozen)
+            self.current_level.render(self.screen, self.camera)
+            self.player.render(self.screen, self.camera)
+
+            # Render lasers
+            for laser in self.lasers:
+                laser.render(self.screen, self.camera)
+
+            # Render pause overlay on top
+            self.render_pause_overlay()
+
+        elif self.state == GameState.GAME_OVER:
+            # Render game over screen
+            self.render_game_over()
+
+        elif self.state == GameState.LEVEL_COMPLETE:
+            # Render level complete message
+            self.render_level_complete()
 
         # Update the display
         pygame.display.flip()
+
+    def render_main_menu(self):
+        """Render the main menu screen."""
+        self.main_menu.render(self.screen)
+
+    def render_pause_overlay(self):
+        """Render pause overlay on top of the frozen game."""
+        from src.constants import COLOR_WHITE
+
+        # Semi-transparent overlay
+        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+        overlay.set_alpha(128)
+        overlay.fill((0, 0, 0))
+        self.screen.blit(overlay, (0, 0))
+
+        # Pause text
+        font = pygame.font.Font(None, 72)
+        pause_text = font.render("PAUSED", True, COLOR_WHITE)
+        pause_rect = pause_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
+        self.screen.blit(pause_text, pause_rect)
+
+        # Instructions
+        small_font = pygame.font.Font(None, 36)
+        resume_text = small_font.render("Press ESC or P to Resume", True, COLOR_WHITE)
+        resume_rect = resume_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+        self.screen.blit(resume_text, resume_rect)
+
+    def render_game_over(self):
+        """Render game over screen."""
+        from src.constants import COLOR_BLACK, COLOR_WHITE, COLOR_RED
+
+        # Clear screen
+        self.screen.fill(COLOR_BLACK)
+
+        # Game Over title
+        title_font = pygame.font.Font(None, 72)
+        game_over_text = title_font.render("GAME OVER", True, COLOR_RED)
+        game_over_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, 200))
+        self.screen.blit(game_over_text, game_over_rect)
+
+        # Instructions
+        font = pygame.font.Font(None, 36)
+        restart_text = font.render("Press R to Restart", True, COLOR_WHITE)
+        restart_rect = restart_text.get_rect(center=(SCREEN_WIDTH // 2, 350))
+        self.screen.blit(restart_text, restart_rect)
+
+        menu_text = font.render("Press M for Menu", True, COLOR_WHITE)
+        menu_rect = menu_text.get_rect(center=(SCREEN_WIDTH // 2, 400))
+        self.screen.blit(menu_text, menu_rect)
+
+    def render_level_complete(self):
+        """Render level complete screen."""
+        from src.constants import COLOR_BACKGROUND, COLOR_WHITE, COLOR_GREEN
+
+        # Clear screen
+        self.screen.fill(COLOR_BACKGROUND)
+
+        # Level complete message
+        font = pygame.font.Font(None, 72)
+        complete_text = font.render("LEVEL COMPLETE!", True, COLOR_GREEN)
+        complete_rect = complete_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        self.screen.blit(complete_text, complete_rect)
+
+    def restart_game(self):
+        """Restart the game from Level 1."""
+        print("[RESTART] Restarting game from Level 1")
+
+        # Reset to level 1
+        self.load_level(1)
+
+        # Reset player
+        spawn = self.current_level.get_spawn_position()
+        self.player = Player(spawn[0], spawn[1])
+
+        # Clear lasers
+        self.lasers = []
+
+        # Change to playing state
+        self.change_state(GameState.PLAYING)

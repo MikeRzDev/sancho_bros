@@ -92,9 +92,9 @@
 
 ## PHASE 7: UI & POLISH (7 stories, 26 points)
 
-- [ ] **US029:** Implement Complete Game State Management
+- [x] **US029:** Implement Complete Game State Management
   `context/user_stories/phase_7_ui_polish/US029_game_state_management.md`
-- [ ] **US030:** Create Main Menu UI
+- [x] **US030:** Create Main Menu UI
   `context/user_stories/phase_7_ui_polish/US030_main_menu.md`
 - [ ] **US031:** Create HUD (Heads-Up Display)
   `context/user_stories/phase_7_ui_polish/US031_hud_display.md`

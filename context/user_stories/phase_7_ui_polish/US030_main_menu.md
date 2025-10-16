@@ -13,59 +13,59 @@ High
 ## Acceptance Criteria
 
 1. **Menu Class Created**
-   - [ ] `src/ui/menu.py` exists
-   - [ ] `MainMenu` class is defined
+   - [x] `src/ui/menu.py` exists
+   - [x] `MainMenu` class is defined
 
 2. **Menu Display**
-   - [ ] Title displayed: "SANCHO BROS"
-   - [ ] Options displayed:
+   - [x] Title displayed: "SANCHO BROS"
+   - [x] Options displayed:
      - "Start Game" (ENTER to select)
      - "Quit" (Q to select)
-   - [ ] Instructions shown (basic controls)
-   - [ ] Clean, readable layout
+   - [x] Instructions shown (basic controls)
+   - [x] Clean, readable layout
 
 3. **Menu Rendering**
-   - [ ] Background color/pattern
-   - [ ] Title in large font
-   - [ ] Menu options in readable font
-   - [ ] Centered on screen
-   - [ ] Professional appearance
+   - [x] Background color/pattern
+   - [x] Title in large font
+   - [x] Menu options in readable font
+   - [x] Centered on screen
+   - [x] Professional appearance
 
 4. **Menu Navigation**
-   - [ ] ENTER key starts game
-   - [ ] Q key quits game
-   - [ ] ESC key also quits
-   - [ ] Clear feedback on selection (optional hover effect)
+   - [x] ENTER key starts game
+   - [x] Q key quits game
+   - [x] ESC key also quits
+   - [x] Clear feedback on selection (optional hover effect)
 
 5. **Start Game Transition**
-   - [ ] Pressing ENTER changes state to PLAYING
-   - [ ] Game initializes properly
-   - [ ] Level 1 loads
-   - [ ] Player spawns correctly
+   - [x] Pressing ENTER changes state to PLAYING
+   - [x] Game initializes properly
+   - [x] Level 1 loads
+   - [x] Player spawns correctly
 
 6. **Quit Functionality**
-   - [ ] Q key exits application
-   - [ ] Clean shutdown
-   - [ ] No errors on exit
+   - [x] Q key exits application
+   - [x] Clean shutdown
+   - [x] No errors on exit
 
 7. **Visual Polish**
-   - [ ] Readable fonts (size 36-72 for title)
-   - [ ] Good contrast (text vs background)
-   - [ ] Aligned text
-   - [ ] Optional: Simple animations (title pulse, etc.)
+   - [x] Readable fonts (size 36-72 for title)
+   - [x] Good contrast (text vs background)
+   - [x] Aligned text
+   - [x] Optional: Simple animations (title pulse, etc.)
 
 8. **Controls Display**
-   - [ ] Shows basic controls:
+   - [x] Shows basic controls:
      - "Arrow Keys / WASD: Move"
      - "SPACE: Jump"
      - "X / CTRL: Shoot (when powered)"
      - "ESC: Pause"
 
 9. **Validation**
-   - [ ] Menu displays on game start
-   - [ ] ENTER starts game
-   - [ ] Q quits application
-   - [ ] Menu looks clean and professional
+   - [x] Menu displays on game start
+   - [x] ENTER starts game
+   - [x] Q quits application
+   - [x] Menu looks clean and professional
 
 ## Technical Notes
 
