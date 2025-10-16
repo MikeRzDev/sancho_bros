@@ -15,7 +15,7 @@ from src.camera import Camera
 from src.level import LevelLoader, Level
 from src.ui import MainMenu
 from src.ui.hud import HUD
-from src.ui.screens import PauseMenu, GameOverScreen
+from src.ui.screens import PauseMenu, GameOverScreen, LevelCompleteScreen, GameCompleteScreen
 
 
 class Game:
@@ -60,6 +60,8 @@ class Game:
         self.hud = HUD()
         self.pause_menu = PauseMenu(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.game_over_screen = GameOverScreen(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.level_complete_screen = LevelCompleteScreen(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.game_complete_screen = GameCompleteScreen(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def change_state(self, new_state):
         """
@@ -102,6 +104,43 @@ class Game:
         else:
             print("Game Complete! You beat all 5 levels!")
             self.running = False
+
+    def advance_to_next_level(self):
+        """
+        Advance to the next level after level completion.
+        Handles level loading, player reset, and state transitions.
+        """
+        next_level = self.current_level_number + 1
+
+        if next_level <= 5:
+            # Load next level
+            self.load_level(next_level)
+
+            # Reset player position to spawn
+            spawn = self.current_level.get_spawn_position()
+            self.player.position.x = spawn[0]
+            self.player.position.y = spawn[1]
+            self.player.velocity = pygame.Vector2(0, 0)
+            self.player.is_grounded = False
+
+            # Reset power-up state (does NOT carry over between levels)
+            self.player.has_powerup = False
+            self.player.powerup_timer = 0.0
+
+            # Clear all lasers
+            self.lasers = []
+
+            # Reset camera
+            self.camera.offset.x = 0
+            self.camera.offset.y = 0
+
+            # Return to playing state
+            self.change_state(GameState.PLAYING)
+            print(f"[LEVEL ADVANCE] Moving to Level {self.current_level_number}")
+        else:
+            # All 5 levels completed! Transition to game complete screen
+            print("[GAME COMPLETE] All levels beaten!")
+            self.change_state(GameState.GAME_COMPLETE)
 
     def respawn_player(self):
         """Respawn player at current level's spawn point."""
@@ -267,12 +306,22 @@ class Game:
                         else:
                             print("[DEBUG] No active power-up to extend")
 
+                elif self.state == GameState.LEVEL_COMPLETE:
+                    # ENTER key advances to next level
+                    if event.key == pygame.K_RETURN:
+                        self.advance_to_next_level()
+
                 elif self.state == GameState.GAME_OVER:
                     # R key restarts the game from level 1
                     if event.key == pygame.K_r:
                         self.restart_game()
                     # M or ESC key returns to menu
                     elif event.key == pygame.K_m or event.key == pygame.K_ESCAPE:
+                        self.change_state(GameState.MENU)
+
+                elif self.state == GameState.GAME_COMPLETE:
+                    # M or ESC key returns to menu
+                    if event.key == pygame.K_m or event.key == pygame.K_ESCAPE:
                         self.change_state(GameState.MENU)
 
     def update(self, dt):
@@ -354,10 +403,8 @@ class Game:
                     self.lasers.remove(laser)
 
         elif self.state == GameState.LEVEL_COMPLETE:
-            # Handle level transition
-            self.load_next_level()
-            if self.running:  # If game is still running (not completed all levels)
-                self.change_state(GameState.PLAYING)
+            # Wait for player input to advance (handled in handle_events)
+            pass
 
         elif self.state == GameState.PAUSED:
             # Don't update game entities when paused
@@ -369,6 +416,10 @@ class Game:
 
         elif self.state == GameState.GAME_OVER:
             # Game over state - no game updates needed
+            pass
+
+        elif self.state == GameState.GAME_COMPLETE:
+            # Game complete state - no game updates needed
             pass
 
     def render(self):
@@ -414,6 +465,10 @@ class Game:
             # Render level complete message
             self.render_level_complete()
 
+        elif self.state == GameState.GAME_COMPLETE:
+            # Render game complete screen
+            self.render_game_complete()
+
         # Update the display
         pygame.display.flip()
 
@@ -430,17 +485,24 @@ class Game:
         self.game_over_screen.render(self.screen, self.current_level_number)
 
     def render_level_complete(self):
-        """Render level complete screen."""
-        from src.constants import COLOR_BACKGROUND, COLOR_WHITE, COLOR_GREEN
+        """Render level complete screen with overlay."""
+        # Render game world underneath (frozen)
+        self.current_level.render(self.screen, self.camera)
+        self.player.render(self.screen, self.camera)
 
-        # Clear screen
-        self.screen.fill(COLOR_BACKGROUND)
+        # Render lasers
+        for laser in self.lasers:
+            laser.render(self.screen, self.camera)
 
-        # Level complete message
-        font = pygame.font.Font(None, 72)
-        complete_text = font.render("LEVEL COMPLETE!", True, COLOR_GREEN)
-        complete_rect = complete_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-        self.screen.blit(complete_text, complete_rect)
+        # Render HUD on top of game world
+        self.hud.render(self.screen, self.player, self.current_level)
+
+        # Overlay level complete screen on top
+        self.level_complete_screen.render(self.screen, self.current_level_number)
+
+    def render_game_complete(self):
+        """Render game complete screen."""
+        self.game_complete_screen.render(self.screen)
 
     def restart_game(self):
         """Restart the game from Level 1."""
